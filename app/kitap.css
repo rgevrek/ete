@@ -164,12 +164,12 @@
 .yazi .w > span { display: none; }
 .yazi.l .w > .l, .yazi.o .w > .o, .yazi.e .w > .e { display: inline; }
 /* Hüsrev's letters are small for their size, Seherazade's a little */
-.yazi .o { font-family: var(--osmanlica); font-size: 1.9em; line-height: 1.5; }
+.yazi .o { font-family: var(--osmanlica); font-size: 2.3em; line-height: 1.4; }
 .yazi .e { font-family: var(--ete); font-size: 1.45em; line-height: 1.6; }
 .yazi.l .na, .yazi:not(.l) .nl { display: none; }
 /* a word missing in the dictionary or of a letter not in the table: Latin, red */
 .yazi .w > .x { font-family: var(--metin); font-size: 0.75em; color: var(--kirmizi); }
-.yazi :is(h1, h2, h3, h4, h5, h6) .o { font-size: 1.5em; }
+.yazi :is(h1, h2, h3, h4, h5, h6) .o { font-size: 1.8em; }
 .yazi :is(h1, h2, h3, h4, h5, h6) .e { font-size: 1.15em; }
 
 /* more than one: the words stacked, one alphabet under the other */
@@ -208,7 +208,7 @@
   background: #fff;
   font: 1.15rem/1.6 var(--metin);
 }
-.cevirici .girdi.ottoman { font: 2.3rem/1.6 var(--osmanlica); }
+.cevirici .girdi.ottoman { font: 2.7rem/1.5 var(--osmanlica); }
 .cevirici .girdi.ete { font: 1.5rem/1.7 var(--ete); }
 .cevirici .hata { color: var(--kirmizi); }
 .cevirici .ciktilar { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 0.9rem; margin: 1rem 0 1.5rem; }
@@ -218,7 +218,7 @@
 .cevirici .cikti .not { color: var(--kirmizi); font-size: 0.8rem; }
 .cevirici .cikti p { margin: 0.5rem 0 0; white-space: pre-wrap; }
 .cevirici .cikti.latin p { font: 1.15rem/1.6 var(--metin); }
-.cevirici .cikti.ottoman p { font: 2.3rem/1.6 var(--osmanlica); }
+.cevirici .cikti.ottoman p { font: 2.7rem/1.5 var(--osmanlica); }
 .cevirici .cikti.ete p { font: 1.5rem/1.8 var(--ete); }
 .cevirici .eksik { color: var(--kirmizi); font-family: var(--metin); font-size: 0.7em; }
 .cevirici .yazi { max-width: none; white-space: pre-wrap; }
