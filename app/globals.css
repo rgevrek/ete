@@ -1,0 +1,122 @@
+/* The fonts of the books (public/fonts, scripts/sync-data.sh), by the names their CSS uses. */
+
+@font-face { font-family: "Souvenir TR"; src: url("/fonts/SouvenirTR.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Souvenir TR"; src: url("/fonts/SouvenirTR-Bold.ttf") format("truetype"); font-weight: bold; font-display: swap; }
+@font-face { font-family: "Souvenir TR"; src: url("/fonts/SouvenirTR-Italic.ttf") format("truetype"); font-style: italic; font-display: swap; }
+@font-face { font-family: "Souvenir TR"; src: url("/fonts/SouvenirTR-BoldItalic.ttf") format("truetype"); font-weight: bold; font-style: italic; font-display: swap; }
+@font-face { font-family: "Flange TR"; src: url("/fonts/FlangeTR.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Flange TR"; src: url("/fonts/FlangeTR-Bold.ttf") format("truetype"); font-weight: bold; font-display: swap; }
+@font-face { font-family: "Flange TR"; src: url("/fonts/FlangeTR-Italic.ttf") format("truetype"); font-style: italic; font-display: swap; }
+@font-face { font-family: "Nur TR"; src: url("/fonts/NurTR-Malik.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "University Roman TR"; src: url("/fonts/UniversityRomanTR-Bold.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Vivaldi TR"; src: url("/fonts/VivaldiTR.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Hoefler Text TR"; src: url("/fonts/HoeflerTextTROrnaments.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Minion Pro"; src: url("/fonts/MinionPro-Regular.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Tekton Pro"; src: url("/fonts/TektonPro-Bold.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Zapf Dingbats"; src: url("/fonts/ZapfDingbats.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Adobe Arabic"; src: url("/fonts/AdobeArabic-Regular.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Shaikh Hamdullah Basic"; src: url("/fonts/ShaikhHamdullahBasic.ttf") format("truetype"); font-display: swap; }
+/* Ottoman: Hüsrev; ETE: Seherazade, a naskh that has ە ۇ ۆ and the marks of ىِ وْ */
+@font-face { font-family: "Hüsrev Hattı Osmanlıca"; src: url("/fonts/HusrevHattiOsmanlica.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Seherazade Quran"; src: url("/fonts/SeherazadeQuran-Book.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Seherazade Quran"; src: url("/fonts/SeherazadeQuran-Bold.ttf") format("truetype"); font-weight: bold; font-display: swap; }
+
+:root {
+  --metin: "Souvenir TR", Georgia, serif;
+  --arapca: "Shaikh Hamdullah Basic", "Amiri", serif;
+  --farsca: "Seherazade Quran", serif;
+  --osmanlica: "Hüsrev Hattı Osmanlıca", "Amiri", serif;
+  --ete: "Seherazade Quran", "Noto Naskh Arabic", serif;
+  --renk: #231f20;
+  --kirmizi: #c8161d;
+  --zemin: #faf7f0;
+  --kagit: #fffdf8;
+  --cizgi: #e4ddcd;
+  --soluk: #6f675c;
+  --vurgu: #7a5c12;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  background: var(--zemin);
+  color: var(--renk);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+a { color: inherit; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.ust {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--kagit);
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.ust .marka { font-weight: 700; text-decoration: none; letter-spacing: 0.02em; }
+.ust .marka span { font-family: var(--ete); font-weight: normal; font-size: 1.3em; margin-left: 0.4em; color: var(--kirmizi); }
+.ust nav { display: flex; gap: 1rem; flex: 1; }
+.ust nav a { text-decoration: none; color: var(--soluk); }
+.ust nav a:hover, .ust nav a[aria-current="page"] { color: var(--renk); }
+.ust .kim { color: var(--soluk); font-size: 0.85rem; }
+
+.dugme {
+  border: 1px solid var(--cizgi);
+  background: var(--kagit);
+  border-radius: 6px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.dugme:hover { border-color: var(--soluk); }
+.dugme.ana { background: var(--renk); color: var(--kagit); border-color: var(--renk); }
+.dugme[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+
+.sayfa { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+
+/* sign-in */
+
+.giris {
+  max-width: 26rem;
+  margin: 12vh auto;
+  padding: 2rem;
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: 10px;
+}
+.giris h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.giris h1 span { font-family: var(--ete); color: var(--kirmizi); font-weight: normal; margin-left: 0.3em; }
+.giris p { color: var(--soluk); }
+.giris form { display: grid; gap: 0.75rem; margin-top: 1.25rem; }
+.giris input[type="email"] { padding: 0.6rem 0.7rem; border: 1px solid var(--cizgi); border-radius: 6px; background: #fff; }
+.giris .hata { color: var(--kirmizi); }
+.giris .tamam { color: #1d6b35; }
+
+/* the books */
+
+.kitaplar { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.9rem; padding: 0; list-style: none; }
+.kitaplar a {
+  display: block;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: 8px;
+  text-decoration: none;
+}
+.kitaplar a:hover { border-color: var(--soluk); }
+.kitaplar .ad { display: block; font: 1.15rem/1.3 var(--metin); }
+.kitaplar .osm { display: block; font: 2.1rem/1.4 var(--osmanlica); color: var(--kirmizi); direction: rtl; text-align: right; }
+.kitaplar .ete { display: block; font: 1.3rem/1.6 var(--ete); color: var(--vurgu); direction: rtl; text-align: right; }
+.kitaplar .bilgi { display: block; color: var(--soluk); font-size: 0.85rem; margin-top: 0.35rem; }

@@ -1,0 +1,224 @@
+/* The reader: the table of contents beside the page, the page in the typography of the books
+   (risale-i-nur-kulliyati css/kitap.css, its print pixels in --px), and the three alphabets. */
+
+.okuyucu {
+  display: grid;
+  grid-template-columns: 20rem minmax(0, 1fr);
+  gap: 1.5rem;
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 4rem;
+}
+
+@media (max-width: 960px) {
+  .okuyucu { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* table of contents */
+
+.icindekiler {
+  position: sticky;
+  top: 3.6rem;
+  align-self: start;
+  max-height: calc(100vh - 4.5rem);
+  overflow: auto;
+  padding: 0.75rem 0.5rem 0.75rem 0;
+  font-size: 0.9rem;
+}
+.icindekiler > summary { font-weight: 600; cursor: pointer; margin-bottom: 0.5rem; }
+.icindekiler h2 { font-size: 1rem; margin: 0 0 0.5rem; }
+.icindekiler ul { list-style: none; margin: 0; padding-left: 0.85rem; }
+.icindekiler > ul, .icindekiler > details > ul { padding-left: 0; }
+.icindekiler li { margin: 0.1rem 0; }
+.icindekiler a { display: block; padding: 0.15rem 0.4rem; border-radius: 4px; text-decoration: none; color: var(--soluk); }
+.icindekiler a:hover { background: var(--cizgi); color: var(--renk); }
+.icindekiler a.burada { background: var(--renk); color: var(--kagit); }
+.icindekiler details > summary { display: flex; align-items: baseline; cursor: pointer; list-style: none; }
+.icindekiler details > summary::-webkit-details-marker { display: none; }
+.icindekiler details > summary > a { flex: 1; }
+.icindekiler details > summary::before { content: "▸"; flex: none; width: 0.9rem; color: var(--soluk); }
+.icindekiler li > a { margin-left: 0.9rem; }
+.icindekiler details[open] > summary::before { content: "▾"; }
+.icindekiler .bos { color: var(--soluk); font-style: italic; }
+
+@media (min-width: 961px) {
+  .icindekiler > summary { display: none; }
+}
+
+/* the bar above the page: the alphabets and the pages */
+
+.araclar {
+  position: sticky;
+  top: 3.1rem;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.25rem;
+  padding: 0.55rem 0.9rem;
+  margin-bottom: 1rem;
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: 8px;
+}
+.araclar fieldset { display: flex; gap: 0.9rem; border: 0; margin: 0; padding: 0; }
+.araclar legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.araclar label { display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; user-select: none; }
+.araclar label .ornek { font-size: 1.25em; line-height: 1; }
+.araclar label .ornek.o { font-family: var(--osmanlica); }
+.araclar label .ornek.e { font-family: var(--ete); }
+.araclar .olcek { display: inline-flex; gap: 0.25rem; }
+.araclar .gezinti { display: flex; align-items: center; gap: 0.4rem; margin-left: auto; }
+.araclar .gezinti form { display: inline-flex; align-items: center; gap: 0.3rem; }
+.araclar .gezinti input { width: 4.5rem; padding: 0.3rem 0.4rem; border: 1px solid var(--cizgi); border-radius: 6px; text-align: center; background: #fff; }
+.araclar .gezinti .toplam { color: var(--soluk); font-size: 0.85rem; }
+
+.yol { color: var(--soluk); font-size: 0.85rem; margin: 0 0 0.75rem; }
+.yol a { text-decoration: none; }
+.yol a:hover { text-decoration: underline; }
+
+/* the page */
+
+.yazi {
+  --px: calc(var(--olcek, 1.6) * 1px);
+  max-width: calc(440 * var(--px));
+  margin: 0 auto;
+  padding: calc(24 * var(--px)) calc(28 * var(--px));
+  background: var(--kagit);
+  border: 1px solid var(--cizgi);
+  border-radius: 6px;
+  color: var(--renk);
+  font: calc(11 * var(--px)) / 1.45 var(--metin);
+  overflow-wrap: break-word;
+}
+.yazi.cok { max-width: calc(560 * var(--px)); }
+
+.sayfa-no { text-align: center; color: var(--soluk); font: 0.85rem system-ui, sans-serif; margin-top: 0.75rem; }
+
+.yazi .p, .yazi li { margin: 0 0 calc(4 * var(--px)); text-align: justify; text-indent: calc(14 * var(--px)); }
+.yazi :is(h1, h2, h3, h4, h5, h6) + .p,
+.yazi .p:is(.orta, .sag, .asili, .girinti, .baslik, .konu, .imza, .devam),
+.yazi li { text-indent: 0; }
+.yazi .orta { text-align: center; }
+.yazi .sag { text-align: right; }
+.yazi .sol { text-align: left; }
+.yazi .girinti { margin-inline-start: calc(14 * var(--px)); }
+.yazi .asili { margin-inline-start: calc(20 * var(--px)); text-indent: calc(-20 * var(--px)); }
+.yazi ul { margin: 0 0 calc(3 * var(--px)); padding-inline-start: calc(20 * var(--px)); }
+
+.yazi :is(h1, h2, h3, h4, h5, h6) {
+  margin: calc(10 * var(--px)) 0 calc(6 * var(--px));
+  color: var(--kirmizi);
+  line-height: 1.25;
+  text-indent: 0;
+  scroll-margin-top: 7rem;
+}
+.yazi h1 { font: normal calc(34 * var(--px)) / 1.2 "Nur TR", serif; text-align: center; }
+.yazi h2 { font: normal calc(22 * var(--px)) / 1.25 "Nur TR", serif; text-align: center; }
+.yazi h3 { font: bold calc(13 * var(--px)) / 1.3 "Flange TR", serif; text-align: center; }
+.yazi :is(h4, h5, h6) { font: bold calc(13 * var(--px)) / 1.3 "Flange TR", serif; text-align: start; }
+.yazi [id] { scroll-margin-top: 7rem; }
+
+.yazi b, .yazi i { color: var(--kirmizi); }
+.yazi small { font-size: 0.8em; }
+.yazi cite { font-style: inherit; }
+.yazi a { color: inherit; text-decoration-color: var(--cizgi); text-underline-offset: 0.15em; }
+.yazi a:hover { text-decoration-color: var(--kirmizi); }
+.yazi figure { margin: 1em 0; text-align: center; }
+.yazi img { max-width: 100%; height: auto; }
+
+/* Arabic and Persian */
+.yazi :lang(ar) { font-family: var(--arapca); color: var(--kirmizi); }
+.yazi :lang(fa) { font-family: var(--farsca); color: var(--kirmizi); }
+.yazi :is(:lang(ar), :lang(fa)) .tr { font-family: var(--metin); color: var(--renk); }
+.yazi [lang|="ar"], .yazi [lang|="fa"] { font-size: 1.5em; line-height: 1.5; }
+.yazi :is([lang|="ar"], [lang|="fa"]) .tr { font-size: 0.667em; line-height: 1.45; }
+.yazi :is(h1, h2) [lang|="ar"], .yazi :is(h1, h2)[lang|="ar"] { font-size: inherit; }
+.yazi .p:is(:lang(ar), :lang(fa)) { text-indent: 0; }
+
+/* footnotes and haşiyes: inline <details>, the <summary> is the text explained */
+.yazi details, .yazi summary { display: inline; }
+.yazi summary { cursor: pointer; list-style: none; }
+.yazi summary::-webkit-details-marker { display: none; }
+.yazi details:not(.haşiye) > summary::after { content: "*"; color: var(--kirmizi); font-size: 0.7em; vertical-align: super; }
+.yazi details[open] > summary { background: #f4ecd8; }
+.yazi details:not([open])::details-content { display: none; }
+.yazi details[open]::details-content {
+  display: block;
+  margin: calc(3 * var(--px)) 0 calc(5 * var(--px)) calc(9 * var(--px));
+  padding: calc(4 * var(--px)) calc(8 * var(--px));
+  border-inline-start: 2px solid var(--cizgi);
+  color: var(--renk);
+  font: normal calc(9 * var(--px)) / 1.35 "Flange TR", serif;
+  text-align: justify;
+  text-indent: 0;
+}
+.yazi details.haşiye[open]::details-content { font: calc(10 * var(--px)) / 1.4 var(--metin); }
+.yazi details .p { margin: 0; text-indent: 0; }
+.yazi details [lang|="ar"] { font-size: 1.25em; }
+.yazi .ref { border-bottom: 1px dotted var(--cizgi); }
+
+/* The three alphabets: a word is the stack .w of its Latin .l, Ottoman .o and ETE .e (lib/books/render.ts);
+   .yazi has the classes of the ones shown. Between the words, .nl is Latin, .na the Arabic marks. */
+
+.yazi .w > span { display: none; }
+.yazi.l .w > .l, .yazi.o .w > .o, .yazi.e .w > .e { display: inline; }
+/* Hüsrev's letters are small for their size, Seherazade's a little */
+.yazi .o { font-family: var(--osmanlica); font-size: 1.9em; line-height: 1.5; }
+.yazi .e { font-family: var(--ete); font-size: 1.45em; line-height: 1.6; }
+.yazi.l .na, .yazi:not(.l) .nl { display: none; }
+/* a word missing in the dictionary or of a letter not in the table: Latin, red */
+.yazi .w > .x { font-family: var(--metin); font-size: 0.75em; color: var(--kirmizi); }
+.yazi :is(h1, h2, h3, h4, h5, h6) .o { font-size: 1.5em; }
+.yazi :is(h1, h2, h3, h4, h5, h6) .e { font-size: 1.15em; }
+
+/* more than one: the words stacked, one alphabet under the other */
+.yazi.cok .w {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: top;
+  text-indent: 0;
+  margin-bottom: calc(5 * var(--px));
+}
+.yazi.cok .w > span { line-height: 1.35; }
+.yazi.cok .w > .l { order: 1; }
+.yazi.cok .w > .o { order: 2; color: #3b2d1a; }
+.yazi.cok .w > .e { order: 3; color: var(--vurgu); }
+.yazi.cok .w > .x { color: var(--kirmizi); }
+.yazi.cok :is(h1, h2, h3, h4, h5, h6) .w > :is(.o, .e) { color: inherit; }
+.yazi.cok .p { text-align: start; }
+.yazi.cok .p.orta, .yazi.cok :is(h1, h2, h3) { text-align: center; }
+
+/* without Latin: right to left; Turkish within Arabic as well (.tr) */
+.yazi.sag-sola .tr { direction: rtl; }
+.yazi:not(.sag-sola) .tr { direction: ltr; }
+.yazi.sag-sola .sag { text-align: left; }
+.yazi.sag-sola .sol { text-align: right; }
+
+/* the converter */
+
+.cevirici .secim { display: flex; gap: 1.25rem; margin-bottom: 0.5rem; }
+.cevirici .secim label { display: inline-flex; gap: 0.35rem; align-items: center; cursor: pointer; }
+.cevirici .girdi {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--cizgi);
+  border-radius: 8px;
+  background: #fff;
+  font: 1.15rem/1.6 var(--metin);
+}
+.cevirici .girdi.ottoman { font: 2.3rem/1.6 var(--osmanlica); }
+.cevirici .girdi.ete { font: 1.5rem/1.7 var(--ete); }
+.cevirici .hata { color: var(--kirmizi); }
+.cevirici .ciktilar { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 0.9rem; margin: 1rem 0 1.5rem; }
+.cevirici .cikti { background: var(--kagit); border: 1px solid var(--cizgi); border-radius: 8px; padding: 0.75rem 1rem; }
+.cevirici .cikti header { display: flex; align-items: center; gap: 0.75rem; }
+.cevirici .cikti h2 { font-size: 1rem; margin: 0; flex: 1; }
+.cevirici .cikti .not { color: var(--kirmizi); font-size: 0.8rem; }
+.cevirici .cikti p { margin: 0.5rem 0 0; white-space: pre-wrap; }
+.cevirici .cikti.latin p { font: 1.15rem/1.6 var(--metin); }
+.cevirici .cikti.ottoman p { font: 2.3rem/1.6 var(--osmanlica); }
+.cevirici .cikti.ete p { font: 1.5rem/1.8 var(--ete); }
+.cevirici .eksik { color: var(--kirmizi); font-family: var(--metin); font-size: 0.7em; }
+.cevirici .yazi { max-width: none; white-space: pre-wrap; }

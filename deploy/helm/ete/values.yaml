@@ -1,0 +1,29 @@
+image:
+  repository: ghcr.io/rgevrek/ete
+  # default: the chart's appVersion (sha-<commit>, set by CI)
+  tag: ""
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+
+appUrl: https://ete.rgevrek.de
+mail:
+  from: "ETE <no-reply@rgevrek.de>"
+# Who may sign in: addresses and domains ("@rgevrek.de"), comma separated; "*" for everyone.
+allowedEmails: ""
+
+secrets:
+  # SESSION_SECRET (32+ characters)
+  app: { name: ete-app }
+  # SMTP_URL, e.g. smtps://no-reply%40rgevrek.de:<password>@mail.rgevrek.de:465
+  smtp: { name: ete-smtp }
+
+# One replica: the used sign-in links are kept in memory (lib/auth/session.ts).
+resources:
+  requests: { cpu: 50m, memory: 512Mi }
+  limits: { memory: 1Gi }
+
+httpRoute:
+  enabled: true
+  hostname: ete.rgevrek.de
+  parentRefs:
+    - { name: public, namespace: gateway, sectionName: ete-rgevrek-de }

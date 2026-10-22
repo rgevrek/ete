@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ete
+description: Risale-i Nur reader in Latin, Ottoman and ETE letters (ete.rgevrek.de)
+type: application
+version: 0.1.0
+appVersion: main

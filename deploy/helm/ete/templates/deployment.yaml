@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels: {{- include "ete.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy: { type: Recreate }
+  selector:
+    matchLabels: {{- include "ete.selector" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "ete.selector" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: web
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - { name: http, containerPort: 3000 }
+          env:
+            - { name: APP_URL, value: {{ .Values.appUrl | quote }} }
+            - { name: MAIL_FROM, value: {{ .Values.mail.from | quote }} }
+            - { name: ALLOWED_EMAILS, value: {{ .Values.allowedEmails | quote }} }
+          envFrom:
+            - secretRef: { name: {{ .Values.secrets.app.name }} }
+            - secretRef: { name: {{ .Values.secrets.smtp.name }} }
+          # ready once the books and the dictionary are read (a few seconds)
+          startupProbe:
+            httpGet: { path: /api/saglik, port: http }
+            periodSeconds: 3
+            failureThreshold: 40
+          readinessProbe:
+            httpGet: { path: /api/saglik, port: http }
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /api/saglik, port: http }
+            periodSeconds: 30
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: cache, mountPath: /app/.next/cache }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - { name: cache, emptyDir: {} }
+        - { name: tmp, emptyDir: {} }
