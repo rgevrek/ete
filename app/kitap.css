@@ -155,6 +155,12 @@
 }
 .yazi details.haşiye[open]::details-content { font: calc(10 * var(--px)) / 1.4 var(--metin); }
 .yazi details .p { margin: 0; text-indent: 0; }
+/* a footnote of several Arabic paragraphs (tools/shared_footnotes.py): a block, its summary the
+   paragraphs, the mark after the last */
+.yazi details:has(> summary > .p), .yazi summary:has(> .p) { display: block; }
+.yazi summary > .p { margin: 0 0 calc(4 * var(--px)); }
+.yazi details:not(.haşiye) > summary:has(> .p)::after { content: none; }
+.yazi details:not(.haşiye) > summary > .p:last-child::after { content: "*"; color: var(--kirmizi); font-size: 0.7em; vertical-align: super; }
 .yazi details [lang|="ar"] { font-size: 1.25em; }
 .yazi .ref { border-bottom: 1px dotted var(--cizgi); }
 
