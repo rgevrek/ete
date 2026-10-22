@@ -9,21 +9,23 @@ import { ottoman } from "@/lib/script/ottoman";
 
 const KELIMELER = path.resolve(process.cwd(), "../risale-i-nur-kulliyati/tools/ete/kelimeler.tsv");
 
-describe.skipIf(!existsSync(KELIMELER))("kelimeler.tsv", () => {
-  const rows = readFileSync(KELIMELER, "utf8")
+// read in the tests: a skipped describe's body still runs
+const read = () =>
+  readFileSync(KELIMELER, "utf8")
     .split("\n")
     .filter((l) => l && !l.startsWith("#"))
     .map((l) => l.split("\t"));
 
+describe.skipIf(!existsSync(KELIMELER))("kelimeler.tsv", () => {
+
   it("writes every form in ETE as tools/ete.py", () => {
-    const wrong = rows.filter(([form, e]) => (ete(form) ?? "") !== e);
+    const wrong = read().filter(([form, e]) => (ete(form) ?? "") !== e);
     expect(wrong.slice(0, 20)).toEqual([]);
   });
 
   it("writes every form in Ottoman as tools/osmanlica.py", () => {
     const { known } = library();
-    const wrong = rows.filter(([form, , o]) => (ottoman(form, known) ?? "") !== o);
-    console.log(`${wrong.length} of ${rows.length} differ`);
+    const wrong = read().filter(([form, , o]) => (ottoman(form, known) ?? "") !== o);
     expect(wrong.slice(0, 20)).toEqual([]);
   });
 });
