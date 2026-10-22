@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { AYAR_COOKIE, fontClass, parseAyar } from "@/lib/ayar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,10 +9,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const ayar = parseAyar((await cookies()).get(AYAR_COOKIE)?.value);
   return (
     <html lang="tr">
-      <body>{children}</body>
+      <body className={fontClass(ayar)}>{children}</body>
     </html>
   );
 }

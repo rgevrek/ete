@@ -8,6 +8,7 @@ import { TocMark } from "@/components/TocMark";
 import { Yazi } from "@/components/Yazi";
 import { book, library } from "@/lib/books/library";
 import { renderPage, writer } from "@/lib/books/render";
+import { AYAR_COOKIE, parseAyar } from "@/lib/ayar";
 import { parseShown, YAZI_COOKIE } from "@/lib/yazi";
 
 type Params = { params: Promise<{ slug: string; sayfa: string }> };
@@ -32,7 +33,9 @@ export default async function BookPage({ params }: Params) {
   const { b, index } = found;
   const page = b.pages[index];
   const html = renderPage(page.html, writer(library().known));
-  const shown = parseShown((await cookies()).get(YAZI_COOKIE)?.value);
+  const jar = await cookies();
+  const shown = parseShown(jar.get(YAZI_COOKIE)?.value);
+  const ayar = parseAyar(jar.get(AYAR_COOKIE)?.value);
   const link = (i: number) => `/kitap/${slug}/${encodeURIComponent(b.pages[i].label)}`;
   const prev = index > 0 ? link(index - 1) : undefined;
   const next = index < b.pages.length - 1 ? link(index + 1) : undefined;
@@ -64,7 +67,7 @@ export default async function BookPage({ params }: Params) {
             </span>
           ))}
         </p>
-        <Yazi initial={shown} tools={nav}>
+        <Yazi initial={shown} ayar={ayar} tools={nav}>
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </Yazi>
         <p className="sayfa-no">

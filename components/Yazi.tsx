@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { ALPHABETS, shownValue, YAZI_COOKIE, yaziClass, type Alphabet, type Shown } from "@/lib/yazi";
+import { AYAR_EVENT, type Ayar } from "@/lib/ayar";
+import { ALPHABETS, rightToLeft, shownValue, YAZI_COOKIE, yaziClass, type Alphabet, type Shown } from "@/lib/yazi";
 
 const NAMES: Record<Alphabet, { name: string; sample: string }> = {
   l: { name: "Latin", sample: "" },
@@ -13,13 +14,27 @@ const SIZES = [1.3, 1.45, 1.6, 1.8, 2.05];
 const SIZE_KEY = "ete_olcek";
 
 /** The text with the chosen alphabets, and the bar to choose them (with `tools` beside). */
-export function Yazi({ initial, tools, children }: { initial: Shown; tools?: ReactNode; children: ReactNode }) {
+export function Yazi({
+  initial,
+  ayar,
+  tools,
+  children,
+}: {
+  initial: Shown;
+  ayar: Ayar;
+  tools?: ReactNode;
+  children: ReactNode;
+}) {
   const [shown, setShown] = useState(initial);
+  const [yon, setYon] = useState(ayar.yon);
   const [size, setSize] = useState(2);
 
   useEffect(() => {
     const stored = Number(localStorage.getItem(SIZE_KEY));
     if (stored >= 0 && stored < SIZES.length) setSize(stored);
+    const onAyar = (e: Event) => setYon((e as CustomEvent<Ayar>).detail.yon);
+    window.addEventListener(AYAR_EVENT, onAyar);
+    return () => window.removeEventListener(AYAR_EVENT, onAyar);
   }, []);
 
   function toggle(a: Alphabet) {
@@ -60,8 +75,8 @@ export function Yazi({ initial, tools, children }: { initial: Shown; tools?: Rea
         {tools}
       </div>
       <div
-        className={yaziClass(shown)}
-        dir={shown.l ? "ltr" : "rtl"}
+        className={yaziClass(shown, yon)}
+        dir={rightToLeft(shown, yon) ? "rtl" : "ltr"}
         style={{ "--olcek": SIZES[size] } as React.CSSProperties}
       >
         {children}

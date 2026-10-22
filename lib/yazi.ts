@@ -15,8 +15,17 @@ export function shownValue(shown: Shown): string {
   return ALPHABETS.filter((a) => shown[a]).join(",");
 }
 
-/** The classes of the text: the alphabets shown, "cok" for more than one, "sag-sola" without Latin. */
-export function yaziClass(shown: Shown): string {
+/** Right to left: without Latin, or with Latin when the Arabic letters lead (Ayar.yon). */
+export function rightToLeft(shown: Shown, yon: "ltr" | "rtl"): boolean {
+  return !shown.l || (yon === "rtl" && (shown.o || shown.e));
+}
+
+/** The classes of the text: the alphabets shown, "cok" for more than one, "sag-sola" right to
+ *  left, "arap-once" the Arabic letters above the Latin. */
+export function yaziClass(shown: Shown, yon: "ltr" | "rtl" = "ltr"): string {
   const on = ALPHABETS.filter((a) => shown[a]);
-  return ["yazi", ...on, on.length > 1 ? "cok" : "", shown.l ? "" : "sag-sola"].filter(Boolean).join(" ");
+  const rtl = rightToLeft(shown, yon);
+  return ["yazi", ...on, on.length > 1 ? "cok" : "", rtl ? "sag-sola" : "", rtl && shown.l ? "arap-once" : ""]
+    .filter(Boolean)
+    .join(" ");
 }
