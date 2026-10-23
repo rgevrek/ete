@@ -58,3 +58,8 @@ export function meaningsOf(form: string): Meaning[] {
   const own = byWord.get(form) ?? [];
   return [...own, ...(byForm.get(form) ?? []).filter((m) => !own.includes(m))];
 }
+
+/** Whether a lower case word is a word of the lügat (a headword, not only one of their forms). */
+export function isLugatWord(word: string): boolean {
+  return index().byWord.has(word);
+}

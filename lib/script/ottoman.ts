@@ -89,10 +89,10 @@ function join(base: string, { drop, ending }: Spelling, around: string): string 
   return base + (kind(base) === "h" && ending ? ZWNJ : "") + ending;
 }
 
-/** Whether `base` is a genitive that takes no `ending`: "abdin" عبدك + "den" is no "abdinden",
- *  but "onun" + "dur" is "onundur" انكدر, "onun" + "ki" "onunki". */
+/** Whether `base` is a genitive that takes no `ending`: "abdin" عبدڭ + "den" is no "abdinden",
+ *  but "onun" + "dur" is "onundur" انڭدر, "onun" + "ki" "onunki". */
 function genitive(base: string, ottoman: string, ending: string): boolean {
-  return /[ıiuü]n$/.test(base) && ottoman.endsWith("ك") && !/^(?:[dt][ıiuü]r|ki)/.test(ending);
+  return /[ıiuü]n$/.test(base) && /[ڭك]$/.test(ottoman) && !/^(?:[dt][ıiuü]r|ki)/.test(ending);
 }
 
 /** The Ottoman of `form` from the shortest base of three letters at least in `known` that has a
@@ -141,11 +141,12 @@ export function ottoman(
   return null;
 }
 
-/** An Ottoman word as a key for looking it up: no ZWNJ, no harakat, the letters of KILAVUZ.md. */
+/** An Ottoman word as a key for looking it up: no ZWNJ, no harakat, the letters of KILAVUZ.md; the
+ *  nasal ڭ as ك, so that a word is found written either way. */
 export function ottomanKey(word: string): string {
   return word
     .replace(/[ً-ٰٟ‌‍ـ]/g, "")
-    .replaceAll("ک", "ك")
+    .replace(/[کڭ]/g, "ك")
     .replace(/[یيى]/g, "ى")
     .replaceAll("ۀ", "ه");
 }

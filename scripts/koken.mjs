@@ -21,38 +21,52 @@ const LANGS = [
   ["arapca", /^(Arabic|Classical Arabic|Egyptian Arabic|Aramaic|Classical Syriac|Hebrew|Akkadian)\b/],
   ["farsca", /^(Persian|Classical Persian|Middle Persian|Old Persian|Parthian|Sogdian|Kurdish|Tajik|Avestan)\b/],
   ["bati", /^(French|Middle French|Old French|Latin|Late Latin|Medieval Latin|New Latin|Italian|Venetian|Genoese|Spanish|Portuguese|English|German|Dutch|Romanian|Ladino)\b/],
-  ["turkce", /^(Turkish|Ottoman Turkish|Old Anatolian Turkish|Old Turkic|Proto-Turkic|Middle Turkic|Chagatai|Karakhanid|Old Uyghur|Azerbaijani|Turkmen|Uzbek|Kazakh|Kyrgyz|Tatar|Uyghur)\b/],
+  ["turkce", /^(Turkish|Ottoman Turkish|Old Anatolian Turkish|Old Turkic|Proto-Turkic|Proto-Common Turkic|Common Turkic|Proto-Oghuz|Oghuz|Proto-Kipchak|Middle Turkic|Chagatai|Karakhanid|Old Uyghur|Azerbaijani|Turkmen|Uzbek|Kazakh|Kyrgyz|Tatar|Uyghur)\b/],
   ["diger", /^(Greek|Byzantine Greek|Ancient Greek|Armenian|Georgian|Mongolian|Middle Mongol|Proto-Mongolic|Sanskrit|Chinese|Russian|Bulgarian|Serbo-Croatian|Hungarian|Albanian|Slavic|Proto-Slavic|Old Church Slavonic|Hindi|Prakrit)\b/],
 ];
 const OTTOMAN = /^(Turkish|Ottoman Turkish|Old Anatolian Turkish)\b/;
 const ofName = (name) => LANGS.find(([, re]) => re.test(name))?.[0] ?? null;
 const PARTS = new Set(["suffix", "af", "affix", "compound", "com", "prefix", "confix"]);
 
-/** The origin of an entry: the oldest language of its etymology tree, else the first language its
- *  etymology names that is not Turkic ("from Ottoman Turkish …, from Arabic …"); Turkic when it
- *  names an older Turkic one (Proto-Turkic, Old Turkic …); "parca:<word>" when it is made of parts. */
+/** The origin of an entry: the deepest Arabic, Persian or Western language its etymology names
+ *  ("from Ottoman Turkish …, from Persian …, from Arabic …": Arabic), else of its tree; Turkic when
+ *  it names an older Turkic one (Proto-Turkic, Old Turkic …); "parca:<word>" when made of parts. */
 function classify(e) {
   const text = e.etymology_text ?? "";
-  // the sentence: "Inherited from Ottoman Turkish ای, from Classical Persian ای"
-  const sentence = text.startsWith("Etymology tree") ? text.split("\n").slice(1).join(" ") : text;
+  // the chain of the word, not its cognates: "… from Arabic جنة. Cognate with …"
+  const chain = (text.startsWith("Etymology tree") ? text.split("\n").slice(1).join(" ") : text).split(
+    /\b(?:Cognate|Cognates|Compare|compare|Doublet|Related to|related to|cf\.|Akin to|akin to|See also)\b/,
+  )[0];
+  // the root: the deepest language the chain names ("from Persian جنت, from Arabic جنة": Arabic);
+  // Arabic, Persian or Western before an older one ("from Italian …, from Latin …, from Greek …")
   let turkic = false;
-  for (const m of sentence.matchAll(/\b(?:from|of|via)\s+((?:[A-Z][a-z]+[- ]?){1,3})/g)) {
+  let root = null;
+  let other = null;
+  for (const m of chain.matchAll(/\b(?:from|of|via)\s+((?:[A-Z][a-z]+[- ]?){1,3})/g)) {
     const name = m[1].trim();
     const o = ofName(name);
     // Turkic only when an older Turkic language is named: "from Ottoman Turkish …" alone says
     // nothing of the root ("milliyet")
     if (o === "turkce") turkic ||= !OTTOMAN.test(name);
-    else if (o) return o;
+    else if (o === "diger") other ??= o;
+    // a deeper language of the line does not change a Western or an Arabic root: "from Arabic …,
+    // from Middle Persian …" is Arabic ("rızık"); "from Persian …, from Arabic …" is Arabic ("cennet")
+    else if (o && !(root === "bati" && o !== "bati") && !(root === "arapca" && o === "farsca")) root = o;
+  }
+  if (root) return root;
+  // else the tree, from its oldest line: the first of its languages that is Arabic, Persian or Western
+  if (text.startsWith("Etymology tree")) {
+    for (const line of text.split("\n").slice(1)) {
+      const name = line.trim();
+      if (!name || /^(Inherited|Borrowed|From|Learned)\b/.test(name)) break;
+      const o = ofName(name);
+      if (o && o !== "turkce" && o !== "diger") return o;
+    }
   }
   if (turkic) return "turkce";
-  // else the tree: its first line, when it is a language of the word's line (not "English aybor.")
-  if (text.startsWith("Etymology tree")) {
-    const oldest = text.split("\n")[1]?.trim() ?? "";
-    const o = ofName(oldest);
-    if (o && !OTTOMAN.test(oldest) && !/\b(bor|der|inh)\.$/.test(oldest)) return o;
-  }
+  if (other) return other;
   // named only Ottoman Turkish: Turkic unless the word looks otherwise (lib/script/koken.ts)
-  if (/\b(?:from|of)\s+Ottoman Turkish\b/.test(sentence)) return "turkce?";
+  if (/\b(?:from|of)\s+Ottoman Turkish\b/.test(chain)) return "turkce?";
   for (const t of e.etymology_templates ?? []) if (PARTS.has(t.name) && t.args?.["2"]) return `parca:${t.args["2"]}`;
   return null;
 }
@@ -75,18 +89,23 @@ async function download(file, url) {
 
 // every origin of a word: a word may be several (homographs, "hal" of Arabic and of French)
 const all = new Map();
-const put = (w, o) => {
+// the words of the Turkish entries; an Ottoman one alone is a romanization ("seni" سنى) that may
+// be a form of a Turkish word ("sen" + "i"), marked "ota"
+const turkishWords = new Set();
+const put = (w, o, ottoman) => {
   if (!w) return;
+  if (!ottoman) turkishWords.add(w);
   const list = all.get(w);
   if (!list) all.set(w, [o]);
   else if (!list.includes(o)) list.push(o);
 };
 /** The origin of a word of several: Western only when there is no other (they are rare in the
- *  books: "el" is the Turkic hand, not a loan), a sure one before "turkce?" and the parts. */
+ *  books: "el" is the Turkic hand, not a loan), Turkic before Arabic and Persian ("biz"), a sure one
+ *  before "turkce?" and the parts. */
 function choose(list) {
   const sure = list.filter((o) => !o.startsWith("parca:") && !o.endsWith("?"));
   const eastern = sure.filter((o) => o !== "bati" && o !== "diger");
-  return eastern[0] ?? list.find((o) => o === "turkce?") ?? sure[0] ?? list[0];
+  return (eastern.includes("turkce") ? "turkce" : eastern[0]) ?? list.find((o) => o === "turkce?") ?? sure[0] ?? list[0];
 }
 
 async function read(file, ottoman) {
@@ -102,7 +121,7 @@ async function read(file, ottoman) {
     const latin = ottoman
       ? (e.forms?.find((f) => f.tags?.includes("romanization"))?.form ?? e.head_templates?.[0]?.args?.tr)
       : e.word;
-    if (typeof latin === "string" && !latin.includes(" ")) put(lower(latin), o);
+    if (typeof latin === "string" && !latin.includes(" ")) put(lower(latin), o, ottoman);
   }
 }
 
@@ -140,9 +159,12 @@ for (const [w, o] of words) {
 }
 
 const lines = [
-  "# word\torigin (arapca farsca turkce bati diger; turkce? when only Ottoman Turkish is named)\tfiil: a verb stem. From Wiktionary (kaikki.org)",
+  "# word\torigin (arapca farsca turkce bati diger; turkce? when only Ottoman Turkish is named)\tfiil: a verb stem; ota: a romanized Ottoman entry only. From Wiktionary (kaikki.org)",
 ];
-const rows = [...[...out].map(([w, o]) => [w, o, ""]), ...[...stems].map(([w, o]) => [w, o, "fiil"])];
+const rows = [
+  ...[...out].map(([w, o]) => [w, o, turkishWords.has(w) ? "" : "ota"]),
+  ...[...stems].map(([w, o]) => [w, o, "fiil"]),
+];
 for (const [w, o, kind] of rows.sort((a, b) => a[0].localeCompare(b[0], "tr") || a[2].localeCompare(b[2]))) {
   lines.push(kind ? `${w}\t${o}\t${kind}` : `${w}\t${o}`);
 }

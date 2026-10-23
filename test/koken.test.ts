@@ -5,6 +5,12 @@ import { origin } from "@/lib/script/koken";
 const spell = (f: string) => library().known.get(f);
 
 describe("kelime kökenleri", () => {
+  it("takes the Arabic and Persian words of the lügat that Wiktionary lacks", () => {
+    for (const f of ["tasaffi", "hurafattan", "berzahta", "berzahiyeden", "kuburun", "rivayatla", "nass-ı"]) {
+      expect(origin(f, spell)).toBe("arapca");
+    }
+  });
+
   it("finds the origin of a word and of its forms", () => {
     expect(origin("hakikat", spell)).toBe("arapca");
     expect(origin("hakikatlerini", spell)).toBe("arapca");
@@ -30,6 +36,22 @@ describe("kelime kökenleri", () => {
     expect(origin("bulut", spell)).toBe("turkce");
     expect(origin("bazı", spell)).toBe("arapca");
     expect(origin("nedir", spell)).toBe("turkce");
+    expect(origin("beni", spell)).toBe("turkce");
+    expect(origin("seni", spell)).toBe("turkce");
+    expect(origin("bizim", spell)).toBe("turkce");
+    expect(origin("bak", spell)).toBe("turkce");
+    expect(origin("der", spell)).toBe("turkce");
+    expect(origin("dikkat", spell)).toBe("arapca");
+    for (const f of ["olan", "olarak", "sen", "yalnız"]) expect(origin(f, spell)).toBe("turkce");
+    expect(origin("küre-i", spell)).toBe("arapca");
+    for (const f of ["din", "insanlar", "insanların", "idare", "kuburun", "mu’cizat-ı", "rızık", "emare", "elem", "en’am"]) {
+      expect(origin(f, spell)).toBe("arapca");
+    }
+    for (const f of ["benden", "deriz", "derler", "mu"]) expect(origin(f, spell)).toBe("turkce");
+    expect(origin("kuvvetli", spell)).toBe("arapca");
+    expect(origin("bilir", spell)).toBe("turkce");
+    expect(origin("bilmiyorlar", spell)).toBe("turkce");
+    expect(origin("cennet", spell)).toBe("arapca");
   });
 
   it("takes a root the Ottoman spelling begins with before a longer one", () => {
@@ -38,5 +60,6 @@ describe("kelime kökenleri", () => {
 
   it("colors a compound by its first part", () => {
     expect(origin("hakikat-i", spell)).toBe("arapca");
+    expect(origin("âhirzaman", spell)).toBe("arapca");
   });
 });
