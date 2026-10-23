@@ -186,3 +186,4 @@ dialog.ayarlar .kapat { display: flex; justify-content: flex-end; }
 .koken-renkler .kt { color: var(--k-turkce); }
 .koken-renkler .kb { color: var(--k-bati); }
 .koken-renkler .kn { color: var(--renk); }
+.koken-renkler .kn::before { display: none; }
