@@ -36,8 +36,8 @@ describe("kelime kökenleri", () => {
     expect(origin("halde", spell)).toBe("arapca");
     expect(origin("elinde", spell)).toBe("turkce");
     expect(origin("bulut", spell)).toBe("turkce");
-    // a grammar word: black (Turkish of today), whatever its root (bazı بعضى is Arabic)
-    expect(origin("bazı", spell)).toBe("turkce");
+    // a grammar word of Arabic or Persian: by its origin (bazı بعضى)
+    expect(origin("bazı", spell)).toBe("arapca");
     expect(origin("nedir", spell)).toBe("turkce");
     expect(origin("beni", spell)).toBe("turkce");
     expect(origin("seni", spell)).toBe("turkce");
@@ -59,7 +59,9 @@ describe("kelime kökenleri", () => {
   });
 
   it("keeps the grammar words and their forms black, the old Turkic words red", () => {
-    for (const f of ["ve", "ki", "ile", "için", "gibi", "bunun", "onlara", "benim"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["ile", "için", "gibi", "bunun", "onlara", "benim", "bu", "bir"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["ve", "yani", "fakat", "kadar"]) expect(origin(f, spell)).toBe("arapca");
+    for (const f of ["ki", "her", "çünkü", "eğer"]) expect(origin(f, spell)).toBe("farsca");
     for (const f of ["el", "ayak"]) expect(origin(f, spell)).toBe("turkce");
     for (const f of ["aslan", "vurmak", "yirmi", "dağ", "doğru", "dokuz"]) expect(origin(f, spell)).toBe("eski");
     for (const f of ["deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");

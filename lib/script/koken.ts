@@ -336,7 +336,8 @@ export function readsAs(latin: string, ottoman: string): boolean {
   return go(0, 0);
 }
 
-/** The grammar words: black, whatever their origin; also their forms ("bunun", "onlara", "benim"). */
+/** The grammar words: the Turkic ones black, the Arabic and Persian ones by their origin; the forms
+ *  of the pronouns ("bunun", "onlara", "benim") black. */
 const GRAMMAR = new Set(
   (
     "ve veya yahut veyahut ya yani hem de da ki ise ile ama fakat lâkin lakin ancak çünkü eğer şayet gerçi " +
@@ -383,7 +384,13 @@ export function explain(form: string, spell?: (form: string) => string | null | 
   const first = form.replace(/^[’'-]+/, "").split(/-/)[0];
   let found: Found = { origin: null, root: null };
   if (grammar(first) || grammar(fold(first))) {
-    found = { origin: "turkce", root: first };
+    // a grammar word: Turkic ones black (also when written otherwise: "gibi" كبى), Arabic and
+    // Persian ones by their origin ("ve", "yani" green; "ki", "çünkü" yellow)
+    const own = ofWord(first, spell, spell?.(first), false);
+    found =
+      own.origin === "arapca" || own.origin === "farsca" || own.origin === "bati"
+        ? { origin: own.origin, root: first }
+        : { origin: "turkce", root: first };
   } else {
     // without the suffix after its last apostrophe: "Kur’ân’la" is "kur’ân", not "kur" (only when
     // what follows is Turkish endings: the ’ of "mu’cizat" is the hamza of the Arabic)
