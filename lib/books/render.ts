@@ -120,9 +120,12 @@ export function cell(word: string, w: Writer, before = "", after = "", previous 
   const lat: Part[] = !cls || !root ? [] : affix?.prefix
     ? [{ text: affix.text, cls: fa }, { text: root, cls }]
     : affix ? [{ text: root, cls }, { text: affix.text, cls: fa }] : [{ text: root, cls }];
+  // (the Ottoman root as the word writes it before its suffix: "mâni" معنى of "mânidâr" معنيدار)
+  const at = affix && !affix.prefix && o ? o.lastIndexOf(affix.ottoman) : -1;
+  const otaRoot = at > 0 ? o!.slice(0, at) : w.ottoman(root) ?? root;
   const ota: Part[] = !cls || !root ? [] : affix?.prefix
     ? [{ text: affix.ottoman, cls: fa }, { text: w.ottoman(root) ?? root, cls }]
-    : affix ? [{ text: w.ottoman(root) ?? root, cls }, { text: affix.ottoman, cls: fa }] : [{ text: w.ottoman(root) ?? "", cls }];
+    : affix ? [{ text: otaRoot, cls }, { text: affix.ottoman, cls: fa }] : [{ text: w.ottoman(root) ?? "", cls }];
   const et: Part[] = !cls || !root ? [] : affix?.prefix
     ? [{ text: w.ete(affix.text) ?? "", cls: fa }, { text: w.ete(`-${root}`) ?? "", cls }]
     : affix ? [{ text: w.ete(root) ?? "", cls }, { text: w.ete(`-${affix.text}`) ?? "", cls: fa }] : [{ text: w.ete(root) ?? "", cls }];

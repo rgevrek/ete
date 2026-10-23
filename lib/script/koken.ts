@@ -299,14 +299,17 @@ function ofWord(
     if (ARABIC_ENDING.test(word) || (spelling && ARABIC_SIGN.test(spelling))) return is("arapca");
     if (CIRCUMFLEX.test(word)) return is(null);
   }
-  // old Turkic: not of today's Turkish (an Ottoman entry only), written otherwise in Ottoman by
-  // Wiktionary, or by its Ottoman letters ("dağ" طاغ is ṭağ, "vurmak" اورمق urmak)
+  // old Turkic: not of today's Turkish (an Ottoman entry only), or written otherwise by its
+  // Ottoman letters ("dağ" طاغ is ṭağ, "vurmak" اورمق urmak)
   // (a grammar word as a root is black: "bile")
   if (GRAMMAR.has(root)) return is("turkce");
-  if (entry.origin === "eski" || entry.weak || entry.old) return is("eski");
+  if (entry.origin === "eski" || entry.weak) return is("eski");
   // (the root's spelling, else the whole word's: "gid-" has none, "gideceğimi" كيده‌جكمى has)
   const rootSpelling = spell?.(root);
   const wordSpelling = rootSpelling ? null : spelling;
+  // an old form of Wiktionary only when the books' Ottoman has no say: "tatlı" طاتلى (datlu),
+  // "böcek" بوجك read as today
+  if (entry.old && !rootSpelling && !wordSpelling) return is("eski");
   if (rootSpelling) return is(readsAs(root, rootSpelling) ? "turkce" : "eski");
   // (only the root of it: the ğ of an ending is written ك, "-diği" ديكى)
   return is(wordSpelling && !readsAs(root, wordSpelling, true) ? "eski" : "turkce");
@@ -356,6 +359,8 @@ export function readsAs(latin: string, ottoman: string, prefix = false): boolean
     memo.set(k, ok);
     return ok;
   };
+  // an alif first begins the word with a vowel: "vurmak" اورمق is urmak
+  if (o[0] === "ا" && l[0] && !"aeıioöuü".includes(l[0])) return false;
   return go(0, 0);
 }
 
@@ -431,7 +436,10 @@ function withAffix(first: string, root: string): Pick<Explained, "root" | "affix
   // a suffix at the end of the root or right after it
   const f = fold(first).replaceAll("’", "");
   for (const [suffix, ottoman] of PERSIAN_SUFFIXES) {
-    for (const base of [r.endsWith(suffix) ? r.slice(0, -suffix.length) : null, f.startsWith(r + suffix) ? r : null]) {
+    // (also a root found a letter too long or short: "lekedar" is "leke" + "dar", not "leked")
+    const at = f.indexOf(suffix, 3);
+    const near = at > 0 && (r.startsWith(f.slice(0, at)) || f.slice(0, at).startsWith(r)) ? f.slice(0, at) : null;
+    for (const base of [r.endsWith(suffix) ? r.slice(0, -suffix.length) : null, f.startsWith(r + suffix) ? r : null, near]) {
       // (a base of four letters at least before a short suffix: "devvar" is no "dev" + "var")
       if (!base || base.length < (suffix.length <= 3 ? 4 : 3) || !eastern(base)) continue;
       const baseText = lettersAt(first, 0, base);
