@@ -57,6 +57,8 @@ export function endings(words: Map<string, string>): Rules {
       else if (k === "h" && whole.startsWith(stem.slice(0, -1)))
         spelling = "1" + after(out, stem.length - 1);
       else continue;
+      // "ede", "eden" are no endings: "daireden" is "daire" + "den"; "neşreden" نشر ايدن is in the dictionary
+      if (/^ede(n|$)/.test(form.slice(i))) continue;
       const id = key(form.slice(i), k);
       let count = seen.get(id);
       if (!count) seen.set(id, (count = new Map()));
