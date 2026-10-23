@@ -20,9 +20,9 @@ const OUT = path.join(path.dirname(new URL(import.meta.url).pathname), "..", "da
 const LANGS = [
   ["arapca", /^(Arabic|Classical Arabic|Egyptian Arabic|Aramaic|Classical Syriac|Hebrew|Akkadian)\b/],
   ["farsca", /^(Persian|Classical Persian|Middle Persian|Old Persian|Parthian|Sogdian|Kurdish|Tajik|Avestan)\b/],
-  ["bati", /^(French|Middle French|Old French|Latin|Late Latin|Medieval Latin|New Latin|Italian|Venetian|Genoese|Spanish|Portuguese|English|German|Dutch|Romanian|Ladino)\b/],
-  ["turkce", /^(Turkish|Ottoman Turkish|Old Anatolian Turkish|Old Turkic|Proto-Turkic|Proto-Common Turkic|Common Turkic|Proto-Oghuz|Oghuz|Proto-Kipchak|Middle Turkic|Chagatai|Karakhanid|Old Uyghur|Azerbaijani|Turkmen|Uzbek|Kazakh|Kyrgyz|Tatar|Uyghur)\b/],
-  ["diger", /^(Greek|Byzantine Greek|Ancient Greek|Armenian|Georgian|Mongolian|Middle Mongol|Proto-Mongolic|Sanskrit|Chinese|Russian|Bulgarian|Serbo-Croatian|Hungarian|Albanian|Slavic|Proto-Slavic|Old Church Slavonic|Hindi|Prakrit)\b/],
+  ["bati", /^(French|Middle French|Old French|Latin|Late Latin|Medieval Latin|New Latin|Ecclesiastical Latin|Italian|Venetian|Venetan|Genoese|Sicilian|Spanish|Old Spanish|Portuguese|English|German|Dutch|Romanian|Ladino)\b/],
+  ["turkce", /^(Turkish|Ottoman Turkish|Old Anatolian Turkish|Old Turkic|Proto-Turkic|Proto-Common Turkic|Common Turkic|Turkic|Proto-Oghuz|Early Old Oghuz|Oghuz|Proto-Kipchak|Kipchak|Crimean Tatar|Middle Turkic|Chagatai|Karakhanid|Old Uyghur|Azerbaijani|Turkmen|Uzbek|Kazakh|Kyrgyz|Tatar|Uyghur)\b/],
+  ["diger", /^(Greek|Byzantine Greek|Medieval Greek|Pontic Greek|Ancient Greek|Armenian|Middle Armenian|Georgian|Mongolian|Classical Mongolian|Middle Mongol|Proto-Mongolic|Mongolic|Sanskrit|Chinese|Russian|Bulgarian|Serbo-Croatian|Hungarian|Albanian|Slavic|Proto-Slavic|Old Church Slavonic|Hindi|Prakrit)\b/],
 ];
 const OTTOMAN = /^(Turkish|Ottoman Turkish|Old Anatolian Turkish)\b/;
 const ofName = (name) => LANGS.find(([, re]) => re.test(name))?.[0] ?? null;
@@ -33,27 +33,38 @@ const PARTS = new Set(["suffix", "af", "affix", "compound", "com", "prefix", "co
  *  it names an older Turkic one (Proto-Turkic, Old Turkic …); "parca:<word>" when made of parts. */
 function classify(e) {
   const text = e.etymology_text ?? "";
-  // the chain of the word, not its cognates: "… from Arabic جنة. Cognate with …"
-  const chain = (text.startsWith("Etymology tree") ? text.split("\n").slice(1).join(" ") : text).split(
-    /\b(?:Cognate|Cognates|Compare|compare|Doublet|Related to|related to|cf\.|Akin to|akin to|See also)\b/,
-  )[0];
+  // the chain of the word: without what is in parentheses (glosses, "compare …"), up to its cognates
+  const chain = (text.startsWith("Etymology tree") ? text.split("\n").slice(1).join(" ") : text)
+    .replace(/\([^()]*\)/g, " ")
+    .split(/\b(?:Cognate|cognate with|Cognates|Compare|Doublet|doublet of|Related to|Akin to|akin to|See also|cf\.)/)[0];
   // the root: the deepest language the chain names ("from Persian جنت, from Arabic جنة": Arabic);
-  // Arabic, Persian or Western before an older one ("from Italian …, from Latin …, from Greek …")
+  // a deeper Persian does not change an Arabic root ("rızık"), nothing a Western one ("from Italian
+  // …, from Latin …, from Greek …"); a deeper Turkic one changes a Persian or Arabic ("hakan")
   let turkic = false;
   let root = null;
   let other = null;
-  for (const m of chain.matchAll(/\b(?:from|of|via)\s+((?:[A-Z][a-z]+[- ]?){1,3})/g)) {
+  let unknown = false;
+  for (const m of chain.matchAll(/\b(?:[Ff]rom|of|via)\s+(?:the (?:root |stem )?)?((?:[A-Z][a-z]+[- ]?){1,3})/g)) {
     const name = m[1].trim();
     const o = ofName(name);
     // Turkic only when an older Turkic language is named: "from Ottoman Turkish …" alone says
     // nothing of the root ("milliyet")
-    if (o === "turkce") turkic ||= !OTTOMAN.test(name);
-    else if (o === "diger") other ??= o;
-    // a deeper language of the line does not change a Western or an Arabic root: "from Arabic …,
-    // from Middle Persian …" is Arabic ("rızık"); "from Persian …, from Arabic …" is Arabic ("cennet")
-    else if (o && !(root === "bati" && o !== "bati") && !(root === "arapca" && o === "farsca")) root = o;
+    if (o === "turkce") {
+      if (OTTOMAN.test(name)) continue;
+      turkic = true;
+      if (root && root !== "bati") root = "turkce";
+    } else if (o === "diger") other ??= o;
+    else if (o) {
+      if (!(root === "bati" && o !== "bati") && !(root === "arapca" && o === "farsca")) root = o;
+    } else if (/^(?:[A-Z][a-z]+ )?[A-Z][a-z]+$/.test(name) && !/^(?:The|This|Ottoman)\b/.test(name)) {
+      // a language not in the lists: not to be taken as Turkic
+      unknown = true;
+    }
   }
   if (root) return root;
+  if (turkic) return "turkce";
+  // made of parts: the origin of the first ("kardeş": "karın" + "-daş"; "nasıl": "ne" + "asl")
+  for (const t of e.etymology_templates ?? []) if (PARTS.has(t.name) && t.args?.["2"]) return `parca:${t.args["2"]}`;
   // else the tree, from its oldest line: the first of its languages that is Arabic, Persian or Western
   if (text.startsWith("Etymology tree")) {
     for (const line of text.split("\n").slice(1)) {
@@ -63,11 +74,9 @@ function classify(e) {
       if (o && o !== "turkce" && o !== "diger") return o;
     }
   }
-  if (turkic) return "turkce";
-  if (other) return other;
+  if (other || unknown) return "diger";
   // named only Ottoman Turkish: Turkic unless the word looks otherwise (lib/script/koken.ts)
-  if (/\b(?:from|of)\s+Ottoman Turkish\b/.test(chain)) return "turkce?";
-  for (const t of e.etymology_templates ?? []) if (PARTS.has(t.name) && t.args?.["2"]) return `parca:${t.args["2"]}`;
+  if (/\b(?:[Ff]rom|of)\s+Ottoman Turkish\b/.test(chain)) return "turkce?";
   return null;
 }
 
@@ -92,9 +101,12 @@ const all = new Map();
 // the words of the Turkish entries; an Ottoman one alone is a romanization ("seni" سنى) that may
 // be a form of a Turkish word ("sen" + "i"), marked "ota"
 const turkishWords = new Set();
-const put = (w, o, ottoman) => {
+// the verbs: their stems apart ("damak" is no verb, no stem "da")
+const verbs = new Set();
+const put = (w, o, ottoman, pos) => {
   if (!w) return;
   if (!ottoman) turkishWords.add(w);
+  if (pos === "verb") verbs.add(w);
   const list = all.get(w);
   if (!list) all.set(w, [o]);
   else if (!list.includes(o)) list.push(o);
@@ -121,7 +133,7 @@ async function read(file, ottoman) {
     const latin = ottoman
       ? (e.forms?.find((f) => f.tags?.includes("romanization"))?.form ?? e.head_templates?.[0]?.args?.tr)
       : e.word;
-    if (typeof latin === "string" && !latin.includes(" ")) put(lower(latin), o, ottoman);
+    if (typeof latin === "string" && !latin.includes(" ")) put(lower(latin), o, ottoman, e.pos);
   }
 }
 
@@ -133,7 +145,9 @@ const words = new Map([...all].map(([w, list]) => [w, choose(list)]));
 // made of parts: the origin of the first part ("kardeş": "karın" + "-daş")
 for (const [w, o] of words) {
   if (!o.startsWith("parca:")) continue;
-  const first = words.get(lower(o.slice(6)).replace(/^-|-$/g, ""));
+  // the first part, also a verb by its stem ("sön-" of "sönmek", "uza-" of "uzamak")
+  const part = lower(o.slice(6)).replace(/^-|-$/g, "");
+  const first = words.get(part) ?? words.get(part + "mak") ?? words.get(part + "mek");
   if (first && !first.startsWith("parca:")) words.set(w, first);
   else words.delete(w);
 }
@@ -150,12 +164,15 @@ for (const [w, o] of words) {
   // a final p ç t k before a vowel: kitap kitab, ağaç ağac
   const last = w.at(-1);
   if (SOFT[last] && w.length >= 3) add(out, w.slice(0, -1) + SOFT[last], o);
-  // the stem of a verb, also softened: etmek et, ed; basmak bas (not the Italian "bas")
-  const verb = /^(.{2,})m[ae]k$/.exec(w);
+  // the narrow vowel of the last syllable dropped before a vowel: ağız ağz(ı), akıl akl(ı), isim ism(i)
+  const narrow = /^(.*[aeıioöuüâîû].*[^aeıioöuüâîû])[ıiuü]([^aeıioöuüâîû])$/.exec(w);
+  if (narrow && w.length >= 4) add(out, narrow[1] + narrow[2], o);
+  // the stem of a verb, also softened: etmek et, ed; basmak bas (not the Italian "bas"); the first one
+  const verb = verbs.has(w) ? /^(.{2,})m[ae]k$/.exec(w) : null;
   if (!verb) continue;
-  stems.set(verb[1], o);
+  if (!stems.has(verb[1])) stems.set(verb[1], o);
   const end = verb[1].at(-1);
-  if (SOFT[end]) stems.set(verb[1].slice(0, -1) + SOFT[end], o);
+  if (SOFT[end] && !stems.has(verb[1].slice(0, -1) + SOFT[end])) stems.set(verb[1].slice(0, -1) + SOFT[end], o);
 }
 
 const lines = [

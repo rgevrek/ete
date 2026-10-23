@@ -10,7 +10,9 @@ import path from "node:path";
 import { isLugatWord, meaningsOf } from "../lugat";
 
 export type Origin = "arapca" | "farsca" | "turkce" | "bati";
-const ORIGINS = new Set<string>(["arapca", "farsca", "turkce", "bati"]);
+/** "diger": of another language (Greek, Armenian …), decided but not colored */
+type Known = Origin | "diger";
+const ORIGINS = new Set<string>(["arapca", "farsca", "turkce", "bati", "diger"]);
 
 const V = "[ıiuü]";
 const A = "[ae]";
@@ -23,8 +25,8 @@ const MORPHEMES = [
   `${V}?yor`, `${A}r`, `${V}r`, `y?[dt]${V}`, `y?m${V}ş`, `y?${A}c${A}[kğ]`, `m${A}z`, `m${A}`, `y?${V}p`, `y?${A}r${A}k`,
   `y?${A}n`, `s${V}n`, `y?s${A}`, `[dt]${V}[kğ]`, `m${A}k`, `m${A}l${V}`, `y?${A}bil`, `y?${A}m${A}`, `y?${V}ş`, `${V}l`,
   `${V}n`, `${V}t`, `${A}t`, `y?${V}ver`, `y?${A}y${A}m`, `y?${A}l${V}m`, `y?${V}m`, `y?${V}z`, `y?${V}n${V}z`, `${A}y${V}m`,
-  // making words
-  `l${V}[kğ]`, `l${V}`, `s${V}z`, `[cç]${V}`, `[cç]${V}[kğ]`, `[dt]${A}ş`, `l${A}ş`, `l${A}`, `${V}c${V}`, `s${A}l`, `s${V}`,
+  // making words: also of verbs ("sön-ük", "kır-gın", "bil-gi")
+  `${V}[kğ]`, `${A}[kğ]`, `[gk]${V}n`, `g${V}`, `l${V}[kğ]`, `l${V}`, `s${V}z`, `[cç]${V}`, `[cç]${V}[kğ]`, `[dt]${A}ş`, `l${A}ş`, `l${A}`, `${V}c${V}`, `s${A}l`, `s${V}`,
 ]
 const CHAIN = new RegExp(`^(?:${MORPHEMES.join("|")})+$`);
 /** endings only verbs take: before them the stem of a verb wins over a word ("bil-ir", not "bil") */
@@ -40,7 +42,7 @@ const CIRCUMFLEX = /[âîû]/;
 
 /** an origin, "tentative" when Wiktionary names only Ottoman Turkish for a Turkic one; "verb" a verb stem */
 type Entry = {
-  origin: Origin;
+  origin: Known;
   tentative: boolean;
   verb: boolean;
   /** a romanized Ottoman entry only: a form of a Turkish word may have its letters ("seni") */
@@ -66,7 +68,7 @@ function readTable(file: string, into: Table, override: boolean) {
     const origin = o.replace("?", "");
     if (!ORIGINS.has(origin)) continue;
     const verb = kind === "fiil";
-    const entry: Entry = { origin: origin as Origin, tentative, verb, weak: kind === "ota" };
+    const entry: Entry = { origin: origin as Known, tentative, verb, weak: kind === "ota" };
     const map = verb ? into.stems : into.words;
     // also without circumflexes: the roots are looked up so ("berekâtı": "berekat" + "ı"); that
     // form overrides no word written so ("benî" not "beni")
@@ -100,14 +102,19 @@ function findRoot(
   spell?: (form: string) => string | null | undefined,
   /** a root shorter than the word, not the word itself */
   shorter = false,
+  /** the spelling to check the roots against, else the word's */
+  wholeSpelling?: string | null,
 ): { root: string; entry: Entry } | null {
   const { words, stems } = table();
   for (const w of shorter ? [] : [word, fold(word)]) {
     const own = words.get(w);
+    // a verb stem as a whole word: the imperative ("ver", "bak")
+    const bare = stems.get(w);
+    if (!own && bare?.origin === "turkce") return { root: w, entry: bare };
     if (!own) continue;
     // the letters of a Turkish verb stem and a Persian word: the verb ("bak", "der"), not before Arabic signs
     const stem = stems.get(w);
-    const whole = spell?.(word);
+    const whole = wholeSpelling ?? spell?.(word);
     if (stem?.origin === "turkce" && own.origin === "farsca" && !(whole && ARABIC_SIGN.test(whole))) {
       return { root: w, entry: stem };
     }
@@ -119,7 +126,7 @@ function findRoot(
     return { root: w, entry: own };
   }
   const f = fold(word);
-  const whole = spell?.(word);
+  const whole = wholeSpelling ?? spell?.(word);
   /** the roots followed by Turkish endings, the longest first, a stem before a word */
   const candidates: { root: string; entry: Entry }[] = [];
   for (let i = f.length - 1; i >= 2; i--) {
@@ -133,18 +140,23 @@ function findRoot(
       if (!entry) continue;
       // a Persian word of the letters of a Turkish verb stem: the verb ("deriz", "derler")
       if (!entry.verb && entry.origin === "farsca" && stems.get(root)?.origin === "turkce") continue;
-      // the aorist -r right after the vowel of a verb: "iste" + "r", "anla" + "r"
+      // after the vowel of a verb: the aorist -r ("iste-r"), the causative -t ("uza-t-tır-an"), the
+      // passive -n and -l ("yuvarla-n-an")
       const aorist =
-        entry.verb && /[aeıioöuü]$/.test(root) && rest.startsWith("r") && (rest.length === 1 || CHAIN.test(rest.slice(1)));
+        entry.verb && /[aeıioöuü]$/.test(root) && /^[rtnl]/.test(rest) && (rest.length === 1 || CHAIN.test(rest.slice(1)));
       // a Western root of three letters or less only as the word itself ("siyasiye" is no "si" + …)
       if ((CHAIN.test(rest) || aorist) && !(entry.origin === "bati" && root.length < 4)) candidates.push({ root, entry });
     }
   }
-  // a word keeps its final ه before an ending ("bende‌den" بنده‌دن: "benden" بندن is "ben" + "den")
+  // by the consonants: the vowel letters of a word change with its endings ("doğru" طوغرى,
+  // "doğruya" طوغرويه; "lira" ليره, "liranı" ليراڭى)
   const spelledAs = (root: string) => {
     const s = spell?.(root);
     if (!whole || !s) return null;
-    return bare(whole).startsWith(bare(s));
+    const r = skeleton(s);
+    // too few consonants to tell ("ne" نه, "el" ال): the letters as they are
+    if (r.length < 2) return bare(whole).startsWith(bare(s));
+    return skeleton(whole).startsWith(r);
   };
   // a verb stem before verb endings ("bilir", "bilmiyorlar"), not before Arabic signs and not when a
   // longer word the spelling begins with is there ("insanlar" is "insan" + "lar", not "in-" + …)
@@ -178,42 +190,59 @@ function findRoot(
   return null;
 }
 
+/** The consonants of an Ottoman spelling: without its vowel letters and marks. */
+const skeleton = (o: string) => bare(o).replace(/[اوىيهةءئؤ]/g, "");
+
 /** An Ottoman spelling for comparing: no ZWNJ, no marks, the yeh and the kaf as in KILAVUZ.md. */
 const bare = (o: string) =>
   o
     .replace(/[ً-ٰ‌ـ]/g, "")
     .replace(/[یي]/g, "ى")
     .replace(/[أإآ]/g, "ا")
-    .replace(/ۀ/g, "ه");
+    .replace(/ۀ/g, "ه")
+    .replace(/[ڭگ]/g, "ك");
+
+/** Persian by its letters (پ چ ژ گ) or a Persian affix, else Arabic: a word of the lügat. */
+function persianOrArabic(word: string, spelling?: string | null): Origin {
+  if (spelling && ARABIC_SIGN.test(spelling)) return "arapca";
+  return (spelling && PERSIAN_LETTERS.test(spelling)) || PERSIAN_AFFIX.test(fold(word)) ? "farsca" : "arapca";
+}
 
 function ofWord(
   word: string,
   spell?: (form: string) => string | null | undefined,
+  /** the spelling of the whole form, when `word` is cut from it ("kur’a" of "kur’a’nın") */
   formSpelling?: string | null,
-): Origin | null {
-  const found = findRoot(word, spell);
+  cut = false,
+): Known | null {
+  const found = findRoot(word, spell, false, cut ? formSpelling : undefined);
   if (!found) return null;
   const { root, entry } = found;
+  // a short word cut from a form is not Western ("kur’a" is no "kur")
+  if (cut && entry.origin === "bati" && root.length < 4) return null;
   // Arabic letters make an Arabic word, also of a root Wiktionary has as Turkic, Western or Persian
   // ("hal" حال; "bazı" بعضى came to Turkish through Persian)
-  const spelling = spell?.(word) ?? formSpelling ?? spell?.(root);
-  if (entry.origin !== "arapca" && spelling && ARABIC_ONLY.test(spelling)) return "arapca";
+  const spelling = (cut ? formSpelling : spell?.(word)) ?? formSpelling ?? spell?.(root);
+  if (entry.origin !== "arapca" && entry.origin !== "diger" && spelling && ARABIC_ONLY.test(spelling)) return "arapca";
   // Western words have no circumflex: "Mâce", "Geylânî" are names
   if (entry.origin === "bati") return CIRCUMFLEX.test(word) ? null : "bati";
   if (entry.origin !== "turkce") return entry.origin;
-  // native words have no circumflex ("vâhid" is no "vah" + "id"); a tentative Turkic one not
-  // with Arabic signs or endings either ("milliyet")
-  if (CIRCUMFLEX.test(word) && !CIRCUMFLEX.test(root)) return null;
-  // a word only said to be Ottoman, of a root with an origin: by its root ("kuvvetli": "kuvvet" + "li")
+  // native words have no circumflex ("vâhid" is no "vah" + "id"), unless their root has one: the
+  // letters of the word the root was cut from
+  if (CIRCUMFLEX.test(word) && !CIRCUMFLEX.test(word.normalize("NFC").slice(0, root.length))) return null;
+  // a word only said to be Ottoman, of a root with an origin: by its root ("kuvvetli": "kuvvet" + "li"),
+  // a root of four letters at least ("haydi" is no "hay" + "di")
   if (entry.tentative && (root === word || root === fold(word))) {
     const inner = findRoot(word, spell, true);
-    if (inner && !inner.entry.tentative && inner.entry.origin !== "turkce") return inner.entry.origin;
+    if (inner && inner.root.length >= 4 && !inner.entry.tentative && inner.entry.origin !== "turkce") {
+      return inner.entry.origin;
+    }
   }
   // a word of the lügat, which explains the Arabic and Persian words, is one of them ("dikkat")
   // (a word of it, not one of its forms); also a Turkic word of a romanized Ottoman entry only
   // ("kubur" the quiver, "kuburun" of the graves)
   if ((entry.tentative || (entry.weak && entry.origin === "turkce")) && isLugatWord(root)) {
-    return spelling && PERSIAN_LETTERS.test(spelling) && !ARABIC_ONLY.test(spelling) ? "farsca" : "arapca";
+    return persianOrArabic(root, spelling);
   }
   if (entry.tentative) {
     // Arabic endings or letters: an Arabic word ("ehemmiyetli"); a circumflex: Arabic or Persian
@@ -227,26 +256,32 @@ function ofWord(
  *  "hakikat"); `spell` gives the Ottoman of a form, when known. */
 export function origin(form: string, spell?: (form: string) => string | null | undefined): Origin | null {
   const cache = (global.__eteKokenCache ??= new Map());
-  if (cache.has(form)) return cache.get(form)!;
+  // the result depends on whether the spellings are given
+  const key = `${spell ? 1 : 0}${form}`;
+  if (cache.has(key)) return cache.get(key)!;
   const first = form.replace(/^[’'-]+/, "").split(/-/)[0];
-  let o: Origin | null = null;
-  // a word of one letter only as it is ("o")
-  // without the suffix after its last apostrophe: "Kur’ân’la" is "kur’ân", not "kur"
-  // (only when what follows is Turkish endings: the ’ of "mu’cizat" is the hamza of the Arabic)
+  let o: Known | null = null;
+  // without the suffix after its last apostrophe: "Kur’ân’la" is "kur’ân", not "kur" (only when
+  // what follows is Turkish endings: the ’ of "mu’cizat" is the hamza of the Arabic)
   const last = first.lastIndexOf("’");
   const word = last >= 3 && CHAIN.test(fold(first.slice(last + 1))) ? first.slice(0, last) : first;
   const spelling = spell?.(first) ?? spell?.(form);
   for (const p of [first, word, word.replaceAll("’", ""), first.replaceAll("’", "")]) {
-    if ((p.length >= 2 || table().words.has(p)) && (o = ofWord(p, spell, spelling))) break;
+    // a word of one letter only as it is ("o")
+    if ((p.length >= 2 || table().words.has(p)) && (o = ofWord(p, spell, spelling, p !== first))) break;
   }
   // a word of the lügat is no Turkish root and endings ("emare" is no "em-" + "are")
   if (o === "turkce" && isLugatWord(word) && rootOf(word, spell) !== word && !table().words.has(fold(word))) {
     o = eastern(word, spelling, true);
   }
   o ??= compound(word.replaceAll("’", ""), spell) ?? eastern(word.replaceAll("’", ""), spelling);
-  if (!o && spelling && ARABIC_ONLY.test(spelling)) o = "arapca";
-  cache.set(form, o);
-  return o;
+  // the Arabic letters of the word or of the whole form ("lil-âlemîn" للعالمين)
+  const whole = spell?.(form);
+  if (!o && ((spelling && ARABIC_ONLY.test(spelling)) || (whole && ARABIC_ONLY.test(whole)))) o = "arapca";
+  // another language (Greek, Armenian …): not colored
+  const result = o === "diger" ? null : o;
+  cache.set(key, result);
+  return result;
 }
 
 /** A compound written as one word, by its first word: "âhirzaman" is "âhir" + "zaman". */
@@ -255,7 +290,7 @@ function compound(word: string, spell?: (form: string) => string | null | undefi
   const f = fold(word);
   for (let i = f.length - 3; i >= 3; i--) {
     const first = words.get(f.slice(0, i));
-    if (first && first.origin !== "bati" && findRoot(f.slice(i), spell)) return first.origin;
+    if (first && first.origin !== "bati" && first.origin !== "diger" && findRoot(f.slice(i), spell)) return first.origin;
   }
   return null;
 }
@@ -273,6 +308,5 @@ function eastern(word: string, spelling?: string | null, exact = false): Origin 
     lugat = meaningsOf(f.slice(0, i)).length > 0 && CHAIN.test(f.slice(i));
   }
   if (!lugat) return null;
-  if (spelling && ARABIC_SIGN.test(spelling)) return "arapca";
-  return (spelling && PERSIAN_LETTERS.test(spelling)) || PERSIAN_AFFIX.test(f) ? "farsca" : "arapca";
+  return persianOrArabic(word, spelling);
 }

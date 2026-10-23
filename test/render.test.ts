@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { writeText, type Writer } from "@/lib/books/render";
+import { echoes, writeText, type Writer } from "@/lib/books/render";
 import { ete } from "@/lib/script/ete";
 
 const w: Writer = { ottoman: (f) => ({ ben: "بن", gibi: "كبى" })[f] ?? null, ete: (f) => ete(f) };
@@ -18,5 +18,13 @@ describe("writeText", () => {
     const html = writeText("’un", w);
     expect(rows(html, "l")).toEqual(["’un"]);
     expect(rows(html, "e")).toEqual([ete("-un")]);
+  });
+
+  it("colors an m- echo by the word it echoes", () => {
+    expect(echoes("mumara", "kumara")).toBe(true);
+    expect(echoes("milaç", "ilaç")).toBe(true);
+    expect(echoes("mektup", "kitap")).toBe(false);
+    const o: Writer = { ...w, origin: (f) => (f === "kumara" ? "arapca" : f === "mumara" ? "farsca" : null) };
+    expect(writeText("kumara mumara", o)).toContain('<span class="l ka">mumara</span>');
   });
 });

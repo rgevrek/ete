@@ -35,13 +35,21 @@ const ORIGIN_CLASS: Record<Origin, string> = { arapca: " ka", farsca: " kf", tur
 /** A Latin word as the stack of its three writings, with the marks that touch it (`before`,
  *  `after`: "“", ","). An apostrophe right before it begins a suffix ("</a>’un"): ETE writes it
  *  apart from its word, without the apostrophe. */
-export function cell(word: string, w: Writer, before = "", after = ""): string {
+/** Whether `word` is the m- echo of the word before it, "and such": "kumara mumara", "ilaç milaç". */
+export function echoes(word: string, previous: string): boolean {
+  const w = lower(word);
+  const p = lower(previous);
+  if (!w.startsWith("m") || p.startsWith("m") || p.length < 2) return false;
+  return w === "m" + p.slice(1) || (/^[aeıioöuü]/.test(p) && w === "m" + p);
+}
+
+export function cell(word: string, w: Writer, before = "", after = "", previous = ""): string {
   const form = lower(word);
   const suffix = /[’']$/.test(before);
   const o = w.ottoman(form);
   const e = w.ete(suffix ? `-${form}` : form);
-  // a suffix written apart has no root of its own
-  const kok = suffix ? null : (w.origin?.(form) ?? null);
+  // a suffix written apart has no root of its own; an m- echo the root of the word it echoes
+  const kok = suffix ? null : (w.origin?.(previous && echoes(word, previous) ? lower(previous) : form) ?? null);
   const ab = marks(before);
   const aa = marks(after);
   const eb = suffix ? ab.slice(0, -1) : ab;
@@ -66,6 +74,8 @@ export function writeText(text: string, w: Writer): string {
   const before: string[] = parts.map(() => "");
   const after: string[] = parts.map(() => "");
   const rest = parts.map((p) => (p.word ? "" : p.text));
+  // the word before each word, when only a space is between them (for the m- echo)
+  const previous = parts.map((p, i) => (p.word && i >= 2 && parts[i - 2].word && /^\s+$/.test(parts[i - 1].text) ? parts[i - 2].text : ""));
   parts.forEach((p, i) => {
     if (p.word) return;
     const prev = parts[i - 1]?.word;
@@ -81,7 +91,7 @@ export function writeText(text: string, w: Writer): string {
     if (next) before[i + 1] = m[3];
     rest[i] = (prev ? "" : m[1]) + m[2] + (next ? "" : m[3]);
   });
-  return parts.map((p, i) => (p.word ? cell(p.text, w, before[i], after[i]) : between(rest[i]))).join("");
+  return parts.map((p, i) => (p.word ? cell(p.text, w, before[i], after[i], previous[i]) : between(rest[i]))).join("");
 }
 
 /** The interlinear HTML of a page (the HTML of lib/books/parse.ts). */

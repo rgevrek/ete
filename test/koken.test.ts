@@ -47,7 +47,8 @@ describe("kelime kökenleri", () => {
     for (const f of ["din", "insanlar", "insanların", "idare", "kuburun", "mu’cizat-ı", "rızık", "emare", "elem", "en’am"]) {
       expect(origin(f, spell)).toBe("arapca");
     }
-    for (const f of ["benden", "deriz", "derler", "mu"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["benden", "deriz", "derler", "mu", "ver", "ağzına"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["aklı", "ismi", "fikri"]) expect(origin(f, spell)).toBe("arapca");
     expect(origin("kuvvetli", spell)).toBe("arapca");
     expect(origin("bilir", spell)).toBe("turkce");
     expect(origin("bilmiyorlar", spell)).toBe("turkce");
