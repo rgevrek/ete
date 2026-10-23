@@ -20,9 +20,10 @@ const OUT = path.join(path.dirname(new URL(import.meta.url).pathname), "..", "da
 const LANGS = [
   ["arapca", /^(Arabic|Classical Arabic|Egyptian Arabic|Aramaic|Classical Syriac|Hebrew|Akkadian)\b/],
   ["farsca", /^(Persian|Classical Persian|Middle Persian|Old Persian|Parthian|Sogdian|Kurdish|Tajik|Avestan)\b/],
-  ["bati", /^(French|Middle French|Old French|Latin|Late Latin|Medieval Latin|New Latin|Ecclesiastical Latin|Italian|Venetian|Venetan|Genoese|Sicilian|Spanish|Old Spanish|Portuguese|English|German|Dutch|Romanian|Ladino)\b/],
+  // Western, also Greek: "Batı"
+  ["bati", /^(French|Middle French|Old French|Latin|Late Latin|Medieval Latin|New Latin|Ecclesiastical Latin|Italian|Venetian|Venetan|Genoese|Sicilian|Spanish|Old Spanish|Portuguese|English|German|Dutch|Romanian|Ladino|Greek|Byzantine Greek|Medieval Greek|Pontic Greek|Ancient Greek|Koine Greek)\b/],
   ["turkce", /^(Turkish|Ottoman Turkish|Old Anatolian Turkish|Old Turkic|Proto-Turkic|Proto-Common Turkic|Common Turkic|Turkic|Proto-Oghuz|Early Old Oghuz|Oghuz|Proto-Kipchak|Kipchak|Crimean Tatar|Middle Turkic|Chagatai|Karakhanid|Old Uyghur|Azerbaijani|Turkmen|Uzbek|Kazakh|Kyrgyz|Tatar|Uyghur)\b/],
-  ["diger", /^(Greek|Byzantine Greek|Medieval Greek|Pontic Greek|Ancient Greek|Armenian|Middle Armenian|Georgian|Mongolian|Classical Mongolian|Middle Mongol|Proto-Mongolic|Mongolic|Sanskrit|Chinese|Russian|Bulgarian|Serbo-Croatian|Hungarian|Albanian|Slavic|Proto-Slavic|Old Church Slavonic|Hindi|Prakrit)\b/],
+  ["diger", /^(Armenian|Middle Armenian|Georgian|Mongolian|Classical Mongolian|Middle Mongol|Proto-Mongolic|Mongolic|Sanskrit|Chinese|Russian|Bulgarian|Serbo-Croatian|Hungarian|Albanian|Slavic|Proto-Slavic|Old Church Slavonic|Hindi|Prakrit)\b/],
 ];
 const OTTOMAN = /^(Turkish|Ottoman Turkish|Old Anatolian Turkish)\b/;
 const ofName = (name) => LANGS.find(([, re]) => re.test(name))?.[0] ?? null;
@@ -120,6 +121,23 @@ function choose(list) {
   return (eastern.includes("turkce") ? "turkce" : eastern[0]) ?? list.find((o) => o === "turkce?") ?? sure[0] ?? list[0];
 }
 
+/** The Turkish words whose Ottoman form is written otherwise ("kelmek" of "gelmek"): their Ottoman
+ *  entry, romanized, has another consonant than the Turkish word it is the ancestor of. */
+const oldForms = new Set();
+const ROMAN = { ḳ: "k", ġ: "g", ṣ: "s", ż: "z", ẓ: "z", ḍ: "d", ṭ: "t", ḥ: "h", ḫ: "h", ñ: "n", ŋ: "n", ẕ: "z", s̱: "s", ʿ: "", ʾ: "", "'": "", "’": "" };
+const consonants = (w) =>
+  [...lower(w).normalize("NFD").replace(/[\u0300-\u036f]/g, "")]
+    .map((c) => ROMAN[c] ?? c)
+    .join("")
+    .replace(/[aeıioöuüâîû\-\s]/g, "")
+    .replace(/ğ/g, "g")
+    .replace(/(.)\1/g, "$1")
+    // the final consonant as today's spelling writes it: cihad cihat, ard art, cebhe cephe
+    .replace(/b(?=[^aeıioöuü]|$)/g, "p")
+    .replace(/d$/, "t")
+    .replace(/c$/, "ç")
+    .replace(/g$/, "k");
+
 async function read(file, ottoman) {
   for await (const line of createInterface({ input: createReadStream(file), crlfDelay: Infinity })) {
     let e;
@@ -134,6 +152,13 @@ async function read(file, ottoman) {
       ? (e.forms?.find((f) => f.tags?.includes("romanization"))?.form ?? e.head_templates?.[0]?.args?.tr)
       : e.word;
     if (typeof latin === "string" && !latin.includes(" ")) put(lower(latin), o, ottoman, e.pos);
+    if (ottoman && typeof latin === "string") {
+      for (const d of e.descendants ?? []) {
+        if (d.lang_code === "tr" && d.word && !d.word.startsWith("-") && !latin.startsWith("-") && consonants(d.word) !== consonants(latin)) {
+          oldForms.add(lower(d.word));
+        }
+      }
+    }
   }
 }
 
@@ -155,32 +180,51 @@ for (const [w, o] of words) {
 // the words, and apart from them the stems of the verbs ("ne" is a word, not the stem of "nemek")
 const out = new Map();
 const stems = new Map();
-const add = (map, w, o) => {
-  if (w.length >= 2 && !map.has(w)) map.set(w, o);
+/** the word a written form comes from ("ağz" of "ağız"): its flags are that word's */
+const source = new Map();
+const add = (map, w, o, from = w) => {
+  if (w.length < 2) return;
+  // a form of a Turkish word over a romanized Ottoman entry only of its letters ("dib" of "dip")
+  const over = map.has(w) && !turkishWords.has(source.get(w) ?? w) && turkishWords.has(from);
+  if (!map.has(w) || over) {
+    map.set(w, o);
+    source.set(w, from);
+  }
 };
 for (const [w, o] of words) add(out, w, o);
 for (const [w, o] of words) {
-  add(out, fold(w), o);
+  add(out, fold(w), o, w);
   // a final p ç t k before a vowel: kitap kitab, ağaç ağac
   const last = w.at(-1);
-  if (SOFT[last] && w.length >= 3) add(out, w.slice(0, -1) + SOFT[last], o);
+  if (SOFT[last] && w.length >= 3) add(out, w.slice(0, -1) + SOFT[last], o, w);
   // the narrow vowel of the last syllable dropped before a vowel: ağız ağz(ı), akıl akl(ı), isim ism(i)
   const narrow = /^(.*[aeıioöuüâîû].*[^aeıioöuüâîû])[ıiuü]([^aeıioöuüâîû])$/.exec(w);
-  if (narrow && w.length >= 4) add(out, narrow[1] + narrow[2], o);
+  if (narrow && w.length >= 4) add(out, narrow[1] + narrow[2], o, w);
   // the stem of a verb, also softened: etmek et, ed; basmak bas (not the Italian "bas"); the first one
   const verb = verbs.has(w) ? /^(.{2,})m[ae]k$/.exec(w) : null;
   if (!verb) continue;
-  if (!stems.has(verb[1])) stems.set(verb[1], o);
-  const end = verb[1].at(-1);
-  if (SOFT[end] && !stems.has(verb[1].slice(0, -1) + SOFT[end])) stems.set(verb[1].slice(0, -1) + SOFT[end], o);
+  const stem = verb[1];
+  const end = stem.at(-1);
+  for (const v of SOFT[end] ? [stem, stem.slice(0, -1) + SOFT[end]] : [stem]) {
+    if (stems.has(v)) continue;
+    stems.set(v, o);
+    source.set(`-${v}`, w);
+  }
 }
 
 const lines = [
-  "# word\torigin (arapca farsca turkce bati diger; turkce? when only Ottoman Turkish is named)\tfiil: a verb stem; ota: a romanized Ottoman entry only. From Wiktionary (kaikki.org)",
+  "# word\torigin (arapca farsca turkce bati diger; turkce? when only Ottoman Turkish is named)\tfiil: a verb stem; ota: a romanized Ottoman entry only (not of today's Turkish); eski: a Turkish word whose Ottoman form is written otherwise. From Wiktionary (kaikki.org)",
 ];
+// eski: a Turkic word not of today's Turkish (only an Ottoman entry: "ota") or of another old form
 const rows = [
-  ...[...out].map(([w, o]) => [w, o, turkishWords.has(w) ? "" : "ota"]),
-  ...[...stems].map(([w, o]) => [w, o, "fiil"]),
+  ...[...out].map(([w, o]) => {
+    const from = source.get(w) ?? w;
+    return [w, o, !turkishWords.has(from) ? "ota" : oldForms.has(from) && o.startsWith("turkce") ? "eski" : ""];
+  }),
+  ...[...stems].map(([w, o]) => {
+    const from = source.get(`-${w}`) ?? w;
+    return [w, o, !turkishWords.has(from) ? "fiil,ota" : oldForms.has(from) && o.startsWith("turkce") ? "fiil,eski" : "fiil"];
+  }),
 ];
 for (const [w, o, kind] of rows.sort((a, b) => a[0].localeCompare(b[0], "tr") || a[2].localeCompare(b[2]))) {
   lines.push(kind ? `${w}\t${o}\t${kind}` : `${w}\t${o}`);
@@ -188,4 +232,4 @@ for (const [w, o, kind] of rows.sort((a, b) => a[0].localeCompare(b[0], "tr") ||
 writeFileSync(OUT, lines.join("\n") + "\n");
 const by = {};
 for (const o of out.values()) by[o] = (by[o] ?? 0) + 1;
-console.log(`koken.tsv: ${out.size} words, ${stems.size} verb stems`, by);
+console.log(`koken.tsv: ${out.size} words, ${stems.size} verb stems, ${oldForms.size} old forms`, by);

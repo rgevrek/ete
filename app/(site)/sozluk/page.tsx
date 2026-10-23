@@ -18,8 +18,9 @@ const PAGES = 5;
 const ORIGIN: Record<Origin, { name: string; cls: string }> = {
   arapca: { name: "Arapça", cls: "ka" },
   farsca: { name: "Farsça", cls: "kf" },
-  turkce: { name: "Türkçe", cls: "kt" },
-  bati: { name: "Latince/Fransızca", cls: "kb" },
+  eski: { name: "Eski Türkçe", cls: "kt" },
+  turkce: { name: "Türkçe", cls: "kn" },
+  bati: { name: "Batı", cls: "kb" },
 };
 
 type Params = { q?: string; sayfa?: string; tur?: string; harf?: string };

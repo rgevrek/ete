@@ -6,7 +6,7 @@
 import { Parser } from "htmlparser2";
 import { ete } from "../script/ete";
 import { lower, marks, splitWords } from "../script/latin";
-import { origin, type Origin } from "../script/koken";
+import { explain, type Explained, type Origin } from "../script/koken";
 import { ottoman } from "../script/ottoman";
 import { escapeAttr, escapeText } from "./parse";
 
@@ -17,20 +17,35 @@ export type Writer = {
   ottoman: (form: string) => string | null;
   /** the ETE of a lower case form, a suffix after an apostrophe beginning with "-" */
   ete: (form: string) => string | null;
-  /** the origin of the root of a lower case form, for the colors of the Latin (settings) */
-  origin?: (form: string) => Origin | null;
+  /** the origin of the root of a lower case form and the root, for the colors of the Latin (settings) */
+  origin?: (form: string) => Explained;
 };
 
 export function writer(known: Map<string, string>, more?: (form: string) => string | null): Writer {
   return {
     ottoman: (form) => ottoman(form, known, more),
     ete: (form) => ete(form),
-    origin: (form) => origin(form, (f) => known.get(f)),
+    origin: (form) => explain(form, (f) => known.get(f)),
   };
 }
 
-/** the class of the Latin row by the origin of its root (app/kitap.css) */
-const ORIGIN_CLASS: Record<Origin, string> = { arapca: " ka", farsca: " kf", turkce: " kt", bati: " kb" };
+/** the class of the root in the Latin row by its origin (app/kitap.css); today's Turkish is black */
+const ORIGIN_CLASS: Record<Origin, string> = { arapca: "ka", farsca: "kf", eski: "kt", turkce: "", bati: "kb" };
+
+/** The Latin of a word, its root in the color of its origin and its endings black: "âciz" + "ler". */
+function latin(word: string, root: string | null, origin: Origin | null): string {
+  const cls = origin ? ORIGIN_CLASS[origin] : "";
+  if (!cls || !root) return escapeText(word);
+  // the root as the letters of the word (the form is the word in lower case, as long)
+  const start = lower(word).indexOf(root);
+  if (start < 0) return `<span class="${cls}">${escapeText(word)}</span>`;
+  const end = start + root.length;
+  return (
+    escapeText(word.slice(0, start)) +
+    `<span class="${cls}">${escapeText(word.slice(start, end))}</span>` +
+    escapeText(word.slice(end))
+  );
+}
 
 /** A Latin word as the stack of its three writings, with the marks that touch it (`before`,
  *  `after`: "“", ","). An apostrophe right before it begins a suffix ("</a>’un"): ETE writes it
@@ -48,13 +63,21 @@ export function cell(word: string, w: Writer, before = "", after = "", previous 
   const suffix = /[’']$/.test(before);
   const o = w.ottoman(form);
   const e = w.ete(suffix ? `-${form}` : form);
-  // a suffix written apart has no root of its own; an m- echo the root of the word it echoes
-  const kok = suffix ? null : (w.origin?.(previous && echoes(word, previous) ? lower(previous) : form) ?? null);
+  // a suffix written apart has no root of its own; an m- echo the root of the word it echoes, "m"
+  // and the letters of that root ("kumar-a mumar-a")
+  let kok: Explained = { origin: null, root: null };
+  if (!suffix && w.origin) {
+    if (previous && echoes(word, previous)) {
+      const p = w.origin(lower(previous));
+      const r = p.root && (/^[aeıioöuü]/.test(lower(previous)) ? "m" + p.root : "m" + p.root.slice(1));
+      kok = { origin: p.origin, root: r };
+    } else kok = w.origin(form);
+  }
   const ab = marks(before);
   const aa = marks(after);
   const eb = suffix ? ab.slice(0, -1) : ab;
   return (
-    `<span class="w"><span class="l${kok ? ORIGIN_CLASS[kok] : ""}">${escapeText(before + word + after)}</span>` +
+    `<span class="w"><span class="l">${escapeText(before)}${latin(word, kok.root, kok.origin)}${escapeText(after)}</span>` +
     `<span class="o${o === null ? " x" : ""}">${escapeText(o === null ? before + word + after : ab + o + aa)}</span>` +
     `<span class="e${e === null ? " x" : ""}">${escapeText(e === null ? before + word + after : eb + e + aa)}</span></span>`
   );

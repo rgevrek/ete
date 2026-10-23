@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { library } from "@/lib/books/library";
-import { origin } from "@/lib/script/koken";
+import { explain, origin } from "@/lib/script/koken";
 
 const spell = (f: string) => library().known.get(f);
 
@@ -34,7 +34,8 @@ describe("kelime kökenleri", () => {
     expect(origin("halde", spell)).toBe("arapca");
     expect(origin("elinde", spell)).toBe("turkce");
     expect(origin("bulut", spell)).toBe("turkce");
-    expect(origin("bazı", spell)).toBe("arapca");
+    // a grammar word: black (Turkish of today), whatever its root (bazı بعضى is Arabic)
+    expect(origin("bazı", spell)).toBe("turkce");
     expect(origin("nedir", spell)).toBe("turkce");
     expect(origin("beni", spell)).toBe("turkce");
     expect(origin("seni", spell)).toBe("turkce");
@@ -53,6 +54,17 @@ describe("kelime kökenleri", () => {
     expect(origin("bilir", spell)).toBe("turkce");
     expect(origin("bilmiyorlar", spell)).toBe("turkce");
     expect(origin("cennet", spell)).toBe("arapca");
+  });
+
+  it("keeps the grammar words and their forms black, the old Turkic words red", () => {
+    for (const f of ["ve", "ki", "ile", "için", "gibi", "bunun", "onlara", "benim"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["el", "ayak", "gelmek"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["aslan", "vurmak", "yirmi"]) expect(origin(f, spell)).toBe("eski");
+    expect(explain("âcizler", spell)).toEqual({ origin: "arapca", root: "âciz" });
+    for (const [f, root] of [["bilen", "bil"], ["bilenler", "bil"], ["soruyor", "sor"], ["kanı", "kan"]]) {
+      expect(explain(f, spell).root).toBe(root);
+    }
+    for (const f of ["deki", "ler"]) expect(origin(f, spell)).toBe("turkce");
   });
 
   it("takes a root the Ottoman spelling begins with before a longer one", () => {

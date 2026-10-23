@@ -57,6 +57,7 @@
 .sozluk .koken.kf { color: var(--k-farsca); }
 .sozluk .koken.kt { color: var(--k-turkce); }
 .sozluk .koken.kb { color: var(--k-bati); }
+.sozluk .koken.kn { color: var(--soluk); }
 .sozluk .sayfalar { display: flex; justify-content: space-between; margin-top: 1rem; }
 
 @media (max-width: 640px) {

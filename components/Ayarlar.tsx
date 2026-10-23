@@ -75,8 +75,8 @@ export function Ayarlar({ initial }: { initial: Ayar }) {
               <span>Latin kelimeleri kökenlerine göre renklendir</span>
             </label>
             <p className="aciklama koken-renkler">
-              <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Türkçe</span>{" "}
-              <span className="kb">Latince/Fransızca</span>
+              <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Eski Türkçe</span>{" "}
+            <span className="kb">Batı</span> <span className="kn">Bugünkü Türkçe, dil bilgisi kelimeleri ve ekler siyah</span>
             </p>
           </fieldset>
 

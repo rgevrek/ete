@@ -252,7 +252,9 @@
 
 /* the Latin words in the colors of the origins of their roots (settings) */
 .araclar .koken-renkler { flex: 1 0 100%; }
-.yazi.koken .w > .l.ka { color: var(--k-arapca); }
-.yazi.koken .w > .l.kf { color: var(--k-farsca); }
-.yazi.koken .w > .l.kt { color: var(--k-turkce); }
-.yazi.koken .w > .l.kb { color: var(--k-bati); }
+/* the root in its color, the endings black: "âciz" + "ler" */
+.yazi.koken .w > .l .ka { color: var(--k-arapca); }
+.yazi.koken .w > .l .kf { color: var(--k-farsca); }
+.yazi.koken .w > .l .kt { color: var(--k-turkce); }
+.yazi.koken .w > .l .kb { color: var(--k-bati); }
+.yazi.koken .w > .l { color: var(--renk); }

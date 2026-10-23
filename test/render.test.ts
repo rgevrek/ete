@@ -24,7 +24,15 @@ describe("writeText", () => {
     expect(echoes("mumara", "kumara")).toBe(true);
     expect(echoes("milaç", "ilaç")).toBe(true);
     expect(echoes("mektup", "kitap")).toBe(false);
-    const o: Writer = { ...w, origin: (f) => (f === "kumara" ? "arapca" : f === "mumara" ? "farsca" : null) };
-    expect(writeText("kumara mumara", o)).toContain('<span class="l ka">mumara</span>');
+    const o: Writer = {
+      ...w,
+      origin: (f) => (f === "kumara" ? { origin: "arapca", root: "kumar" } : { origin: "farsca", root: "mum" }),
+    };
+    expect(writeText("kumara mumara", o)).toContain('<span class="l"><span class="ka">mumar</span>a</span>');
+  });
+
+  it("colors the root, not the endings", () => {
+    const o: Writer = { ...w, origin: () => ({ origin: "arapca", root: "âciz" }) };
+    expect(writeText("âcizler", o)).toContain('<span class="l"><span class="ka">âciz</span>ler</span>');
   });
 });

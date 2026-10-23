@@ -80,8 +80,8 @@ export function Yazi({
         {tools}
         {koken && shown.l && (
           <p className="koken-renkler" aria-label="Kelime kökenleri">
-            <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Türkçe</span>{" "}
-            <span className="kb">Latince/Fransızca</span>
+            <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Eski Türkçe</span>{" "}
+            <span className="kb">Batı</span> <span className="kn">Bugünkü Türkçe, dil bilgisi kelimeleri ve ekler siyah</span>
           </p>
         )}
       </div>
