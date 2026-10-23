@@ -176,3 +176,12 @@ dialog.ayarlar .onizleme { margin-left: auto; color: var(--kirmizi); line-height
 dialog.ayarlar .onizleme.husrev { font: 2.2rem "Hüsrev Hattı Osmanlıca", serif; }
 dialog.ayarlar .onizleme.seherazade { font: 1.3rem "Seherazade Quran", serif; }
 dialog.ayarlar .kapat { display: flex; justify-content: flex-end; }
+
+/* the colors of the origins of the words (settings; lib/script/koken.ts) */
+:root { --k-arapca: #157a3c; --k-farsca: #a77c00; --k-turkce: #c8161d; --k-bati: #7a3aa8; }
+.koken-renkler { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; margin: 0; font-size: 0.85rem; }
+.koken-renkler span::before { content: ""; display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%; margin-right: 0.3em; background: currentColor; }
+.koken-renkler .ka { color: var(--k-arapca); }
+.koken-renkler .kf { color: var(--k-farsca); }
+.koken-renkler .kt { color: var(--k-turkce); }
+.koken-renkler .kb { color: var(--k-bati); }

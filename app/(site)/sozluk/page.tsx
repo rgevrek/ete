@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { library } from "@/lib/books/library";
 import { meaningsOf, type Meaning } from "@/lib/lugat";
+import { origin, type Origin } from "@/lib/script/koken";
 import { LATIN_LETTERS, OTTOMAN_LETTERS, search } from "@/lib/sozluk";
 import "./sozluk.css";
 
@@ -13,6 +14,13 @@ const PER_PAGE = 100;
 const SHOWN = 2;
 /** pages of a word linked */
 const PAGES = 5;
+
+const ORIGIN: Record<Origin, { name: string; cls: string }> = {
+  arapca: { name: "Arapça", cls: "ka" },
+  farsca: { name: "Farsça", cls: "kf" },
+  turkce: { name: "Türkçe", cls: "kt" },
+  bati: { name: "Latince/Fransızca", cls: "kb" },
+};
 
 type Params = { q?: string; sayfa?: string; tur?: string; harf?: string };
 
@@ -51,6 +59,7 @@ function Anlam({ form, meanings }: { form: string; meanings: Meaning[] }) {
 
 export default async function Dictionary({ searchParams }: { searchParams: Promise<Params> }) {
   const { q = "", sayfa = "1", tur, harf = "" } = await searchParams;
+  const { known } = library();
   const onlyWords = tur === "sozluk";
   const letter = q ? "" : harf;
   const page = Math.max(1, Number.parseInt(sayfa, 10) || 1);
@@ -140,6 +149,14 @@ export default async function Dictionary({ searchParams }: { searchParams: Promi
                   <tr className={`${e.derived ? "turetilen" : ""}${meanings.length ? " anlamli" : ""}`}>
                     <td className="l">
                       {e.latin}
+                      {(() => {
+                        const o = origin(e.latin, (f) => known.get(f));
+                        return o ? (
+                          <span className={`koken ${ORIGIN[o].cls}`} title={`Kök: ${ORIGIN[o].name} (Vikisözlük)`}>
+                            {ORIGIN[o].name}
+                          </span>
+                        ) : null;
+                      })()}
                       {e.derived && (
                         <span className="etiket" title="Sözlükte yok, kitaplardaki şekliyle bir kökten türetildi">
                           türetilmiş

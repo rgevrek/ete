@@ -27,12 +27,17 @@ export function Yazi({
 }) {
   const [shown, setShown] = useState(initial);
   const [yon, setYon] = useState(ayar.yon);
+  const [koken, setKoken] = useState(ayar.koken);
   const [size, setSize] = useState(2);
 
   useEffect(() => {
     const stored = Number(localStorage.getItem(SIZE_KEY));
     if (stored >= 0 && stored < SIZES.length) setSize(stored);
-    const onAyar = (e: Event) => setYon((e as CustomEvent<Ayar>).detail.yon);
+    const onAyar = (e: Event) => {
+      const next = (e as CustomEvent<Ayar>).detail;
+      setYon(next.yon);
+      setKoken(next.koken);
+    };
     window.addEventListener(AYAR_EVENT, onAyar);
     return () => window.removeEventListener(AYAR_EVENT, onAyar);
   }, []);
@@ -73,9 +78,15 @@ export function Yazi({
           </button>
         </span>
         {tools}
+        {koken && shown.l && (
+          <p className="koken-renkler" aria-label="Kelime kökenleri">
+            <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Türkçe</span>{" "}
+            <span className="kb">Latince/Fransızca</span>
+          </p>
+        )}
       </div>
       <div
-        className={yaziClass(shown, yon)}
+        className={`${yaziClass(shown, yon)}${koken ? " koken" : ""}`}
         dir={rightToLeft(shown, yon) ? "rtl" : "ltr"}
         style={{ "--olcek": SIZES[size] } as React.CSSProperties}
       >

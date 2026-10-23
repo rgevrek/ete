@@ -68,6 +68,18 @@ export function Ayarlar({ initial }: { initial: Ayar }) {
             </label>
           </fieldset>
 
+          <fieldset>
+            <legend>Kelime kökenleri</legend>
+            <label>
+              <input type="checkbox" checked={ayar.koken} onChange={() => change({ ...ayar, koken: !ayar.koken })} />
+              <span>Latin kelimeleri kökenlerine göre renklendir</span>
+            </label>
+            <p className="aciklama koken-renkler">
+              <span className="ka">Arapça</span> <span className="kf">Farsça</span> <span className="kt">Türkçe</span>{" "}
+              <span className="kb">Latince/Fransızca</span>
+            </p>
+          </fieldset>
+
           <div className="kapat">
             <button className="dugme ana" type="submit">
               Tamam

@@ -50,6 +50,7 @@ done
 
 cp "$RNK/tools/osmanlica/sozluk.tsv" "$ROOT/data/sozluk.tsv"
 cp "$RNK/tools/ete/cetvel.tsv" "$ROOT/data/cetvel.tsv"
+# the origins of the words (data/koken.tsv) come from Wiktionary: node scripts/koken.mjs
 # the meanings of the words (lugat/lugat.html), without its markup
 node "$ROOT/scripts/lugat.mjs" "$RNK/lugat/lugat.html" "$ROOT/data/lugat.tsv"
 

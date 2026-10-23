@@ -51,6 +51,12 @@
 .sozluk .yerler { display: block; color: var(--soluk); font-size: 0.8rem; }
 .sozluk .yerler a { color: inherit; }
 .sozluk .kisa { display: none; }
+.sozluk .koken { margin-left: 0.5rem; font: 0.72rem system-ui, sans-serif; vertical-align: middle; }
+.sozluk .koken::before { content: ""; display: inline-block; width: 0.6em; height: 0.6em; border-radius: 50%; margin-right: 0.25em; background: currentColor; }
+.sozluk .koken.ka { color: var(--k-arapca); }
+.sozluk .koken.kf { color: var(--k-farsca); }
+.sozluk .koken.kt { color: var(--k-turkce); }
+.sozluk .koken.kb { color: var(--k-bati); }
 .sozluk .sayfalar { display: flex; justify-content: space-between; margin-top: 1rem; }
 
 @media (max-width: 640px) {

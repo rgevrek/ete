@@ -10,20 +10,23 @@ export type Ayar = {
   osmanlica: "husrev" | "seherazade";
   /** the direction of the lines when Latin and Ottoman or ETE are shown together */
   yon: "ltr" | "rtl";
+  /** the Latin words in the colors of the origins of their roots */
+  koken: boolean;
 };
 
-export const DEFAULT_AYAR: Ayar = { osmanlica: "husrev", yon: "ltr" };
+export const DEFAULT_AYAR: Ayar = { osmanlica: "husrev", yon: "ltr", koken: false };
 
 export function parseAyar(value: string | undefined): Ayar {
   const pairs = new Map((value ?? "").split(",").map((p) => p.split(":") as [string, string]));
   return {
     osmanlica: pairs.get("osmanlica") === "seherazade" ? "seherazade" : "husrev",
     yon: pairs.get("yon") === "rtl" ? "rtl" : "ltr",
+    koken: pairs.get("koken") === "1",
   };
 }
 
 export function ayarValue(a: Ayar): string {
-  return `osmanlica:${a.osmanlica},yon:${a.yon}`;
+  return `osmanlica:${a.osmanlica},yon:${a.yon},koken:${a.koken ? 1 : 0}`;
 }
 
 /** The class of <body> for the Ottoman font (app/globals.css). */

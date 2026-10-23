@@ -6,6 +6,7 @@
 import { Parser } from "htmlparser2";
 import { ete } from "../script/ete";
 import { lower, marks, splitWords } from "../script/latin";
+import { origin, type Origin } from "../script/koken";
 import { ottoman } from "../script/ottoman";
 import { escapeAttr, escapeText } from "./parse";
 
@@ -16,11 +17,20 @@ export type Writer = {
   ottoman: (form: string) => string | null;
   /** the ETE of a lower case form, a suffix after an apostrophe beginning with "-" */
   ete: (form: string) => string | null;
+  /** the origin of the root of a lower case form, for the colors of the Latin (settings) */
+  origin?: (form: string) => Origin | null;
 };
 
 export function writer(known: Map<string, string>, more?: (form: string) => string | null): Writer {
-  return { ottoman: (form) => ottoman(form, known, more), ete: (form) => ete(form) };
+  return {
+    ottoman: (form) => ottoman(form, known, more),
+    ete: (form) => ete(form),
+    origin: (form) => origin(form, (f) => known.get(f)),
+  };
 }
+
+/** the class of the Latin row by the origin of its root (app/kitap.css) */
+const ORIGIN_CLASS: Record<Origin, string> = { arapca: " ka", farsca: " kf", turkce: " kt", bati: " kb" };
 
 /** A Latin word as the stack of its three writings, with the marks that touch it (`before`,
  *  `after`: "“", ","). An apostrophe right before it begins a suffix ("</a>’un"): ETE writes it
@@ -30,11 +40,13 @@ export function cell(word: string, w: Writer, before = "", after = ""): string {
   const suffix = /[’']$/.test(before);
   const o = w.ottoman(form);
   const e = w.ete(suffix ? `-${form}` : form);
+  // a suffix written apart has no root of its own
+  const kok = suffix ? null : (w.origin?.(form) ?? null);
   const ab = marks(before);
   const aa = marks(after);
   const eb = suffix ? ab.slice(0, -1) : ab;
   return (
-    `<span class="w"><span class="l">${escapeText(before + word + after)}</span>` +
+    `<span class="w"><span class="l${kok ? ORIGIN_CLASS[kok] : ""}">${escapeText(before + word + after)}</span>` +
     `<span class="o${o === null ? " x" : ""}">${escapeText(o === null ? before + word + after : ab + o + aa)}</span>` +
     `<span class="e${e === null ? " x" : ""}">${escapeText(e === null ? before + word + after : eb + e + aa)}</span></span>`
   );
