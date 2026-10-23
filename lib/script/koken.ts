@@ -312,18 +312,19 @@ function ofWord(
   return is(wordSpelling && !readsAs(root, wordSpelling, true) ? "eski" : "turkce");
 }
 
-/** The Latin consonants an Ottoman letter of a Turkish word is read as: ك only k (g is گ, ñ ڭ), ط t. */
+/** The Latin consonants an Ottoman letter of a Turkish word is read as: ك k or ğ (the g is گ, the ñ
+ *  ڭ), ط t or d. */
 const READS: Record<string, string> = {
-  ب: "bp", پ: "p", ت: "t", ط: "t", د: "dt", ج: "cç", چ: "ç", خ: "h", ح: "h", ه: "h", ة: "t", ر: "r", ز: "z",
-  ذ: "z", ض: "zd", ظ: "z", س: "s", ص: "s", ث: "s", ش: "ş", ف: "f", ق: "k", ك: "k", ڭ: "n", گ: "g", غ: "ğg",
+  ب: "bp", پ: "p", ت: "t", ط: "td", د: "dt", ج: "cç", چ: "ç", خ: "h", ح: "h", ه: "h", ة: "t", ر: "r", ز: "z",
+  ذ: "z", ض: "zd", ظ: "z", س: "s", ص: "s", ث: "s", ش: "ş", ف: "f", ق: "k", ك: "kğ", ڭ: "n", گ: "g", غ: "ğg",
   ل: "l", م: "m", ن: "n", و: "v", ي: "y", ى: "y", ئ: "y", ژ: "j",
 };
 /** the letters that may also be vowels, or not be read at all */
 const VOWEL_LETTERS = new Set([..."اآأإوىيهةءئؤع"]);
 
 /** Whether the Ottoman spelling `ottoman` of a Turkish word reads as its Latin `latin`: its consonants
- *  in order, each from a letter that can be read so; vowels from vowel letters or none. "büyük"
- *  بيوك does; "gelmek" كلمك (kelmek), "dağ" طاغ (ṭağ), "yirmi" يكرمى (yigirmi) do not. */
+ *  in order, each from a letter that can be read so; vowels from vowel letters or none. "gelmek"
+ *  گلمك, "dağ" طاغ, "değil" دكل do; "gelmek" كلمك (kelmek), "yirmi" يكرمى (yigirmi) do not. */
 export function readsAs(latin: string, ottoman: string, prefix = false): boolean {
   const l = [...fold(latin).replace(/[’'-]/g, "")];
   // (the letters as written: ڭ is n, not the k of ك as for comparing spellings)
@@ -394,7 +395,59 @@ export type Explained = {
   /** the root, as the letters it begins the form with (lower case, apostrophes and circumflexes as
    *  the form has them); the rest is endings, black */
   root: string | null;
+  /** a Persian affix of the word, colored apart: the suffix after the root ("mâni" + "dâr") or the
+   *  prefix before it ("nâ" + "mütenâhî"), its letters as the form has them; `ottoman` its spelling */
+  affix?: { text: string; origin: Origin; prefix: boolean; ottoman: string };
 };
+
+/** The Persian affixes that make a word of an Arabic or Persian one, and their Ottoman spelling. */
+const PERSIAN_SUFFIXES: [string, string][] = [
+  ["perest", "پرست"], ["şinas", "شناس"], ["engiz", "انگيز"], ["istan", "ستان"], ["efza", "افزا"], ["hane", "خانه"],
+  ["name", "نامه"], ["zade", "زاده"], ["numa", "نما"], ["nüma", "نما"], ["amiz", "آميز"], ["mend", "مند"], ["dar", "دار"],
+  ["kar", "كار"], ["gah", "كاه"], ["bend", "بند"], ["dan", "دان"], ["nak", "ناك"], ["var", "وار"], ["keş", "كش"],
+  ["baz", "باز"], ["ane", "انه"],
+];
+/** the Persian prefixes, as the books write them (with the circumflex: "nazar" is no "na" + "zar");
+ *  "der" and "ber" before an Arabic or Persian word ("der" + "hâl", "ber" + "taraf") */
+const PERSIAN_PREFIXES: [string, string][] = [["bî", "بى"], ["nâ", "نا"], ["pür", "پر"], ["der", "در"], ["ber", "بر"]];
+
+/** The letters of `form` that `latin` (compared without circumflexes) takes from `start`. */
+function lettersAt(form: string, start: number, latin: string): string | null {
+  for (let end = start + 1; end <= form.length; end++) {
+    const have = fold(form.slice(start, end)).replaceAll("’", "");
+    if (have === latin) return form.slice(start, end);
+    if (have.length > latin.length) break;
+  }
+  return null;
+}
+
+/** The root and a Persian affix of an Arabic or Persian word: "mânidâr" is "mâni" (Arabic) and
+ *  "dâr"; "nâmütenâhî" "nâ" and "mütenâhî" (Arabic). A known word of three letters at least on
+ *  the other side ("kadar" is no "ka" + "dar"). */
+function withAffix(first: string, root: string): Pick<Explained, "root" | "affix"> {
+  const { words } = table();
+  const r = fold(root).replaceAll("’", "");
+  const eastern = (w: string) => ["arapca", "farsca"].includes(words.get(w)?.origin ?? "");
+  // a suffix at the end of the root or right after it
+  const f = fold(first).replaceAll("’", "");
+  for (const [suffix, ottoman] of PERSIAN_SUFFIXES) {
+    for (const base of [r.endsWith(suffix) ? r.slice(0, -suffix.length) : null, f.startsWith(r + suffix) ? r : null]) {
+      // (a base of four letters at least before a short suffix: "devvar" is no "dev" + "var")
+      if (!base || base.length < (suffix.length <= 3 ? 4 : 3) || !eastern(base)) continue;
+      const baseText = lettersAt(first, 0, base);
+      if (!baseText) continue;
+      const text = lettersAt(first, baseText.length, suffix);
+      if (text) return { root: baseText, affix: { text, origin: "farsca", prefix: false, ottoman } };
+    }
+  }
+  // a prefix before an Arabic or Persian word
+  for (const [pre, ottoman] of PERSIAN_PREFIXES) {
+    const rest = r.slice(fold(pre).length);
+    if (!first.startsWith(pre) || rest.length < 3 || !eastern(rest)) continue;
+    return { root: lettersAt(first, pre.length, rest) ?? root, affix: { text: pre, origin: "farsca", prefix: true, ottoman } };
+  }
+  return { root };
+}
 
 /** The origin of the root of a lower case form of the books and the root (its first part,
  *  "hakikat-i" by "hakikat"); `spell` gives the Ottoman of a form, when known. */
@@ -464,7 +517,15 @@ export function explain(form: string, spell?: (form: string) => string | null | 
   }
   // another language (Armenian, Mongolian …): not colored
   const known = found.origin && found.origin !== "diger" ? found.origin : null;
-  const result: Explained = { origin: known, root: known ? rootIn(first, found.root) : null };
+  const root = known ? rootIn(first, found.root) : null;
+  // an Arabic or Persian word with a Persian affix: the two colored apart
+  const result: Explained = { origin: known, root, ...(root && (known === "arapca" || known === "farsca") ? withAffix(first, root) : {}) };
+  // the root of a word with an affix has its own origin ("misafir" Arabic of "misafirhane",
+  // "mütenâhî" of "nâmütenâhî")
+  if (result.affix && result.root) {
+    const own = table().words.get(fold(result.root).replaceAll("’", ""))?.origin;
+    if (own === "arapca" || own === "farsca") result.origin = own;
+  }
   cache.set(key, result);
   return result;
 }

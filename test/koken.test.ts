@@ -24,8 +24,7 @@ describe("kelime kökenleri", () => {
 
   it("finds the verbs by their stems", () => {
     for (const f of ["ediyorum", "dedi", "diyor", "istiyor", "kalır"]) expect(origin(f, spell)).toBe("turkce");
-    // göster- كوستر is written köster: old Turkic
-    expect(origin("gösterir", spell)).toBe("eski");
+    expect(origin("gösterir", spell)).toBe("turkce");
   });
 
   it("takes no short root a word is not made of", () => {
@@ -66,16 +65,24 @@ describe("kelime kökenleri", () => {
     for (const f of ["ve", "yani", "fakat", "kadar"]) expect(origin(f, spell)).toBe("arapca");
     for (const f of ["ki", "her", "çünkü", "eğer"]) expect(origin(f, spell)).toBe("farsca");
     for (const f of ["el", "ayak"]) expect(origin(f, spell)).toBe("turkce");
-    for (const f of ["aslan", "vurmak", "yirmi", "dağ", "doğru", "dokuz"]) expect(origin(f, spell)).toBe("eski");
+    for (const f of ["aslan", "vurmak", "yirmi"]) expect(origin(f, spell)).toBe("eski");
+    // ط is t or d ("dağ" طاغ), the g is گ ("gelmek" گلمك): as today
+    for (const f of ["dağ", "doğru", "dokuz", "dolu", "gelmek", "göz", "görüyorum"]) expect(origin(f, spell)).toBe("turkce");
     for (const f of ["deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");
-    // ك is k: "gelmek" كلمك reads kelmek
-    for (const f of ["gelmek", "göz"]) expect(origin(f, spell)).toBe("eski");
     expect(origin("hizmetçi", spell)).toBe("arapca");
     expect(explain("âcizler", spell)).toEqual({ origin: "arapca", root: "âciz" });
     for (const [f, root] of [["bilen", "bil"], ["bilenler", "bil"], ["soruyor", "sor"], ["kanı", "kan"]]) {
       expect(explain(f, spell).root).toBe(root);
     }
     for (const f of ["deki", "ler"]) expect(origin(f, spell)).toBe("turkce");
+  });
+
+  it("colors a Persian affix apart from its Arabic root", () => {
+    expect(explain("mânidar", spell)).toMatchObject({ origin: "arapca", root: "mâni", affix: { text: "dar", prefix: false } });
+    expect(explain("nâmütenâhî", spell)).toMatchObject({ origin: "arapca", root: "mütenâhî", affix: { text: "nâ", prefix: true } });
+    expect(explain("misafirhane", spell)).toMatchObject({ origin: "arapca", root: "misafir" });
+    for (const f of ["kadar", "nazar", "efkâr", "inkâr", "iktidar", "derin", "derece", "beraber"]) expect(explain(f, spell).affix).toBeUndefined();
+    expect(explain("derhal", spell)).toMatchObject({ origin: "arapca", root: "hal", affix: { text: "der", prefix: true } });
   });
 
   it("takes a root the Ottoman spelling begins with before a longer one", () => {

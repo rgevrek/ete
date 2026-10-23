@@ -32,42 +32,53 @@ export function writer(known: Map<string, string>, more?: (form: string) => stri
 /** the class of the root in the Latin row by its origin (app/kitap.css); today's Turkish is black */
 const ORIGIN_CLASS: Record<Origin, string> = { arapca: "ka", farsca: "kf", eski: "kt", turkce: "", bati: "kb" };
 
-/** An Ottoman or ETE word, its root (`root`: the root as that alphabet writes it) in the color of
- *  its origin and its endings black: the letters it begins the word with; all of it when the root
- *  is the word, unknown, or too little of it begins the word. */
-function arabic(word: string, root: string | null, whole: boolean, origin: Origin | null): string {
-  const cls = origin ? ORIGIN_CLASS[origin] : "";
-  if (!cls) return escapeText(word);
-  let n = 0;
-  if (root && !whole) {
-    const r = root.replace(/‌/g, "");
-    let i = 0;
+type Part = { text: string; cls: string };
+
+/** An Ottoman or ETE word in parts (a prefix, the root, a suffix, as that alphabet writes them),
+ *  each in its color in turn from its beginning, the rest (the endings) black; the whole word in the
+ *  color of the first when the root is the word, or the first part is not found in it. */
+function arabic(word: string, parts: Part[], whole: boolean): string {
+  if (!parts.length || !parts[0].cls) return escapeText(word);
+  const same = (a: string, b: string) => a === b || (/[يى]/.test(a) && /[يى]/.test(b)) || (/[كگ]/.test(a) && /[كگ]/.test(b));
+  if (whole && parts.length === 1) return `<span class="${parts[0].cls}">${escapeText(word)}</span>`;
+  let out = "";
+  let i = 0;
+  for (const [k, part] of parts.entries()) {
+    const r = part.text.replace(/‌/g, "");
+    let at = i;
     let j = 0;
-    // the common beginning, the ZWNJ between root and ending not counted
-    while (i < word.length && j < r.length && word[i] === r[j]) {
-      i++;
+    // the common beginning, the ZWNJ between the parts not counted
+    while (at < word.length && j < r.length && same(word[at], r[j])) {
+      at++;
       j++;
-      while (word[i] === "‌") i++;
+      while (word[at] === "‌") at++;
     }
-    n = j >= Math.max(2, r.length - 1) ? i : 0;
+    if (j < (r.length <= 2 ? r.length : Math.max(2, r.length - 1))) {
+      if (k === 0) return `<span class="${part.cls}">${escapeText(word)}</span>`;
+      break;
+    }
+    out += `<span class="${part.cls}">${escapeText(word.slice(i, at))}</span>`;
+    i = at;
   }
-  if (!n || n >= word.length) return `<span class="${cls}">${escapeText(word)}</span>`;
-  return `<span class="${cls}">${escapeText(word.slice(0, n))}</span>${escapeText(word.slice(n))}`;
+  return out + escapeText(word.slice(i));
 }
 
-/** The Latin of a word, its root in the color of its origin and its endings black: "âciz" + "ler". */
-function latin(word: string, root: string | null, origin: Origin | null): string {
-  const cls = origin ? ORIGIN_CLASS[origin] : "";
-  if (!cls || !root) return escapeText(word);
-  // the root as the letters of the word (the form is the word in lower case, as long)
-  const start = lower(word).indexOf(root);
-  if (start < 0) return `<span class="${cls}">${escapeText(word)}</span>`;
-  const end = start + root.length;
-  return (
-    escapeText(word.slice(0, start)) +
-    `<span class="${cls}">${escapeText(word.slice(start, end))}</span>` +
-    escapeText(word.slice(end))
-  );
+/** The Latin of a word in parts (a prefix, the root, a suffix, as the letters of the word), each in
+ *  its color, the endings black: "âciz" + "ler", "mâni" + "dâr" + "ı". */
+function latin(word: string, parts: Part[]): string {
+  if (!parts.length || !parts[0].cls) return escapeText(word);
+  // the parts as the letters of the word (the form is the word in lower case, as long)
+  const low = lower(word);
+  const start = low.indexOf(parts[0].text);
+  if (start < 0) return `<span class="${parts[0].cls}">${escapeText(word)}</span>`;
+  let out = escapeText(word.slice(0, start));
+  let i = start;
+  for (const part of parts) {
+    if (!low.startsWith(part.text, i)) break;
+    out += `<span class="${part.cls}">${escapeText(word.slice(i, i + part.text.length))}</span>`;
+    i += part.text.length;
+  }
+  return out + escapeText(word.slice(i));
 }
 
 /** A Latin word as the stack of its three writings, with the marks that touch it (`before`,
@@ -101,16 +112,28 @@ export function cell(word: string, w: Writer, before = "", after = "", previous 
   const eb = suffix ? ab.slice(0, -1) : ab;
   // the root in the Ottoman and the ETE: of the Latin root
   const whole = !kok.root || kok.root === form.replace(/^[’'-]+/, "").split("-")[0] && !form.includes("-");
-  const ro = kok.origin && kok.root ? w.ottoman(kok.root) : null;
-  const re = kok.origin && kok.root ? w.ete(kok.root) : null;
+  // the parts of the word: a Persian prefix or suffix apart from the root ("nâ" + "mütenâhî", "mâni" + "dâr")
+  const cls = kok.origin ? ORIGIN_CLASS[kok.origin] : "";
+  const fa = ORIGIN_CLASS.farsca;
+  const affix = kok.affix;
+  const root = kok.root ?? "";
+  const lat: Part[] = !cls || !root ? [] : affix?.prefix
+    ? [{ text: affix.text, cls: fa }, { text: root, cls }]
+    : affix ? [{ text: root, cls }, { text: affix.text, cls: fa }] : [{ text: root, cls }];
+  const ota: Part[] = !cls || !root ? [] : affix?.prefix
+    ? [{ text: affix.ottoman, cls: fa }, { text: w.ottoman(root) ?? root, cls }]
+    : affix ? [{ text: w.ottoman(root) ?? root, cls }, { text: affix.ottoman, cls: fa }] : [{ text: w.ottoman(root) ?? "", cls }];
+  const et: Part[] = !cls || !root ? [] : affix?.prefix
+    ? [{ text: w.ete(affix.text) ?? "", cls: fa }, { text: w.ete(`-${root}`) ?? "", cls }]
+    : affix ? [{ text: w.ete(root) ?? "", cls }, { text: w.ete(`-${affix.text}`) ?? "", cls: fa }] : [{ text: w.ete(root) ?? "", cls }];
   return (
-    `<span class="w"><span class="l">${escapeText(before)}${latin(word, kok.root, kok.origin)}${escapeText(after)}</span>` +
+    `<span class="w"><span class="l">${escapeText(before)}${latin(word, lat)}${escapeText(after)}</span>` +
     (o === null
       ? `<span class="o x">${escapeText(before + word + after)}</span>`
-      : `<span class="o">${escapeText(ab)}${arabic(o, ro, whole, kok.origin)}${escapeText(aa)}</span>`) +
+      : `<span class="o">${escapeText(ab)}${arabic(o, ota, whole && !affix)}${escapeText(aa)}</span>`) +
     (e === null
       ? `<span class="e x">${escapeText(before + word + after)}</span>`
-      : `<span class="e">${escapeText(eb)}${arabic(e, re, whole, kok.origin)}${escapeText(aa)}</span>`) +
+      : `<span class="e">${escapeText(eb)}${arabic(e, et, whole && !affix)}${escapeText(aa)}</span>`) +
     `</span>`
   );
 }
