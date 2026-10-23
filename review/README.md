@@ -8,6 +8,7 @@ same words come again).
 |---|---|---|
 | `koken-ornek.tsv` | 300 words, drawn by how often they are in the books (the error rate a reader sees) | `dogru_koken`: Arapça, Farsça, Türkçe, Batı or ? |
 | `koken-ornek-seyrek.tsv` | 200 words drawn evenly from all word forms (the error rate of the rules in the long tail) | `dogru_koken` |
+| `kamus-karsilastirma.tsv` | the roots whose origin Kâmûs-ı Türkî (OCR, risale-i-nur-kulliyati) gives otherwise; only roots of one Kâmûs entry with a label read; `KAMUS_REPORT=1 npx vitest run test/kamus-karsilastirma.test.ts` | `dogru`: which is right (bizim, kamus, ikisi de değil); Kâmûs counts a compound formed in Persian as Persian, we color the first root |
 | `nun-ornek.tsv` | 100 of the 6056 forms whose ك became ڭ (`tools/osmanlica/eksik/nun.tsv`) | `dogru_mu`: e (yes) or h (no) |
 
 `kok` is the root the rules took, `nasil_bulundu` which rule decided: Wiktionary as the word itself,
