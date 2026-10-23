@@ -1,0 +1,54 @@
+kok	osmanlica	kitaplarda	bizim	kamus	dogru	llm_dogru	llm_gerekce
+onun	انڭ	4651	Türkçe	Farsça	Türkçe	bizim	OCR yanlış eşleşme: Türkçe zamir (ڭ = n, fark değil)
+sor	صور	528	Türkçe	Arapça	Türkçe	bizim	OCR yanlış eşleşme: sormak kökü; Kâmûs Arapça sûr صور'u almış
+sekizinci	سكزنجى	527	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe sekiz+inci
+efkâr	افكار	442	Arapça	Türkçe	Arapça	bizim	Arapça fikr çoğulu; Kâmûs etiketi/eşleşmesi yanlış
+tohum	تخم	361	Farsça	Arapça		bizim	Farsça tuxm تخم; Kâmûs Arapça tuxma تخمه (hazımsızlık) ile eşleşmiş (OCR yanlış eşleşme)
+manidar	معنيدار	283	Arapça	Farsça		bizim	kural farkı: mana (Ar.) + dâr; ilk kök Arapça
+dolu	طولى	244	Türkçe	Arapça		Eski Türkçe	bizim hata: Türkçe dolu ama Osmanlıca طولى ط ile yazılır (today d) -> kurala göre Eski Türkçe; Kâmûs Arapça OCR yanlış eşleşme
+yemek	يمك	197	Türkçe	Farsça		bizim	OCR yanlış eşleşme: Türkçe yemek
+kar	قار	165	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe kar (snow) قار; Kâmûs Arapça qâr (zift) aynı yazılış
+sofra	سفره	142	Arapça	Türkçe		bizim	Arapça sufra; Kâmûs etiketi/eşleşmesi yanlış
+yak	ياق	116	Batı	Arapça		Türkçe	bizim hata: kitaplarda 'fenerini yak', 'edenleri yak' = yakmak kökü, Türkçe; Batı (yak hayvanı) yanlış; Kâmûs Arapça da yanlış eşleşme
+zîr	زير	98	Farsça	Arapça		bizim	Farsça zîr 'alt'; Kâmûs Arapça eşleşmesi yanlış
+berk	برق	94	Türkçe	Arapça	Arapça	kamus	bizim hata: برق Arapça barq 'şimşek'; Türkçe berk 'sağlam' برك yazılır
+elma	الما	66	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe elma
+karı	قار	61	Türkçe	Arapça	Türkçe	bizim	OCR yanlış eşleşme: قار ile Türkçe (kar+ı veya karı 'kadın'); her iki okuma Türkçe
+derhal	درحال	60	Arapça	Farsça		kamus	bizim hata: ilk kök kuralına göre der (Fa.) + hâl (Ar.) -> Farsça (hiçbir gibi); tartışmaya açık
+dilim	دلم	42	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe dil+im / dilim
+alâ	على	41	Türkçe	Arapça		kamus	bizim hata: على Arapça ʿalā (nurun alâ nur, alâ kadri'l-...)
+suver	صور	41	Farsça	Arapça		kamus	bizim hata: Arapça sûret çoğulu suver صور
+dolap	دولاب	39	Farsça	Arapça		bizim	Farsça dolâb (Kâmûs Arapça dûlâb'ı almış; Arapçası da Farsçadan); kaynak https://en.wiktionary.org/wiki/dolap
+şunu	شونى	36	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe zamir
+piş	پيش	31	Türkçe	Farsça		bizim	kitaplarda çoğunlukla pişirmek/pişmiş (Türkçe); 1 yerde piş-i nazar (Fa.) var; Kâmûs Farsça pîş ile eşleşmiş
+boya	بويا	31	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe boya
+âlûde	آلوده	23	Arapça	Farsça		kamus	bizim hata: Farsça âlûde
+cüzdan	جزدان	22	Farsça	Arapça		kamus	bizim hata: cüz (Ar.) + dân; ilk kök Arapça -> Arapça
+zal	زال	20	Arapça	Farsça		kamus	bizim hata: kitaplarda 'Rüstem-i Zal' = Farsça özel ad Zâl (ad olarak renksiz de olabilir); Arapça değil
+adım	آديم	17	Türkçe	Arapça		bizim	OCR yanlış eşleşme: Türkçe adım
+destan	دستان	13	Farsça	Arapça		bizim	Farsça dâstân; Kâmûs Arapça eşleşmesi yanlış
+mala	ماله	12	Farsça	Arapça		kamus	bizim hata: kitaplarda 'mala mukabil', 'mala hasr' = mal+a; kök mal (Ar.) olmalı, Farsça mala (perdah aleti) değil
+âmirâne	آمرانه	11	Arapça	Farsça		bizim	kural farkı: âmir (Ar.) + -âne
+sera	ثرا	9	Batı	Arapça		kamus	bizim hata: ثرا Arapça tharā 'toprak' (Sera-Süreyya); Batı sera (İt. serra) değil
+öd	عود	9	Türkçe	Arapça		kamus	bizim hata: kitaplarda 'öd ağacı' = Arapça ʿūd عود; Türkçe öd (safra) değil
+hayretefza	حيرتافزا	9	Arapça	Farsça		bizim	kural farkı: hayret (Ar.) + efzâ
+not	نوت	9	Batı	Arapça		bizim	OCR yanlış eşleşme: Fr. note, Batı
+çeyrek	چاريك	9	Farsça	Türkçe		bizim	Farsça çâr-yek; Kâmûs Türkçe etiketi yanlış
+dut	دوت	8	Farsça	Arapça		bizim	Farsça tût; kaynak https://en.wiktionary.org/wiki/dut
+nevaz	نواز	8	Arapça	Farsça		kamus	bizim hata: Farsça nevâz ('manidar nevaz', 'nevaz ü namaz')
+mânidâr	معنيدار	8	Arapça	Farsça		bizim	kural farkı: mana (Ar.) + dâr; ilk kök Arapça
+sârık	سارق	6	Türkçe	Arapça		kamus	bizim hata: سارق Arapça sâriq 'hırsız'; Türkçe sarık صاريق yazılır
+o’nun	انڭ	5	Türkçe	Farsça		bizim	OCR yanlış eşleşme: Türkçe zamir
+amirâne	آمرانه	4	Arapça	Farsça		bizim	kural farkı: âmir (Ar.) + -âne
+francala	فرانجله	4	Arapça	Batı		kamus	bizim hata: İtalyancadan, Batı
+hâhiş	خواهش	4	Arapça	Farsça		kamus	bizim hata: Farsça xvâhiş
+şehîr	شهير	4	Farsça	Arapça		kamus	bizim hata: Arapça şahîr 'meşhur'
+zir	زير	3	Farsça	Arapça		bizim	Farsça zîr 'alt'; Kâmûs Arapça eşleşmesi yanlış
+dehre	دهره	3	Arapça	Türkçe		bizim	kitaplarda dehr+e (Ar. dehr 'zaman'); renk doğru (kök dehr olmalı); Kâmûs Türkçe dehre (bıçak) başka kelime, OCR yanlış eşleşme
+sahtekâr	ساخته‌كار	2	Türkçe	Farsça		kamus	bizim hata: Farsça sâhte + kâr
+maşrapa	مشربه	2	Türkçe	Arapça		kamus	bizim hata: Arapça maşraba
+mânidar	معنيدار	2	Arapça	Farsça		bizim	kural farkı: mana (Ar.) + dâr; ilk kök Arapça
+posa	پوسه	1	Türkçe	Farsça		?	kökeni belirsiz; kaynak https://en.wiktionary.org/wiki/posa ('origin unknown')
+müştâkàne	مشتاقانه	1	Arapça	Farsça		bizim	kural farkı: müştâk (Ar.) + -âne
+ton	طون	1	Batı	Arapça		bizim	OCR yanlış eşleşme: 'bir ton ağırlığında' = Fr. tonne, Batı
+hahiş	خواهش	1	Arapça	Farsça		kamus	bizim hata: Farsça xvâhiş

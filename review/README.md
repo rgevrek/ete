@@ -14,3 +14,25 @@ same words come again).
 `kok` is the root the rules took, `nasil_bulundu` which rule decided: Wiktionary as the word itself,
 Wiktionary as its root and endings, the hand list (`data/koken-ek.tsv`), or the fallbacks (the lügat,
 Arabic letters, a compound).
+
+## LLM review (2026-10-23)
+
+`*.llm.tsv` are the sheets with the suggestions of an LLM review (columns `llm_…`: the right color, whether
+the root is right, a reason; sources looked up on Wiktionary). The human columns are untouched. Against the
+program after the fixes that followed it:
+
+| Sheet | The same as the LLM | By occurrences |
+|---|---|---|
+| `koken-ornek` (300, by frequency) | 97.3% | 99.9% |
+| `koken-ornek-seyrek` (200, even) | 96.0% | 99.4% |
+| `nun-ornek` (100) | 100 of 100 ڭ right | |
+| `kamus-karsilastirma` (53) | 32 ours, 18 Kâmûs, 3 neither; 7 of ours are the rule of the first root | |
+
+Left open, for a decision:
+- names (Muhammed, Hamdi, Ankara, İstanbul, Bolvadin, Sistanî): colored by their word; the rules give a
+  name no color, which needs telling a name from a word (capitals in the text)
+- errors of the Ottoman dictionary (risale-i-nur-kulliyati `tools/osmanlica/sozluk.tsv`) the review found:
+  altın آلتڭ (آلتون), kesb-i كس (كسب), parti پاردى (پارتى), semerat سمعرات (ثمرات), hamle خامله (حمله),
+  düşündüğün دوشونديككڭ (دوشونديكڭ)
+- the Kâmûs differences that are errors of ours: berk, sârık, şehîr, maşrapa, alâ, suver (Arabic); âlûde,
+  hâhiş, nevaz, sahtekâr (Persian); francala (Western); dolu (old Turkic, ط)

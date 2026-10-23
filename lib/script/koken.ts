@@ -35,7 +35,7 @@ const CHAIN = new RegExp(`^(?:${MORPHEMES.join("|")})+$`);
 /** endings that make a word of a word: "kuvvet-li", "hizmet-çi", "insan-lık", "imân-sız" */
 const DERIVING = new RegExp(`^(?:[cç]${V}|l${V}|l${V}[kğ]|s${V}z|l${A}ş|l${A}n|[cç]${V}l${V}[kğ]|[cç]${A})(?:${MORPHEMES.join("|")})*$`);
 /** endings only verbs take: before them the stem of a verb wins over a word ("bil-ir", not "bil") */
-const VERB_ONLY = new RegExp(`^(?:${V}?yor|m${A}k|y?${A}c${A}[kğ]|y?${A}r${A}k|y?${V}p|y?${V}nc${A}|m${A}d${A}n)`);
+const VERB_ONLY = new RegExp(`^(?:${V}?yor|m${A}k|y?${A}c${A}[kğ]|y?${A}r${A}k|y?${V}p|y?${V}nc${A}|m${A}d${A}n|y?${A}bil|y?${A}m${A}[dmz]|[dt]${V}r${V}l)`);
 const VERBAL = new RegExp(
   `^(?:${V}?yor|m${V}yor|m${A}|m${A}z|[ae]r|${V}r|[dt]${V}(?!r)|m${V}ş|m${A}k|y?${A}c${A}[kğ]|y?${V}p|y?${A}r${A}k|y?${A}bil|s${A}|y?${A}n)`,
 );
@@ -128,6 +128,12 @@ function findRoot(
     if (stem?.origin === "turkce" && own.origin === "farsca" && !(whole && ARABIC_SIGN.test(whole))) {
       return { root: w, entry: stem };
     }
+    // a word of another language that is also a Turkish verb and an ending only verbs take, as its
+    // spelling writes it ("edip" ايدوب is ed-ip, not the Arabic edîb ادیب)
+    if (own.origin !== "turkce" && whole && /(?:وب|يور[^ ]*|مك|مق|ه‌?جك|ه‌?جق|ه‌?رك|ه‌?رق)$/.test(whole.replace(/‌/g, ""))) {
+      const inner = findRoot(word, spell, true, wholeSpelling);
+      if (inner?.entry.verb && inner.entry.origin === "turkce" && VERB_ONLY.test(fold(word).slice(inner.root.length))) return inner;
+    }
     // a romanized Ottoman word only: a Turkish word and its endings first ("seni": "sen" + "i")
     if (own.weak) {
       const inner = findRoot(word, spell, true);
@@ -161,6 +167,8 @@ function findRoot(
   // by the consonants: the vowel letters of a word change with its endings ("doğru" طوغرى,
   // "doğruya" طوغرويه; "lira" ليره, "liranı" ليراڭى)
   const spelledAs = (root: string) => {
+    // a Western word is spelled in many ways in Ottoman ("parti" پارتى, پاردى): never against it
+    if (words.get(root)?.origin === "bati" && !stems.has(root)) return null;
     const s = spell?.(root);
     if (!whole || !s) return null;
     const r = skeleton(s);
@@ -172,10 +180,17 @@ function findRoot(
   // longer word the spelling begins with is there ("insanlar" is "insan" + "lar", not "in-" + …)
   for (const c of candidates) {
     const rest = f.slice(c.root.length);
-    // the aorist -r after the vowel of a stem is a verb ending too ("tanı-r")
-    const verbal = VERBAL.test(rest) || (/[aeıioöuü]$/.test(c.root) && /^r/.test(rest));
+    // the aorist -r after the vowel of a stem is a verb ending too ("tanı-r"), but not before a
+    // word the spelling confirms with a plural ("hatır-ları", not "hatırla-rı")
+    const aoristOnly = !VERBAL.test(rest) && /[aeıioöuü]$/.test(c.root) && /^r/.test(rest) && c.root.length > 2;
+    const verbal = VERBAL.test(rest) || aoristOnly || VERB_ONLY.test(rest);
     if (!c.entry.verb || c.entry.origin !== "turkce" || !verbal) continue;
+    // no Turkish verb form has the endings of Arabic abstracts ("enaniyeti" is no "en-" + …)
+    if (ARABIC_ENDING.test(f)) continue;
+    if (aoristOnly && candidates.some((w) => !w.entry.verb && spelledAs(w.root) && /^l[ae]r/.test(f.slice(w.root.length)))) continue;
     if (whole && ARABIC_SIGN.test(whole)) continue;
+    // an ending only a verb takes: the verb ("ed-ebilir", not "edeb" + "ilir"; "ed-ip")
+    if (VERB_ONLY.test(rest)) return c;
     // a longer word wins when what it leaves is no ending of a verb only and more than a letter
     // ("insan-lar"; not "soru-yor", "bile-n")
     const longer = candidates.some((w) => {
@@ -195,6 +210,8 @@ function findRoot(
     // but no verb before Arabic signs; a Western stem not when an eastern word has the letters
     if (entry.verb) {
       if (whole && ARABIC_SIGN.test(whole)) continue;
+      // a stem of two letters only before a verb ending ("sırat" is no "sı-" + "rat")
+      if (root.length === 2 && !VERBAL.test(f.slice(root.length)) && !VERB_ONLY.test(f.slice(root.length))) continue;
       if (entry.origin === "bati" && words.get(root) && words.get(root)!.origin !== "bati") continue;
       return c;
     }
@@ -287,8 +304,12 @@ function ofWord(
   // (a grammar word as a root is black: "bile")
   if (GRAMMAR.has(root)) return is("turkce");
   if (entry.origin === "eski" || entry.weak || entry.old) return is("eski");
+  // (the root's spelling, else the whole word's: "gid-" has none, "gideceğimi" كيده‌جكمى has)
   const rootSpelling = spell?.(root);
-  return is(rootSpelling && !readsAs(root, rootSpelling) ? "eski" : "turkce");
+  const wordSpelling = rootSpelling ? null : spelling;
+  if (rootSpelling) return is(readsAs(root, rootSpelling) ? "turkce" : "eski");
+  // (only the root of it: the ğ of an ending is written ك, "-diği" ديكى)
+  return is(wordSpelling && !readsAs(root, wordSpelling, true) ? "eski" : "turkce");
 }
 
 /** The Latin consonants an Ottoman letter of a Turkish word is read as: ك only k (g is گ, ñ ڭ), ط t. */
@@ -303,7 +324,7 @@ const VOWEL_LETTERS = new Set([..."اآأإوىيهةءئؤع"]);
 /** Whether the Ottoman spelling `ottoman` of a Turkish word reads as its Latin `latin`: its consonants
  *  in order, each from a letter that can be read so; vowels from vowel letters or none. "büyük"
  *  بيوك does; "gelmek" كلمك (kelmek), "dağ" طاغ (ṭağ), "yirmi" يكرمى (yigirmi) do not. */
-export function readsAs(latin: string, ottoman: string): boolean {
+export function readsAs(latin: string, ottoman: string, prefix = false): boolean {
   const l = [...fold(latin).replace(/[’'-]/g, "")];
   // (the letters as written: ڭ is n, not the k of ك as for comparing spellings)
   const o = [...ottoman.replace(/[ً-ٰ‌ـ\s]/g, "").replace(/[یي]/g, "ى").replace(/[أإآ]/g, "ا").replace(/ۀ/g, "ه")];
@@ -313,7 +334,8 @@ export function readsAs(latin: string, ottoman: string): boolean {
     const k = i * 100 + j;
     if (memo.has(k)) return memo.get(k)!;
     let ok = false;
-    if (i === l.length && j === o.length) ok = true;
+    // (prefix: the Latin read from the beginning of the spelling, the rest the endings')
+    if (i === l.length && (j === o.length || prefix)) ok = true;
     else {
       const c = l[i];
       const letter = o[j];
@@ -406,14 +428,34 @@ export function explain(form: string, spell?: (form: string) => string | null | 
         break;
       }
     }
+    // an Arabic or Persian word and a form of etmek or olmak written as one ("neşr-etmemek",
+    // "seyr-eden", "mahv-olmuş"): by that word
+    const helper = /^(.{3,}?)(ed|et|eyle|ol)([a-zçğıöşü]*)$/.exec(fold(word.replaceAll("’", "")));
+    if (helper && (found.origin === "turkce" || found.origin === "eski" || !found.origin)) {
+      const head = table().words.get(helper[1]);
+      const rest = helper[2] + helper[3];
+      if (head && (head.origin === "arapca" || head.origin === "farsca") && (rest === helper[2] || CHAIN.test(helper[3]) || VERBAL.test(helper[3]) || /^(?:m[ae]k|ip|ebil|ece|en|er|ti|di|miş)/.test(helper[3]))) {
+        found = { origin: head.origin, root: helper[1] };
+      }
+    }
     // a word of the lügat is no Turkish root and endings ("emare" is no "em-" + "are")
-    if ((found.origin === "turkce" || found.origin === "eski") && isLugatWord(word) && rootOf(word, spell) !== word && !table().words.has(fold(word))) {
+    // (unless a verb and an ending only verbs take: "ed-ip", not the edîb of the lügat)
+    const verbForm = !!found.root && table().stems.has(fold(found.root)) && VERB_ONLY.test(fold(word).slice(found.root.length));
+    if ((found.origin === "turkce" || found.origin === "eski") && !verbForm && isLugatWord(word) && rootOf(word, spell) !== word && !table().words.has(fold(word))) {
       found = { origin: eastern(word, spelling, true), root: word };
+    }
+    // an Arabic phrase with its article: "fahrü’d-deveran", "ehlü’s-sünnet"
+    if (!found.origin && /[’'](?:l|d|n|r|s|ş|t|z|zz|ss)-/.test(form)) found = { origin: "arapca", root: first };
+    // the letters of Arabic words before a compound of Turkish words ("dalâlat" ضلالات is no "dal")
+    if ((!found.origin || found.origin === "turkce") && spelling && ARABIC_ONLY.test(spelling) && found.root !== first) {
+      found = { origin: "arapca", root: first };
     }
     if (!found.origin) {
       const plain = word.replaceAll("’", "");
       found = compound(plain, spell) ?? eastern(plain, spelling, false, true) ?? found;
     }
+    // the endings of Arabic abstracts ("mükemmeliyet")
+    if (!found.origin && ARABIC_ENDING.test(fold(first))) found = { origin: "arapca", root: first };
     // the Arabic letters of the word or of the whole form ("lil-âlemîn" للعالمين)
     const whole = spell?.(form);
     if (!found.origin && ((spelling && ARABIC_ONLY.test(spelling)) || (whole && ARABIC_ONLY.test(whole)))) {
