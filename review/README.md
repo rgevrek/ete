@@ -31,8 +31,24 @@ program after the fixes that followed it:
 Left open, for a decision:
 - names (Muhammed, Hamdi, Ankara, İstanbul, Bolvadin, Sistanî): colored by their word; the rules give a
   name no color, which needs telling a name from a word (capitals in the text)
-- errors of the Ottoman dictionary (risale-i-nur-kulliyati `tools/osmanlica/sozluk.tsv`) the review found:
-  altın آلتڭ (آلتون), kesb-i كس (كسب), parti پاردى (پارتى), semerat سمعرات (ثمرات), hamle خامله (حمله),
-  düşündüğün دوشونديككڭ (دوشونديكڭ)
 - the Kâmûs differences that are errors of ours: berk, sârık, şehîr, maşrapa, alâ, suver (Arabic); âlûde,
   hâhiş, nevaz, sahtekâr (Persian); francala (Western); dolu (old Turkic, ط)
+
+The errors of the Ottoman dictionary the review and the Kâmûs found are fixed in risale-i-nur-kulliyati
+(`tools/osmanlica/sozluk.tsv`, branch osmanlica-names): altın آلتون, kesb-i كسب, parti پارتى, semerat ثمرات,
+hamle حمله, düşündüğün دوشونديكڭ, selim سليم, elleri اللرى, susuz صوسز, vahde وحده, tart طارت, karı قارى,
+kuran قوران (kur-an), dar-ı دار, mucize-i معجزۀ, alakadar علاقه‌دار, ilahiye الٰهيه; the passive of olmak
+and bulmak without the و of -un- (بولنان, اولنان), as the Kâmûs and Wiktionary write it.
+
+## Spelling and the Latin of the books (suggestions, nothing changed)
+
+- `kamus-yazim.tsv`: the spellings of the dictionary the text of the Kâmûs never has, where it has one a
+  letter apart (a consonant of the same sound, `ünsüz`, or a vowel letter inside the word, `ünlü`). Mostly
+  OCR errors and homographs; to be marked `e` (the Kâmûs is right) or `h` (ours is).
+- `latin-tek-yazim.tsv`: the Latin forms of the books that are one Ottoman word written with other marks
+  (â î û, à, ’): "halde" and "hâlde", "hakikî" and "hakiki", "nur’un" and "nurun". Suggested: the most
+  frequent form for all. Some marks may be meant (o’nun, of Him); `karar`: e, h or the right form.
+- `latin-anlam.tsv`: a Latin form with fewer marks than another word of other letters ("kuran" and
+  "kur’ân", "akıl" and "âkıl"), with its places in the books: the dictionary writes it one way only
+  ("kuran" قوران, fabrikayı kuran), so where the books mean the other word it should be marked in the
+  Latin ("Kuran dersini", Sikke-i Tasdik-i Gaybî: Kur’an). `karar`: h, or the form the book should have.
