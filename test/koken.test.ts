@@ -69,6 +69,11 @@ describe("kelime kökenleri", () => {
     // an old form of Wiktionary, but the Ottoman of the books reads as today: "tatlı" طاتلى (datlu)
     for (const f of ["aslan", "tatlı", "böceğin"]) expect(origin(f, spell)).toBe("turkce");
     expect(explain("lekedar", spell)).toMatchObject({ origin: "farsca", root: "leke", affix: { text: "dar" } });
+    // more Persian suffixes, after a root of the lügat ("halâs"): "halâs" + "kâr", "adalet" + "perver"
+    for (const [f, root, text] of [["halâskâr", "halâs", "kâr"], ["adaletperver", "adalet", "perver"], ["sabırsûz", "sabır", "sûz"], ["âşıkane", "âşık", "ane"], ["vahşiyâne", "vahşi", "yâne"]]) {
+      expect(explain(f, spell)).toMatchObject({ origin: "arapca", root, affix: { text } });
+    }
+    expect(explain("huzursuz", spell).affix).toBeUndefined();
     // ط is t or d ("dağ" طاغ), the g is گ ("gelmek" گلمك): as today
     for (const f of ["dağ", "doğru", "dokuz", "dolu", "gelmek", "göz", "görüyorum"]) expect(origin(f, spell)).toBe("turkce");
     for (const f of ["deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");

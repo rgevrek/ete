@@ -59,7 +59,7 @@ type Entry = {
 };
 /** the words; the stems of the verbs apart, for their forms only */
 type Table = { words: Map<string, Entry>; stems: Map<string, Entry> };
-const fold = (w: string) => w.normalize("NFD").replace(/̂/g, "").normalize("NFC");
+const fold = (w: string) => w.normalize("NFD").replace(/[̂̀]/g, "").normalize("NFC");
 const global = globalThis as unknown as { __eteKoken?: Table; __eteKokenCache?: Map<string, Explained> };
 
 function readTable(file: string, into: Table, override: boolean) {
@@ -409,8 +409,10 @@ export type Explained = {
 const PERSIAN_SUFFIXES: [string, string][] = [
   ["perest", "پرست"], ["şinas", "شناس"], ["engiz", "انگيز"], ["istan", "ستان"], ["efza", "افزا"], ["hane", "خانه"],
   ["name", "نامه"], ["zade", "زاده"], ["numa", "نما"], ["nüma", "نما"], ["amiz", "آميز"], ["mend", "مند"], ["dar", "دار"],
-  ["kar", "كار"], ["gah", "كاه"], ["bend", "بند"], ["dan", "دان"], ["nak", "ناك"], ["var", "وار"], ["keş", "كش"],
-  ["baz", "باز"], ["ane", "انه"],
+  ["kar", "كار"], ["gah", "گاه"], ["bend", "بند"], ["dan", "دان"], ["nak", "ناك"], ["var", "وار"], ["keş", "كش"],
+  ["baz", "باز"], ["ane", "انه"], ["yane", "انه"], ["perver", "پرور"], ["aver", "آور"], ["alud", "آلود"], ["dide", "ديده"],
+  ["zede", "زده"], ["zar", "زار"], ["füruş", "فروش"], ["ger", "گر"], ["gir", "گير"], ["sûz", "سوز"], ["şiken", "شكن"],
+  ["pişe", "پيشه"], ["bahş", "بخش"], ["asa", "آسا"], ["bîn", "بين"], ["nişin", "نشين"], ["pezir", "پذير"], ["nevaz", "نواز"],
 ];
 /** the Persian prefixes, as the books write them (with the circumflex: "nazar" is no "na" + "zar");
  *  "der" and "ber" before an Arabic or Persian word ("der" + "hâl", "ber" + "taraf") */
@@ -432,10 +434,15 @@ function lettersAt(form: string, start: number, latin: string): string | null {
 function withAffix(first: string, root: string): Pick<Explained, "root" | "affix"> {
   const { words } = table();
   const r = fold(root).replaceAll("’", "");
-  const eastern = (w: string) => ["arapca", "farsca"].includes(words.get(w)?.origin ?? "");
+  // (the root itself, a word of the table or of the lügat: "halâs" of "halâskâr")
+  const eastern = (w: string) =>
+    w === r || ["arapca", "farsca"].includes(words.get(w)?.origin ?? "") || isLugatWord(lettersAt(first, 0, w) ?? w);
   // a suffix at the end of the root or right after it
   const f = fold(first).replaceAll("’", "");
-  for (const [suffix, ottoman] of PERSIAN_SUFFIXES) {
+  for (const [written, ottoman] of PERSIAN_SUFFIXES) {
+    // (a suffix with its circumflex only so: "sabırsûz", not "kusursuz")
+    if (CIRCUMFLEX.test(written) && !first.includes(written)) continue;
+    const suffix = fold(written);
     // (also a root found a letter too long or short: "lekedar" is "leke" + "dar", not "leked")
     const at = f.indexOf(suffix, 3);
     const near = at > 0 && (r.startsWith(f.slice(0, at)) || f.slice(0, at).startsWith(r)) ? f.slice(0, at) : null;
