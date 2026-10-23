@@ -17,6 +17,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <nav>
           <Link href="/">Kitaplar</Link>
           <Link href="/cevirici">Çevirici</Link>
+          <Link href="/sozluk">Sözlük</Link>
         </nav>
         {email && <span className="kim">{email}</span>}
         <Ayarlar initial={ayar} />

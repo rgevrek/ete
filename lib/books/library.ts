@@ -34,6 +34,8 @@ export const SLUGS = [
 
 export type Library = {
   books: Map<string, Book>;
+  /** sozluk.tsv */
+  words: Map<string, string>;
   /** sozluk.tsv and the forms of the books derived from it */
   known: Map<string, string>;
   rules: Rules;
@@ -78,7 +80,7 @@ function load(): Library {
     `library: ${books.size} books, ${words.size} dictionary forms, ${rules.size} endings, ` +
       `${known.size - words.size} derived, ${Date.now() - started} ms`,
   );
-  return { books, known, rules, counts, latinOf };
+  return { books, words, known, rules, counts, latinOf };
 }
 
 const global = globalThis as unknown as { __eteLibrary?: Library };
