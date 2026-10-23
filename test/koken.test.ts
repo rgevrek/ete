@@ -59,7 +59,9 @@ describe("kelime kökenleri", () => {
   it("keeps the grammar words and their forms black, the old Turkic words red", () => {
     for (const f of ["ve", "ki", "ile", "için", "gibi", "bunun", "onlara", "benim"]) expect(origin(f, spell)).toBe("turkce");
     for (const f of ["el", "ayak", "gelmek"]) expect(origin(f, spell)).toBe("turkce");
-    for (const f of ["aslan", "vurmak", "yirmi"]) expect(origin(f, spell)).toBe("eski");
+    for (const f of ["aslan", "vurmak", "yirmi", "dağ", "doğru", "dokuz"]) expect(origin(f, spell)).toBe("eski");
+    for (const f of ["gelmek", "göz", "deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");
+    expect(origin("hizmetçi", spell)).toBe("arapca");
     expect(explain("âcizler", spell)).toEqual({ origin: "arapca", root: "âciz" });
     for (const [f, root] of [["bilen", "bil"], ["bilenler", "bil"], ["soruyor", "sor"], ["kanı", "kan"]]) {
       expect(explain(f, spell).root).toBe(root);

@@ -32,6 +32,29 @@ export function writer(known: Map<string, string>, more?: (form: string) => stri
 /** the class of the root in the Latin row by its origin (app/kitap.css); today's Turkish is black */
 const ORIGIN_CLASS: Record<Origin, string> = { arapca: "ka", farsca: "kf", eski: "kt", turkce: "", bati: "kb" };
 
+/** An Ottoman or ETE word, its root (`root`: the root as that alphabet writes it) in the color of
+ *  its origin and its endings black: the letters it begins the word with; all of it when the root
+ *  is the word, unknown, or too little of it begins the word. */
+function arabic(word: string, root: string | null, whole: boolean, origin: Origin | null): string {
+  const cls = origin ? ORIGIN_CLASS[origin] : "";
+  if (!cls) return escapeText(word);
+  let n = 0;
+  if (root && !whole) {
+    const r = root.replace(/‌/g, "");
+    let i = 0;
+    let j = 0;
+    // the common beginning, the ZWNJ between root and ending not counted
+    while (i < word.length && j < r.length && word[i] === r[j]) {
+      i++;
+      j++;
+      while (word[i] === "‌") i++;
+    }
+    n = j >= Math.max(2, r.length - 1) ? i : 0;
+  }
+  if (!n || n >= word.length) return `<span class="${cls}">${escapeText(word)}</span>`;
+  return `<span class="${cls}">${escapeText(word.slice(0, n))}</span>${escapeText(word.slice(n))}`;
+}
+
 /** The Latin of a word, its root in the color of its origin and its endings black: "âciz" + "ler". */
 function latin(word: string, root: string | null, origin: Origin | null): string {
   const cls = origin ? ORIGIN_CLASS[origin] : "";
@@ -76,10 +99,19 @@ export function cell(word: string, w: Writer, before = "", after = "", previous 
   const ab = marks(before);
   const aa = marks(after);
   const eb = suffix ? ab.slice(0, -1) : ab;
+  // the root in the Ottoman and the ETE: of the Latin root
+  const whole = !kok.root || kok.root === form.replace(/^[’'-]+/, "").split("-")[0] && !form.includes("-");
+  const ro = kok.origin && kok.root ? w.ottoman(kok.root) : null;
+  const re = kok.origin && kok.root ? w.ete(kok.root) : null;
   return (
     `<span class="w"><span class="l">${escapeText(before)}${latin(word, kok.root, kok.origin)}${escapeText(after)}</span>` +
-    `<span class="o${o === null ? " x" : ""}">${escapeText(o === null ? before + word + after : ab + o + aa)}</span>` +
-    `<span class="e${e === null ? " x" : ""}">${escapeText(e === null ? before + word + after : eb + e + aa)}</span></span>`
+    (o === null
+      ? `<span class="o x">${escapeText(before + word + after)}</span>`
+      : `<span class="o">${escapeText(ab)}${arabic(o, ro, whole, kok.origin)}${escapeText(aa)}</span>`) +
+    (e === null
+      ? `<span class="e x">${escapeText(before + word + after)}</span>`
+      : `<span class="e">${escapeText(eb)}${arabic(e, re, whole, kok.origin)}${escapeText(aa)}</span>`) +
+    `</span>`
   );
 }
 

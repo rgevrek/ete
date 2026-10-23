@@ -32,6 +32,8 @@ const MORPHEMES = [
   `${V}[kğ]`, `${A}[kğ]`, `[gk]${V}n`, `g${V}`, `l${V}[kğ]`, `l${V}`, `s${V}z`, `[cç]${V}`, `[cç]${V}[kğ]`, `[dt]${A}ş`, `l${A}ş`, `l${A}`, `${V}c${V}`, `s${A}l`, `s${V}`,
 ]
 const CHAIN = new RegExp(`^(?:${MORPHEMES.join("|")})+$`);
+/** endings that make a word of a word: "kuvvet-li", "hizmet-çi", "insan-lık", "imân-sız" */
+const DERIVING = new RegExp(`^(?:[cç]${V}|l${V}|l${V}[kğ]|s${V}z|l${A}ş|l${A}n|[cç]${V}l${V}[kğ]|[cç]${A})(?:${MORPHEMES.join("|")})*$`);
 /** endings only verbs take: before them the stem of a verb wins over a word ("bil-ir", not "bil") */
 const VERB_ONLY = new RegExp(`^(?:${V}?yor|m${A}k|y?${A}c${A}[kğ]|y?${A}r${A}k|y?${V}p|y?${V}nc${A}|m${A}d${A}n)`);
 const VERBAL = new RegExp(
@@ -252,11 +254,20 @@ function ofWord(
   // native words have no circumflex ("vâhid" is no "vah" + "id"), unless their root has one: the
   // letters of the word the root was cut from
   if (CIRCUMFLEX.test(word) && !CIRCUMFLEX.test(word.normalize("NFC").slice(0, root.length))) return is(null);
-  // a word only said to be Ottoman, of a root with an origin: by its root ("kuvvetli": "kuvvet" + "li"),
-  // a root of four letters at least ("haydi" is no "hay" + "di")
-  if (entry.tentative && (root === word || root === fold(word))) {
+  // a Turkic word made of an Arabic or Persian root: by its root ("kuvvetli": "kuvvet" + "li",
+  // "hizmetçi": "hizmet" + "çi"), a root of four letters at least ("haydi" is no "hay" + "di")
+  // (a word Wiktionary has as Turkic itself only when what follows the root makes a word of it:
+  // "aslan" is no "asla" + "n")
+  if (root === word || root === fold(word)) {
     const inner = findRoot(word, spell, true);
-    if (inner && inner.root.length >= 4 && !inner.entry.tentative && !["turkce", "eski"].includes(inner.entry.origin)) {
+    const rest = inner ? fold(word).slice(inner.root.length) : "";
+    if (
+      inner &&
+      inner.root.length >= 4 &&
+      !inner.entry.tentative &&
+      !["turkce", "eski"].includes(inner.entry.origin) &&
+      (entry.tentative || DERIVING.test(rest))
+    ) {
       return { origin: inner.entry.origin, root: inner.root };
     }
   }
@@ -271,8 +282,57 @@ function ofWord(
     if (ARABIC_ENDING.test(word) || (spelling && ARABIC_SIGN.test(spelling))) return is("arapca");
     if (CIRCUMFLEX.test(word)) return is(null);
   }
-  // old Turkic: not of today's Turkish (an Ottoman entry only), or written otherwise in Ottoman
-  return is(entry.origin === "eski" || entry.weak || entry.old ? "eski" : "turkce");
+  // old Turkic: not of today's Turkish (an Ottoman entry only), written otherwise in Ottoman by
+  // Wiktionary, or by its Ottoman letters ("dağ" طاغ is ṭağ, "vurmak" اورمق urmak)
+  // (a grammar word as a root is black: "bile")
+  if (GRAMMAR.has(root)) return is("turkce");
+  if (entry.origin === "eski" || entry.weak || entry.old) return is("eski");
+  const rootSpelling = spell?.(root);
+  return is(rootSpelling && !readsAs(root, rootSpelling) ? "eski" : "turkce");
+}
+
+/** The Latin consonants an Ottoman letter of a Turkish word is read as (ك k g ğ ñ; ط only t). */
+const READS: Record<string, string> = {
+  ب: "bp", پ: "p", ت: "t", ط: "t", د: "dt", ج: "cç", چ: "ç", خ: "h", ح: "h", ه: "h", ة: "t", ر: "r", ز: "z",
+  ذ: "z", ض: "zd", ظ: "z", س: "s", ص: "s", ث: "s", ش: "ş", ف: "f", ق: "kğg", ك: "kgğny", ڭ: "n", گ: "g", غ: "ğg",
+  ل: "l", م: "m", ن: "n", و: "v", ي: "y", ى: "y", ئ: "y", ژ: "j",
+};
+/** the letters that may also be vowels, or not be read at all */
+const VOWEL_LETTERS = new Set([..."اآأإوىيهةءئؤع"]);
+
+/** Whether the Ottoman spelling `ottoman` of a Turkish word reads as its Latin `latin`: its consonants
+ *  in order, each from a letter that can be read so; vowels from vowel letters or none. "gelmek"
+ *  كلمك does, "dağ" طاغ (ṭağ), "vurmak" اورمق (urmak), "yirmi" يكرمى (yigirmi) do not. */
+export function readsAs(latin: string, ottoman: string): boolean {
+  const l = [...fold(latin).replace(/[’'-]/g, "")];
+  const o = [...bare(ottoman).replace(/[\s‌]/g, "")];
+  // can l[i:] be read from o[j:]: memoized
+  const memo = new Map<number, boolean>();
+  const go = (i: number, j: number): boolean => {
+    const k = i * 100 + j;
+    if (memo.has(k)) return memo.get(k)!;
+    let ok = false;
+    if (i === l.length && j === o.length) ok = true;
+    else {
+      const c = l[i];
+      const letter = o[j];
+      const vowel = c !== undefined && "aeıioöuü".includes(c);
+      // a Latin vowel without a letter
+      if (vowel && go(i + 1, j)) ok = true;
+      // a vowel letter without a Latin letter (ه of a final -e is the vowel, ع silent)
+      else if (letter !== undefined && VOWEL_LETTERS.has(letter) && go(i, j + 1)) ok = true;
+      else if (c !== undefined && letter !== undefined) {
+        // a vowel and a vowel letter; a consonant and a letter read so
+        const reads = vowel ? VOWEL_LETTERS.has(letter) : (READS[letter] ?? "").includes(c);
+        if (reads && go(i + 1, j + 1)) ok = true;
+        // a doubled Latin consonant written once
+        else if (!vowel && l[i - 1] === c && go(i + 1, j)) ok = true;
+      }
+    }
+    memo.set(k, ok);
+    return ok;
+  };
+  return go(0, 0);
 }
 
 /** The grammar words: black, whatever their origin; also their forms ("bunun", "onlara", "benim"). */
