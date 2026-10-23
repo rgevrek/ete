@@ -24,9 +24,9 @@
 -cığ	turkce?
 -cık	turkce?
 -ci	turkce
--ciğ	turkce?
--cik	turkce?
--cil	turkce?
+-ciğ	turkce
+-cik	turkce
+-cil	turkce
 -cin	turkce
 -cüğ	turkce?
 -cük	turkce?
@@ -61,8 +61,8 @@
 -ev	turkce
 -gac	turkce
 -gaç	turkce
--gah	turkce?
--gâh	turkce?
+-gah	farsca
+-gâh	farsca
 -gı	turkce
 -gi	turkce
 -gil	turkce
@@ -109,7 +109,7 @@
 -kü	turkce
 -l-	turkce
 -la	turkce
--lan	turkce?
+-lan	turkce
 -lar	turkce
 -le	turkce
 -len	turkce?
@@ -132,8 +132,8 @@
 -maz	turkce
 -me	turkce
 -mece	turkce?
--meğ	turkce?
--mek	turkce?
+-meğ	turkce
+-mek	turkce
 -meli	turkce
 -men	turkce
 -mez	turkce?
@@ -155,7 +155,7 @@
 -sel	bati
 -si	turkce?
 -sin	turkce
--siz	turkce?
+-siz	turkce
 -syon	bati
 -t	turkce
 -tı	turkce
@@ -238,7 +238,7 @@ abra	diger	fiil
 abrakadabra	bati
 abramağ	diger
 abramak	diger
-abraş	turkce?
+abraş	arapca
 abril	diger
 absorbe	bati
 abstraksiyon	bati
@@ -415,7 +415,7 @@ affet	turkce?	fiil
 affetmeğ	turkce?
 affetmek	turkce?
 afgan	farsca
-afganistan	turkce?
+afganistan	farsca
 afis	diger
 afiş	bati
 afitab	farsca
@@ -470,7 +470,7 @@ ağartılmak	turkce?
 ağartmağ	turkce?
 ağartmak	turkce?
 ağb	diger
-ağda	turkce?
+ağda	arapca
 ağı	turkce
 ağıd	diger
 ağıl	turkce
@@ -549,13 +549,13 @@ ahit	arapca
 ahize	arapca
 ahkam	arapca
 ahkâm	arapca
-ahlad	turkce?
+ahlad	arapca
 ahlağ	arapca
 ahlak	arapca
 ahlaki	arapca
 ahlaklı	turkce?
 ahlaksız	turkce?
-ahlat	turkce?
+ahlat	arapca
 ahmağ	arapca
 ahmak	arapca
 ahmakça	turkce?
@@ -844,7 +844,7 @@ alçal	turkce?	fiil
 alçalmağ	turkce?
 alçalmak	turkce?
 alçaltı	turkce
-alçı	turkce?
+alçı	turkce
 ald	turkce
 aldad	turkce	fiil
 aldan	turkce	fiil
@@ -1435,7 +1435,7 @@ arsenik	bati
 arsız	turkce?
 arsızca	turkce?
 arsin	diger
-arslan	turkce?
+arslan	turkce
 arsuz	diger
 arş	arapca
 arşe	bati
@@ -1573,10 +1573,10 @@ asude	farsca
 âsûde	farsca
 asuman	farsca
 asumani	farsca
-asya	bati
+asya	farsca
 aş	turkce
 aş	turkce?	fiil
-aşağı	turkce?
+aşağı	turkce
 aşağılığ	turkce?
 aşağılık	turkce?
 aşçı	turkce?
@@ -1604,12 +1604,12 @@ aşırmağ	turkce?
 aşırmak	turkce?
 aşikar	farsca
 aşikâr	farsca
-aşikare	turkce?
-aşikâre	turkce?
+aşikare	farsca
+aşikâre	farsca
 aşil	bati
 aşina	farsca
-aşired	turkce?
-aşiret	turkce?
+aşired	arapca
+aşiret	arapca
 aşk	arapca
 aşkale	turkce?
 aşkito	arapca
@@ -1651,7 +1651,7 @@ atfet	turkce?	fiil
 atfetmeğ	turkce?
 atfetmek	turkce?
 atıcı	turkce?
-atıf	turkce?
+atıf	arapca
 atıl	arapca
 ati	arapca
 atiğ	arapca
@@ -1660,7 +1660,7 @@ atina	diger
 atkaracalar	turkce
 atkuyruğu	turkce?
 atlad	turkce?	fiil
-atlas	bati
+atlas	arapca
 atlat	turkce?	fiil
 atlatmağ	turkce?
 atlatmak	turkce?
@@ -1736,9 +1736,9 @@ avuçlamak	turkce?
 avud	turkce?	fiil
 avukad	bati
 avukat	bati
-avun	turkce?	fiil
-avunmağ	turkce?
-avunmak	turkce?
+avun	turkce	fiil
+avunmağ	turkce
+avunmak	turkce
 avuntu	turkce
 avurd	turkce
 avurt	turkce
@@ -1848,7 +1848,7 @@ aysfild	bati
 aysfilt	bati
 aysız	turkce
 ayşe	arapca
-ayva	turkce?
+ayva	farsca
 ayvacığ	turkce?
 ayvacık	turkce?
 ayvadana	diger
@@ -1899,8 +1899,8 @@ azil	arapca
 azim	arapca
 azime	arapca
 azîme	arapca
-azimed	turkce?
-azimet	turkce?
+azimed	arapca
+azimet	arapca
 azimli	arapca
 azir	arapca
 aziz	arapca
@@ -1946,9 +1946,9 @@ bacanağ	turkce
 bacanak	turkce
 bacı	turkce
 bad	farsca
-bad	turkce?	fiil
+bad	turkce	fiil
 bâd	farsca
-badana	turkce?
+badana	arapca
 badban	farsca
 bade	farsca
 badem	farsca
@@ -1970,7 +1970,7 @@ bağ	turkce
 bağ	turkce	fiil
 bâğ	farsca
 bağa	turkce
-bağana	turkce?
+bağana	farsca
 bağcığ	turkce
 bağcık	turkce
 bağcılar	turkce?
@@ -2131,7 +2131,7 @@ balistiğ	bati
 balistik	bati
 baliş	farsca
 balk	turkce	fiil
-balkan	turkce?
+balkan	turkce
 balkmağ	turkce
 balkmak	turkce
 balkon	bati
@@ -2143,8 +2143,8 @@ balya	bati
 balyos	bati
 balyoz	diger
 bambu	bati
-bamya	turkce?
-ban	bati
+bamya	farsca
+ban	farsca
 ban	turkce	fiil
 bana	turkce?
 banal	bati
@@ -2218,10 +2218,10 @@ baryum	bati
 barza	diger
 bas	bati
 bas	turkce	fiil
-basa	turkce?	fiil
+basa	turkce	fiil
 basal	arapca
-basamağ	turkce?
-basamak	turkce?
+basamağ	turkce
+basamak	turkce
 basınc	turkce
 basınç	turkce
 basid	arapca
@@ -2235,7 +2235,7 @@ basitçe	arapca
 basked	bati
 basket	bati
 basketbol	bati
-baskı	turkce?
+baskı	turkce
 baskıcı	turkce?
 baskül	bati
 basma	turkce
@@ -2244,7 +2244,7 @@ basmağ	turkce
 basmahane	turkce
 basmahâne	turkce
 basmak	turkce
-basra	turkce?
+basra	arapca
 bastelli	bati
 bastır	turkce?	fiil
 bastırmağ	turkce?
@@ -2264,7 +2264,7 @@ başıbozuğ	turkce
 başıbozuk	turkce
 başını	turkce
 başiskele	turkce
-başka	turkce?
+başka	turkce
 başkale	turkce?
 başkan	turkce
 başkası	turkce?
@@ -2292,7 +2292,7 @@ başsız	turkce?
 baştankara	turkce?
 başterim	turkce
 başyayla	turkce?
-bat	turkce?	fiil
+bat	turkce	fiil
 batağ	turkce
 batak	turkce
 bataklığ	turkce?
@@ -2311,10 +2311,10 @@ batiskaf	bati
 batkın	turkce
 batkınlığ	turkce?
 batkınlık	turkce?
-batmağ	turkce?
-batmak	turkce?
+batmağ	turkce
+batmak	turkce
 batman	farsca
-battaniye	turkce?
+battaniye	arapca
 batum	turkce?
 batur	turkce
 bavul	bati
@@ -2355,7 +2355,7 @@ bayramlaş	turkce?	fiil
 bayramlaşmağ	turkce?
 bayramlaşmak	turkce?
 baytar	arapca
-baz	bati
+baz	farsca
 bazald	bati
 bazalt	bati
 bazar	farsca
@@ -2389,14 +2389,14 @@ bedenî	arapca
 bedensel	arapca
 bedesd	farsca
 bedest	farsca
-bedesten	turkce?
+bedesten	farsca
 bedevi	arapca
 bedhah	farsca
 bedi	arapca
 bedihe	arapca
 bedii	arapca
-bediiyad	turkce?
-bediiyat	turkce?
+bediiyad	arapca
+bediiyat	arapca
 bedir	arapca
 bedre	arapca
 bedreğ	diger
@@ -2404,7 +2404,7 @@ bedrek	diger
 bedreka	farsca
 bedriğ	diger
 bedrik	diger
-begüm	turkce?
+begüm	farsca
 beğ	turkce
 beğen	turkce	fiil
 beğendir	turkce?	fiil
@@ -2433,17 +2433,17 @@ bekâret	arapca
 bekas	bati
 bekçi	turkce?
 bekir	arapca
-bekle	turkce?	fiil
+bekle	turkce	fiil
 bekled	turkce?	fiil
-beklemeğ	turkce?
-beklemek	turkce?
+beklemeğ	turkce
+beklemek	turkce
 beklen	turkce?	fiil
 beklenmeğ	turkce?
 beklenmek	turkce?
-beklenti	turkce?
-bekleş	turkce?	fiil
-bekleşmeğ	turkce?
-bekleşmek	turkce?
+beklenti	turkce
+bekleş	turkce	fiil
+bekleşmeğ	turkce
+bekleşmek	turkce
 beklet	turkce?	fiil
 bekletmeğ	turkce?
 bekletmek	turkce?
@@ -2462,7 +2462,7 @@ belgesel	bati
 belgorod	diger
 belgrad	diger
 belgrat	turkce?
-beli	turkce?
+beli	farsca
 belid	turkce
 belir	turkce	fiil
 belird	turkce?	fiil
@@ -2525,7 +2525,7 @@ berbad	farsca
 berbat	farsca
 berber	arapca
 berdevam	turkce?
-bere	bati
+bere	turkce
 bereked	arapca
 bereket	arapca
 bereketli	turkce?
@@ -2540,10 +2540,10 @@ berilyum	bati
 berk	turkce
 berke	diger
 berkelyum	bati
-berkid	turkce?	fiil
-berkit	turkce?	fiil
-berkitmeğ	turkce?
-berkitmek	turkce?
+berkid	turkce	fiil
+berkit	turkce	fiil
+berkitmeğ	turkce
+berkitmek	turkce
 berlin	bati
 bermuda	bati
 berra	bati
@@ -2586,7 +2586,7 @@ bey	turkce
 beyan	arapca
 beyanad	arapca
 beyanat	arapca
-beyanname	turkce?
+beyanname	arapca
 beyaz	arapca
 beyâz	arapca
 beyazıd	farsca
@@ -2752,7 +2752,7 @@ bilmek	turkce
 bilmukabele	arapca
 bilvasıta	turkce?
 bin	turkce
-bin	turkce?	fiil
+bin	turkce	fiil
 bina	arapca
 binâ	arapca
 binaen	arapca
@@ -2764,14 +2764,14 @@ binâʾen	arapca
 binbaşı	turkce?
 bini	farsca
 binici	turkce?
-biniş	turkce?
+biniş	turkce
 binlerce	turkce?
-binmeğ	turkce?
-binmek	turkce?
+binmeğ	turkce
+binmek	turkce
 bir	turkce
 bira	bati
 birader	farsca
-biraz	turkce?
+biraz	turkce
 birbiri	turkce
 birçoğ	turkce?
 birçok	turkce?
@@ -2920,7 +2920,7 @@ bonservis	bati
 boomer	bati
 bootloader	bati
 bor	bati
-bora	bati
+bora	turkce
 borazan	farsca
 borc	farsca
 borç	farsca
@@ -2944,7 +2944,7 @@ bostancı	turkce?
 bostancılığ	turkce?
 bostancılık	turkce?
 boş	turkce
-boşa	turkce?	fiil
+boşa	turkce	fiil
 boşal	turkce?	fiil
 boşald	turkce?	fiil
 boşalmağ	turkce?
@@ -2952,8 +2952,8 @@ boşalmak	turkce?
 boşalt	turkce?	fiil
 boşaltmağ	turkce?
 boşaltmak	turkce?
-boşamağ	turkce?
-boşamak	turkce?
+boşamağ	turkce
+boşamak	turkce
 boşan	turkce?	fiil
 boşanmağ	turkce?
 boşanmak	turkce?
@@ -3040,8 +3040,8 @@ bölüşmeğ	turkce
 bölüşmek	turkce
 bön	turkce
 böñ	turkce
-böreğ	turkce?
-börek	turkce?
+böreğ	turkce
+börek	turkce
 börekçi	turkce?
 börğ	turkce
 börk	turkce
@@ -3138,18 +3138,18 @@ bulmaca	turkce?
 bulmağ	turkce
 bulmak	turkce
 bulti	arapca
-bulud	bati
-bulun	turkce?	fiil
+bulud	turkce
+bulun	turkce	fiil
 bulundur	turkce?	fiil
 bulundurmağ	turkce?
 bulundurmak	turkce?
-bulunmağ	turkce?
-bulunmak	turkce?
+bulunmağ	turkce
+bulunmak	turkce
 buluş	turkce?	fiil
 buluşma	turkce?
 buluşmağ	turkce?
 buluşmak	turkce?
-bulut	bati
+bulut	turkce
 bulutlu	turkce?
 bulutsu	bati
 bulvar	bati
@@ -3291,11 +3291,11 @@ büyülemek	turkce?
 büyülü	turkce?
 büyümeğ	turkce
 büyümek	turkce
-büz	bati
+büz	farsca
 büzüğ	turkce?
 büzük	turkce?
 büzürg	farsca
-caba	turkce?
+caba	arapca
 cacığ	turkce?
 cacık	turkce?
 cacım	farsca
@@ -3377,7 +3377,7 @@ cd	bati
 ceb	farsca
 cebbar	arapca
 cebe	diger
-cebel	turkce?
+cebel	arapca
 cebelitarığ	arapca
 cebelitarık	arapca
 cebhe	arapca
@@ -3413,8 +3413,8 @@ celep	arapca
 celğ	farsca
 celil	arapca
 celk	farsca
-cellad	turkce?
-cellat	turkce?
+cellad	arapca
+cellat	arapca
 celp	arapca
 celse	arapca
 cem	farsca
@@ -3461,7 +3461,7 @@ cenned	farsca
 cennet	farsca
 cennetmekan	turkce?
 cennetmekân	turkce?
-cenova	bati
+cenova	farsca
 centilmen	bati
 centrum	bati
 cenub	arapca
@@ -3629,7 +3629,7 @@ cumhuriyed	turkce?
 cumhuriyet	turkce?
 cunta	bati
 cupid	bati
-cura	turkce?
+cura	farsca
 curcuna	turkce?
 cuyan	farsca
 cübbe	arapca
@@ -3682,14 +3682,14 @@ cv	bati
 çadırcı	turkce?
 çador	diger
 çağ	turkce
-çağ	turkce?	fiil
+çağ	turkce	fiil
 çâğ	farsca
 çağa	turkce
 çağala	farsca
 çağan	diger
 çağanağ	farsca
 çağanak	farsca
-çağanoz	diger
+çağanoz	farsca
 çağatay	turkce?
 çağatayca	turkce?
 çağdaş	turkce
@@ -3705,21 +3705,21 @@ cv	bati
 çağrılmağ	turkce?
 çağrılmak	turkce?
 çak	farsca
-çak	turkce?	fiil
+çak	turkce	fiil
 çâk	farsca
 çakal	farsca
 çakı	farsca
 çakıcı	turkce?
-çakıl	turkce?
+çakıl	farsca
 çakır	turkce
 çakırcı	turkce?
 çakırdiken	turkce
 çakırkeyif	turkce?
-çakış	turkce?	fiil
-çakışmağ	turkce?
-çakışmak	turkce?
-çakmağ	turkce?
-çakmak	turkce?
+çakış	turkce	fiil
+çakışmağ	turkce
+çakışmak	turkce
+çakmağ	turkce
+çakmak	turkce
 çakmakçı	turkce?
 çakmaklı	turkce?
 çakşır	turkce?
@@ -3743,13 +3743,13 @@ cv	bati
 çalmağ	turkce
 çalmak	turkce
 çalpara	farsca
-çam	turkce?
+çam	arapca
 çamaşır	farsca
 çamaşırcı	turkce?
 çamça	farsca
 çamçağ	turkce?
 çamçak	turkce?
-çamlıhemşin	turkce?
+çamlıhemşin	arapca
 çamur	turkce
 çamurla	turkce?	fiil
 çamurlamağ	turkce?
@@ -3790,8 +3790,8 @@ cv	bati
 çapul	turkce
 çar	diger
 çarb	turkce?	fiil
-çardağ	turkce?
-çardak	turkce?
+çardağ	farsca
+çardak	farsca
 çare	farsca
 çaresiz	farsca
 çaresizliğ	turkce?
@@ -3826,7 +3826,7 @@ cv	bati
 çatak	diger
 çatal	turkce
 çatalca	turkce?
-çatı	turkce?
+çatı	turkce
 çatırtı	turkce?
 çatış	turkce	fiil
 çatışmağ	turkce
@@ -3873,7 +3873,7 @@ cv	bati
 çek	turkce	fiil
 çekad	farsca
 çekâd	farsca
-çeki	turkce?
+çeki	turkce
 çekic	turkce
 çekici	turkce?
 çekiç	turkce
@@ -3908,7 +3908,7 @@ cv	bati
 çelyabinsğ	diger
 çelyabinsk	diger
 çember	farsca
-çemen	turkce?
+çemen	farsca
 çemento	bati
 çemişgezeğ	diger
 çemişgezek	diger
@@ -3937,7 +3937,7 @@ cv	bati
 çerçi	turkce?
 çerez	farsca
 çerge	farsca
-çeri	turkce?
+çeri	turkce
 çerkes	diger
 çerkez	diger
 çerkezköy	turkce?
@@ -3957,10 +3957,10 @@ cv	bati
 çevgân	farsca
 çeviğ	turkce?
 çevik	turkce?
-çevir	turkce?	fiil
+çevir	turkce	fiil
 çevirme	turkce?
-çevirmeğ	turkce?
-çevirmek	turkce?
+çevirmeğ	turkce
+çevirmek	turkce
 çevre	turkce
 çeyiz	farsca
 çeyreğ	farsca
@@ -4084,8 +4084,8 @@ cv	bati
 çita	bati
 çivi	turkce
 çivici	turkce?
-çivid	turkce?
-çivit	turkce?
+çivid	turkce
+çivit	turkce
 çiy	turkce
 çiz	turkce	fiil
 çizburger	bati
@@ -4124,8 +4124,8 @@ cv	bati
 çokluğ	turkce?
 çokluk	turkce?
 çokolata	bati
-çolağ	turkce?
-çolak	turkce?
+çolağ	turkce
+çolak	turkce
 çolbaz	turkce?
 çolpan	farsca
 çomağ	turkce
@@ -4222,7 +4222,7 @@ dağıl	turkce
 dağıl	turkce	fiil
 dağılmağ	turkce
 dağılmak	turkce
-dağıstan	turkce?
+dağıstan	farsca
 dağıt	turkce	fiil
 dağıtıcı	turkce?
 dağıtmağ	turkce
@@ -4454,9 +4454,9 @@ defolmağ	turkce?
 defolmak	turkce?
 defosforilasyon	bati
 defter	arapca
-defterdar	turkce?
+defterdar	farsca
 değ	turkce
-değ	turkce?	fiil
+değ	turkce	fiil
 değeneğ	turkce
 değenek	turkce
 değer	turkce
@@ -4476,8 +4476,8 @@ değişmek	turkce?
 değiştir	turkce?	fiil
 değiştirmeğ	turkce?
 değiştirmek	turkce?
-değmeğ	turkce?
-değmek	turkce?
+değmeğ	turkce
+değmek	turkce
 değneğ	turkce
 değnek	turkce
 değnekçi	turkce?
@@ -4507,8 +4507,8 @@ dekoratif	bati
 dekoratör	bati
 dekore	bati
 del	turkce	fiil
-delaled	turkce?
-delalet	turkce?
+delaled	arapca
+delalet	arapca
 delege	bati
 delgec	turkce
 delgeç	turkce
@@ -4652,8 +4652,8 @@ derneğ	turkce
 dernek	turkce
 derrace	arapca
 ders	arapca
-dersaaded	turkce?
-dersaadet	turkce?
+dersaaded	farsca
+dersaadet	farsca
 dershane	farsca
 dershâne	farsca
 dert	farsca
@@ -4694,7 +4694,7 @@ detay	bati
 deterjan	bati
 determinizm	bati
 detone	bati
-dev	turkce?
+dev	farsca
 deva	arapca
 devad	farsca
 devalüasyon	bati
@@ -4718,7 +4718,7 @@ devletgeri	arapca
 devletli	turkce?
 devr	arapca
 devran	arapca
-devre	turkce?
+devre	arapca
 devreğ	diger
 devrek	diger
 devren	arapca
@@ -4749,8 +4749,8 @@ dışbükey	turkce
 dız	farsca
 diazepam	bati
 dib	turkce
-dibeğ	turkce?
-dibek	turkce?
+dibeğ	turkce
+dibek	turkce
 dicle	farsca
 didaktiğ	bati
 didaktik	bati
@@ -4785,8 +4785,8 @@ dikilmeğ	turkce
 dikilmek	turkce
 dikim	turkce?
 dikine	turkce?
-dikiş	turkce?
-dikişçi	turkce?
+dikiş	turkce
+dikişçi	turkce
 dikişli	turkce?
 dikkad	turkce?
 dikkâd	arapca
@@ -4868,8 +4868,8 @@ dirayed	arapca
 dirayet	arapca
 dirayetsiz	turkce?
 dire	turkce	fiil
-direğ	turkce?
-direk	turkce?
+direğ	turkce
+direk	turkce
 direktman	bati
 direktör	bati
 diremeğ	turkce
@@ -4905,7 +4905,7 @@ diş	turkce
 dişbudağ	turkce?
 dişbudak	turkce?
 dişçi	turkce?
-dişi	turkce?
+dişi	turkce
 dişle	turkce?	fiil
 dişlemeğ	turkce?
 dişlemek	turkce?
@@ -4946,8 +4946,8 @@ diyarbakır	arapca
 diyarbekir	turkce?
 diyaspora	bati
 diye	turkce?
-diyed	bati
-diyet	bati
+diyed	arapca
+diyet	arapca
 diyetisyen	bati
 diyez	bati
 diyonisos	diger
@@ -4980,7 +4980,7 @@ doğ	bati
 doğ	turkce	fiil
 doğa	bati
 doğan	turkce
-doğancı	turkce?
+doğancı	turkce
 doğanhisar	turkce
 doğankend	turkce
 doğankent	turkce
@@ -5152,13 +5152,13 @@ dörtlü	turkce?
 dörtnala	turkce?
 dörtyol	turkce
 döş	bati
-döşe	turkce?	fiil
+döşe	turkce	fiil
 döşeğ	turkce
 döşek	turkce
 döşeme	turkce?
 döşemeci	turkce?
-döşemeğ	turkce?
-döşemek	turkce?
+döşemeğ	turkce
+döşemek	turkce
 döv	turkce	fiil
 döviz	bati
 dövme	turkce?
@@ -5259,12 +5259,12 @@ düed	bati
 düello	turkce?
 düet	bati
 düge	turkce
-düğ	bati
+düğ	farsca
 düğme	turkce
 düğüm	turkce
 düğün	turkce
 düğüncü	turkce?
-dük	bati
+dük	farsca
 düka	bati
 dükkan	arapca
 dükkân	arapca
@@ -5274,8 +5274,8 @@ dülbend	farsca
 düleğ	turkce
 dülek	turkce
 dülger	farsca
-dümbeleğ	turkce?
-dümbelek	turkce?
+dümbeleğ	farsca
+dümbelek	farsca
 dümen	turkce?
 dümenci	turkce?
 dün	turkce
@@ -5382,7 +5382,7 @@ eceabad	turkce?
 eceabat	turkce?
 ecel	arapca
 eci	turkce
-ecnebi	turkce?
+ecnebi	arapca
 ecza	arapca
 eczacı	turkce?
 eczahane	arapca
@@ -5507,8 +5507,8 @@ ehemmiyet	arapca
 ehemmiyetli	turkce?
 ehemmiyetsiz	arapca
 ehil	arapca
-ehli	turkce?
-ehlî	turkce?
+ehli	arapca
+ehlî	arapca
 ehlihibre	arapca
 ehliyed	arapca
 ehliyet	arapca
@@ -5567,7 +5567,7 @@ eksantriğ	bati
 eksantrik	bati
 eksantrisite	bati
 eksen	diger
-ekser	turkce?
+ekser	arapca
 ekseriya	arapca
 ekseriyed	arapca
 ekseriyet	arapca
@@ -5869,7 +5869,7 @@ erdoğan	turkce?
 ereğli	diger
 eren	turkce
 erenköy	turkce?
-ergen	turkce?
+ergen	turkce
 ergenekon	turkce
 ergin	turkce
 erguvan	farsca
@@ -5961,9 +5961,9 @@ esham	arapca
 esinti	turkce
 esir	arapca
 esirci	turkce?
-esirge	turkce?	fiil
-esirgemeğ	turkce?
-esirgemek	turkce?
+esirge	turkce	fiil
+esirgemeğ	turkce
+esirgemek	turkce
 esirliğ	turkce?
 esirlik	turkce?
 eski	turkce
@@ -6073,8 +6073,8 @@ etnokültürel	bati
 etnonim	bati
 etraf	arapca
 etraflı	turkce?
-etrağ	turkce?
-etrak	turkce?
+etrağ	arapca
+etrak	arapca
 ettirgen	turkce
 euterpe	diger
 ev	turkce
@@ -6126,10 +6126,10 @@ eyâled	arapca
 eyalet	arapca
 eyâlet	arapca
 eyer	turkce
-eyid	turkce?	fiil
-eyit	turkce?	fiil
-eyitmeğ	turkce?
-eyitmek	turkce?
+eyid	turkce	fiil
+eyit	turkce	fiil
+eyitmeğ	turkce
+eyitmek	turkce
 eyle	turkce
 eyle	turkce	fiil
 eylemeğ	turkce
@@ -6184,7 +6184,7 @@ fadime	arapca
 fagod	bati
 fagot	bati
 fahim	arapca
-fahişe	turkce?
+fahişe	arapca
 fahrenhayd	bati
 fahrenhayt	bati
 fahrettin	arapca
@@ -6263,7 +6263,7 @@ fasıl	arapca
 fasıla	turkce?
 fasih	arapca
 fasila	arapca
-fasile	turkce?
+fasile	arapca
 fason	bati
 fasone	bati
 fasulya	diger
@@ -6432,7 +6432,7 @@ feza	arapca
 fıçı	diger
 fıçıcı	turkce?
 fıkıh	arapca
-fıkra	turkce?
+fıkra	arapca
 fılamur	diger
 fındığ	farsca
 fındık	farsca
@@ -6444,7 +6444,7 @@ fırat	arapca
 fırça	turkce?
 fırçacı	turkce?
 fırın	bati
-fırka	turkce?
+fırka	arapca
 fırkateyn	bati
 fırla	turkce?	fiil
 fırlad	turkce?	fiil
@@ -6502,7 +6502,7 @@ filigran	bati
 filika	arapca
 filiskin	diger
 filistin	farsca
-filiz	diger
+filiz	arapca
 film	bati
 filo	bati
 filoloji	bati
@@ -6574,7 +6574,7 @@ flurcun	turkce?
 flüd	bati
 flüt	bati
 foça	diger
-fodla	turkce?
+fodla	arapca
 fodlacı	turkce?
 fodra	bati
 foğ	bati
@@ -6717,8 +6717,8 @@ gancelli	bati
 gangava	diger
 gangren	bati
 gani	arapca
-ganimed	turkce?
-ganimet	turkce?
+ganimed	arapca
+ganimet	arapca
 ganj	bati
 ganja	diger
 ganoz	diger
@@ -6815,7 +6815,7 @@ gaziosmanpaşa	arapca
 gazipaşa	arapca
 gaziya	diger
 gazoz	bati
-gazze	turkce?
+gazze	farsca
 gebe	turkce
 gebeliğ	turkce?
 gebelik	turkce?
@@ -6893,7 +6893,7 @@ gem	diger
 gemereğ	diger
 gemerek	diger
 gemi	turkce
-gemici	turkce?
+gemici	turkce
 gemir	turkce	fiil
 gemirmeğ	turkce
 gemirmek	turkce
@@ -7050,7 +7050,7 @@ gigabayt	bati
 gigabyte	bati
 gil	farsca
 gile	farsca
-gine	bati
+gine	turkce
 gir	turkce	fiil
 girar	arapca
 giray	diger
@@ -7152,14 +7152,14 @@ gölgeliğ	turkce?
 gölgelik	turkce?
 gölüğ	turkce
 gölük	turkce
-göm	turkce?	fiil
+göm	turkce	fiil
 gömec	turkce
 gömeç	turkce?
 gömleğ	turkce
 gömlek	turkce
 gömlekçi	turkce?
-gömmeğ	turkce?
-gömmek	turkce?
+gömmeğ	turkce
+gömmek	turkce
 gömülü	turkce?
 gön	turkce
 gönder	diger
@@ -7231,7 +7231,7 @@ gözetlemeğ	turkce
 gözetlemek	turkce
 gözetmeğ	turkce?
 gözetmek	turkce?
-gözgü	turkce?
+gözgü	turkce
 gözle	turkce?	fiil
 gözleme	turkce?
 gözlemeğ	turkce?
@@ -7346,7 +7346,7 @@ güllüğ	turkce?
 güllük	turkce?
 gülmeğ	turkce
 gülmek	turkce
-gülnar	turkce?
+gülnar	farsca
 gülşah	farsca
 gültekin	turkce
 gülümse	turkce	fiil
@@ -7393,8 +7393,8 @@ güneyiğ	turkce?
 güneyik	turkce?
 günğ	farsca
 günk	farsca
-günlüğ	turkce
-günlük	turkce
+günlüğ	farsca
+günlük	farsca
 günye	diger
 gür	turkce
 gürbe	farsca
@@ -7525,8 +7525,8 @@ hak	arapca
 hâk	farsca
 hakan	turkce
 hakaniye	arapca
-hakared	turkce?
-hakaret	turkce?
+hakared	arapca
+hakaret	arapca
 hakem	arapca
 haki	farsca
 hakikad	arapca
@@ -7535,8 +7535,8 @@ hakikaten	arapca
 hakiki	arapca
 hakim	arapca
 hâkim	arapca
-hakimiyed	turkce?
-hakimiyet	turkce?
+hakimiyed	arapca
+hakimiyet	arapca
 hakir	arapca
 hakkağ	arapca
 hakkak	arapca
@@ -7547,7 +7547,7 @@ hakkâri	turkce?
 hakkında	arapca
 haklı	turkce?
 haksız	turkce?
-hal	bati
+hal	arapca
 hâl	arapca
 hala	arapca
 hâlâ	arapca
@@ -7773,7 +7773,7 @@ hased	arapca
 haseki	farsca
 haset	arapca
 hası	arapca
-hasıl	turkce?
+hasıl	arapca
 hasıla	arapca
 hasılad	arapca
 hasılat	arapca
@@ -7781,7 +7781,7 @@ hasılı	turkce?
 hasım	turkce?
 hasımlığ	turkce?
 hasımlık	turkce?
-hasır	turkce?
+hasır	arapca
 hasırcı	turkce?
 hasis	arapca
 hasiyed	arapca
@@ -7794,8 +7794,8 @@ hasmane	farsca
 haspa	arapca
 hasrad	arapca
 hasrat	arapca
-hasred	turkce?
-hasret	turkce?
+hasred	arapca
+hasret	arapca
 hassa	arapca
 hassas	arapca
 hassasiyed	arapca
@@ -7813,11 +7813,11 @@ hastaneyi	farsca
 haşa	turkce?
 hâşâ	arapca
 haşarı	arapca
-haşefe	turkce?
+haşefe	arapca
 haşema	arapca
 haşerad	arapca
 haşerat	arapca
-haşere	turkce?
+haşere	arapca
 haşhaş	farsca
 haşıl	diger
 haşin	arapca
@@ -7878,7 +7878,7 @@ havalı	turkce?
 havali	arapca
 havan	farsca
 havar	farsca
-havari	turkce?
+havari	arapca
 havflen	arapca	fiil
 havflenmeğ	arapca
 havflenmek	arapca
@@ -7889,7 +7889,7 @@ havlamağ	turkce?
 havlamak	turkce?
 havlıcan	farsca
 havlu	turkce?
-havra	turkce?
+havra	arapca
 havsala	arapca
 havuc	farsca
 havuç	farsca
@@ -7943,8 +7943,8 @@ hayretmeğ	turkce?
 hayretmek	turkce?
 hayri	arapca
 hayriye	arapca
-haysiyed	turkce?
-haysiyet	turkce?
+haysiyed	arapca
+haysiyet	arapca
 hayvan	arapca
 hayvani	turkce?
 hayvanlığ	turkce?
@@ -7962,7 +7962,7 @@ hazırlanmağ	farsca
 hazırlanmak	farsca
 hazırlığ	turkce?
 hazırlık	turkce?
-hazin	turkce?
+hazin	arapca
 hazine	arapca
 hazinedar	farsca
 haziran	arapca
@@ -8120,7 +8120,7 @@ hırdavat	farsca
 hıred	farsca
 hırka	arapca
 hırs	arapca
-hırsız	turkce?
+hırsız	arapca
 hırsızlığ	turkce?
 hırsızlık	turkce?
 hırvatistan	turkce?
@@ -8142,8 +8142,8 @@ hıyar	farsca
 hıyarcığ	turkce?
 hıyarcık	turkce?
 hıyarşembe	farsca
-hız	turkce?
-hızla	turkce?
+hız	farsca
+hızla	farsca
 hızlan	turkce?	fiil
 hızlanmağ	turkce?
 hızlanmak	turkce?
@@ -8188,7 +8188,7 @@ hilaf	arapca
 hilafed	arapca
 hilafet	arapca
 hilal	arapca
-hilâl	turkce?
+hilâl	arapca
 hilaş	farsca
 hile	arapca
 hilekar	farsca
@@ -8222,7 +8222,7 @@ his	arapca
 hisar	arapca
 hisse	arapca
 hissed	turkce?	fiil
-hissedar	turkce?
+hissedar	arapca
 hissedil	turkce?	fiil
 hissedilmeğ	turkce?
 hissedilmek	turkce?
@@ -8282,12 +8282,12 @@ honaz	turkce?
 hopa	turkce?
 hoparlör	bati
 hoppa	turkce?
-hor	turkce?
-horasan	turkce?
+hor	farsca
+horasan	farsca
 hord	diger
-horla	turkce?	fiil
-horlamağ	turkce?
-horlamak	turkce?
+horla	farsca	fiil
+horlamağ	farsca
+horlamak	farsca
 horoz	farsca
 horozbina	turkce?
 horozcuğ	turkce?
@@ -8323,8 +8323,8 @@ hubahıb	arapca
 hububad	arapca
 hububat	arapca
 hubz	arapca
-hud	turkce?
-hûd	turkce?
+hud	arapca
+hûd	arapca
 hudud	arapca
 hudut	arapca
 huffaş	arapca
@@ -8348,7 +8348,7 @@ humbara	farsca
 humeyni	farsca
 humma	arapca
 ḫums	arapca
-humus	bati
+humus	arapca
 hunhar	farsca
 huni	diger
 hunnâğ	arapca
@@ -8372,12 +8372,12 @@ husi	arapca
 husul	arapca
 husumed	arapca
 husumet	arapca
-husus	turkce?
+husus	arapca
 hususi	arapca
 hususî	arapca
 hususiyed	arapca
 hususiyet	arapca
-huş	turkce?
+huş	farsca
 hûşenğ	farsca
 huşenk	farsca
 hûşenk	farsca
@@ -8394,7 +8394,7 @@ hüccet	arapca
 hücre	arapca
 hücreli	turkce?
 hücresel	bati
-hücrevi	turkce?
+hücrevi	arapca
 hücum	arapca
 hüda	farsca
 hüdavendigar	farsca
@@ -8413,7 +8413,7 @@ hükümdarlık	turkce?
 hükümran	farsca
 hülasa	arapca
 hülya	diger
-hümayun	turkce?
+hümayun	farsca
 hüner	farsca
 hünkar	farsca
 hünkâr	farsca
@@ -8429,8 +8429,8 @@ hürmeten	arapca
 hürmetkar	turkce?
 hürmetkâr	turkce?
 hürrem	farsca
-hürriyed	turkce?
-hürriyet	turkce?
+hürriyed	arapca
+hürriyet	arapca
 hüsam	arapca
 hüseyin	arapca
 hüsnü	arapca
@@ -8438,7 +8438,7 @@ hüsnüniyed	farsca
 hüsnüniyet	farsca
 hüsnüyusuf	turkce?
 hüsran	arapca
-hüsrev	turkce?
+hüsrev	farsca
 hüsün	arapca
 hüthüd	arapca
 hüthüt	arapca
@@ -8496,12 +8496,12 @@ hygieia	diger
 ıskara	diger
 ıskat	arapca
 ısla	turkce	fiil
-ıslağ	turkce?
+ıslağ	turkce
 ıslah	arapca
 ıslahad	arapca
 ıslahat	arapca
 ıslahatçı	turkce?
-ıslak	turkce?
+ıslak	turkce
 ıslaklığ	turkce?
 ıslaklık	turkce?
 ıslamağ	turkce
@@ -8517,7 +8517,7 @@ hygieia	diger
 ıspanak	farsca
 ısparta	turkce?
 ısr	arapca
-ısrar	turkce?
+ısrar	arapca
 ıssız	turkce
 ıstakoz	turkce?
 ıstıfa	arapca
@@ -8570,7 +8570,7 @@ ibrahim	arapca
 ibrâhîm	arapca
 ibrani	arapca
 ibraz	arapca
-ibre	turkce?
+ibre	arapca
 ibred	arapca
 ibret	arapca
 ibriğ	arapca
@@ -8585,14 +8585,14 @@ ibtihal	arapca
 ibtisam	arapca
 ic	turkce	fiil
 icab	arapca
-icabed	turkce?
-icabet	turkce?
+icabed	arapca
+icabet	arapca
 icad	arapca
 icap	arapca
 icar	arapca
 icat	arapca
-icazed	turkce?
-icazet	turkce?
+icazed	arapca
+icazet	arapca
 icbar	arapca
 icra	arapca
 ictimai	arapca
@@ -8632,7 +8632,7 @@ içtimal	turkce?
 içtinab	arapca
 içtinap	arapca
 içün	turkce
-id	bati
+id	turkce
 id	turkce	fiil
 idadi	arapca
 idam	arapca
@@ -8655,7 +8655,7 @@ idi	turkce
 idman	arapca
 idrağ	arapca
 idrak	arapca
-idrar	turkce?
+idrar	arapca
 idris	arapca
 idrîs	arapca
 ifa	arapca
@@ -8684,7 +8684,7 @@ ifşaat	arapca
 iftar	arapca
 iftihar	arapca
 iftira	arapca
-iftitah	turkce?
+iftitah	arapca
 iguana	bati
 iğ	turkce
 iğde	turkce
@@ -8777,7 +8777,7 @@ ikram	arapca
 ikrâm	arapca
 ikramiye	arapca
 ikrar	arapca
-iksir	turkce?
+iksir	arapca
 ikslarc	bati
 ikslarç	bati
 iktibas	arapca
@@ -8799,7 +8799,7 @@ iktisatçı	turkce?
 iktiza	arapca
 ikyanus	arapca
 il	turkce
-il	turkce?	fiil
+il	turkce	fiil
 ila	arapca
 ilac	arapca
 ilaç	arapca
@@ -8810,8 +8810,8 @@ ilaçsız	turkce?
 ilah	arapca
 ilahi	arapca
 ilahî	arapca
-ilahiyad	turkce?
-ilahiyat	turkce?
+ilahiyad	arapca
+ilahiyat	arapca
 ilam	arapca
 ilan	arapca
 ilave	arapca
@@ -8833,8 +8833,8 @@ ilet	turkce	fiil
 iletmeğ	turkce
 iletmek	turkce
 ilga	arapca
-ilgec	turkce?
-ilgeç	turkce?
+ilgec	turkce
+ilgeç	turkce
 ilğ	turkce
 ilğa	arapca
 ilğâ	arapca
@@ -8842,16 +8842,16 @@ ilhağ	arapca
 ilhak	arapca
 ilham	arapca
 ilhâm	arapca
-ilhan	turkce?
+ilhan	turkce
 ilic	diger
 iliç	diger
 iliğ	turkce
 ilik	turkce
 ilim	arapca
 ilinti	turkce
-iliş	turkce?	fiil
-ilişmeğ	turkce?
-ilişmek	turkce?
+iliş	turkce	fiil
+ilişmeğ	turkce
+ilişmek	turkce
 ilk	turkce
 ilkbahar	turkce?
 ilkyaz	turkce?
@@ -8860,8 +8860,8 @@ illed	arapca
 illegal	bati
 illet	arapca
 illüzyon	bati
-ilmeğ	turkce?
-ilmek	turkce?
+ilmeğ	turkce
+ilmek	turkce
 ilmi	arapca
 ilmî	arapca
 ilti	turkce
@@ -8873,7 +8873,7 @@ iltihağ	arapca
 iltihak	arapca
 iltihap	arapca
 iltimas	arapca
-iltizam	turkce?
+iltizam	arapca
 ilyas	arapca
 ilyâs	arapca
 ilzam	arapca
@@ -9052,8 +9052,8 @@ insaflı	turkce?
 insafsız	arapca
 insan	arapca
 insani	arapca
-insaniyed	turkce?
-insaniyet	turkce?
+insaniyed	arapca
+insaniyet	arapca
 insanlığ	turkce?
 insanlık	turkce?
 insanoğlu	arapca
@@ -9188,8 +9188,8 @@ iskele	bati
 iskeled	bati
 iskelet	bati
 iskemle	diger
-iskender	turkce?
-iskenderiye	turkce?
+iskender	arapca
+iskenderiye	arapca
 iskenderun	arapca
 iskene	farsca
 iskerled	bati
@@ -9289,7 +9289,7 @@ istihkamat	arapca
 istihlağ	arapca
 istihlak	arapca
 istihsal	arapca
-istihza	turkce?
+istihza	arapca
 istihzar	arapca
 istikamed	arapca
 istikamet	arapca
@@ -9407,7 +9407,7 @@ ithal	arapca
 ithalad	arapca
 ithalat	arapca
 itham	arapca
-iti	turkce?
+iti	turkce
 itibar	arapca
 itibaren	arapca
 itibarlı	arapca
@@ -9429,7 +9429,7 @@ itisa	arapca
 itiyad	arapca
 itiyat	arapca
 itizar	arapca
-itlaf	turkce?
+itlaf	arapca
 itmam	arapca
 itmeğ	turkce
 itmek	turkce
@@ -9497,8 +9497,8 @@ izniğ	diger
 iznik	diger
 izvorniğ	diger
 izvornik	diger
-izzed	turkce?
-izzet	turkce?
+izzed	arapca
+izzet	arapca
 izzetlü	arapca
 iʼade	arapca
 jag	diger
@@ -9699,7 +9699,7 @@ kâfir	arapca
 kafiye	arapca
 kafkas	turkce?
 kafkasya	turkce?
-kaftan	turkce?
+kaftan	farsca
 kaftancı	turkce?
 kafur	arapca
 kâfur	arapca
@@ -9716,8 +9716,8 @@ kağıthane	turkce?
 kâğıthane	turkce?
 kağızman	diger
 kağnı	turkce
-kah	turkce?
-kâh	turkce?
+kah	farsca
+kâh	farsca
 kahbe	arapca
 kahır	arapca
 kahil	arapca
@@ -9727,7 +9727,7 @@ kâhin	arapca
 kahir	arapca
 kahire	arapca
 kâhire	arapca
-kahkaha	turkce?
+kahkaha	arapca
 kahpe	arapca
 kahraman	farsca
 kahramanlığ	turkce?
@@ -9784,7 +9784,7 @@ kalb	arapca
 kalben	arapca
 kalbi	arapca
 kalbî	arapca
-kalbur	turkce?
+kalbur	arapca
 kalburcu	turkce?
 kalburüstü	turkce?
 kalcı	turkce?
@@ -9800,18 +9800,18 @@ kalem	farsca
 kalemci	turkce?
 kalemdan	farsca
 kalemen	arapca
-kalemtıraş	turkce?
+kalemtıraş	farsca
 kalender	arapca
 kalfa	arapca
 kalğ	turkce	fiil
-kalıb	turkce?
+kalıb	arapca
 kalıd	turkce
 kalın	turkce
 kalınlaştır	turkce?	fiil
 kalınlaştırmağ	turkce?
 kalınlaştırmak	turkce?
 kalıntı	turkce
-kalıp	turkce?
+kalıp	arapca
 kalıpla	turkce?	fiil
 kalıplamağ	turkce?
 kalıplamak	turkce?
@@ -9863,7 +9863,7 @@ kalyoncu	turkce?
 kalʼa	farsca
 kalʼe	farsca
 kam	turkce
-kama	turkce?
+kama	turkce
 kamara	bati
 kamarod	bati
 kamarot	bati
@@ -9926,7 +9926,7 @@ kanca	turkce?
 kancığ	farsca
 kancık	farsca
 kand	farsca
-kandehar	turkce?
+kandehar	farsca
 kandır	turkce?	fiil
 kandıra	diger
 kandırmağ	turkce?
@@ -9996,8 +9996,8 @@ kapama	turkce?
 kapamağ	turkce
 kapamak	turkce
 kapan	turkce
-kapanığ	turkce?
-kapanık	turkce?
+kapanığ	turkce
+kapanık	turkce
 kapasite	bati
 kapat	turkce?	fiil
 kapatmağ	turkce?
@@ -10071,7 +10071,7 @@ karadeniz	turkce?
 karagöz	turkce
 karağı	turkce
 karağul	diger
-karahallı	bati
+karahallı	arapca
 karaisalı	arapca
 karakafes	diger
 karakeçili	turkce?
@@ -10088,7 +10088,7 @@ karalamağ	turkce
 karalamak	turkce
 karaleyleğ	turkce?
 karaleylek	turkce?
-karaman	turkce?
+karaman	turkce
 karambol	bati
 karamel	bati
 karamuğ	turkce
@@ -10104,7 +10104,7 @@ karargah	turkce?
 karargâh	turkce?
 kararmağ	turkce?
 kararmak	turkce?
-kararname	turkce?
+kararname	arapca
 kararsız	turkce?
 karartı	turkce?
 karasakız	turkce?
@@ -10124,7 +10124,7 @@ karbonik	bati
 karbonmonoksid	bati
 karbonmonoksit	bati
 karbüratör	bati
-kard	bati
+kard	turkce
 kardeş	turkce
 kardeşçe	turkce?
 kardeşliğ	turkce?
@@ -10215,7 +10215,7 @@ karşılaşmağ	turkce
 karşılaşmak	turkce
 karşılığ	turkce?
 karşılık	turkce?
-kart	bati
+kart	turkce
 kartal	turkce
 kartepe	turkce
 kartlaş	turkce	fiil
@@ -10289,7 +10289,7 @@ kaşalot	bati
 kaşan	turkce
 kaşar	bati
 kaşe	bati
-kaşer	bati
+kaşer	arapca
 kaşı	turkce	fiil
 kaşığ	turkce
 kaşık	turkce
@@ -10399,8 +10399,8 @@ kavrulmak	turkce?
 kavşağ	turkce?
 kavşak	turkce?
 kavud	turkce
-kavuğ	turkce?
-kavuk	turkce?
+kavuğ	turkce
+kavuk	turkce
 kavun	turkce
 kavur	turkce	fiil
 kavurma	turkce?
@@ -10479,9 +10479,9 @@ kaz	turkce
 kaz	turkce	fiil
 kaza	arapca
 kazaen	arapca
-kazağ	bati
+kazağ	turkce?
 kazağı	turkce
-kazak	bati
+kazak	turkce?
 kazan	turkce
 kazan	turkce	fiil
 kazanc	turkce?
@@ -10529,7 +10529,7 @@ kebîr	arapca
 kebire	arapca
 kebîre	arapca
 kebuter	farsca
-kebze	turkce?
+kebze	turkce
 keçe	turkce?
 keçi	turkce
 keçiborlu	bati
@@ -10577,15 +10577,15 @@ kelebeğ	turkce
 kelebek	turkce
 keleci	turkce
 kelecoş	farsca
-keleğ	turkce?
-kelek	turkce?
+keleğ	arapca
+kelek	arapca
 kelem	farsca
 kelepçe	farsca
 kelepir	turkce?
 keler	turkce
 keleş	turkce?
 kelim	arapca
-kelime	turkce?
+kelime	arapca
 kelkid	diger
 kelkit	diger
 kelle	farsca
@@ -10601,7 +10601,7 @@ kemane	farsca
 kemankeş	farsca
 keme	arapca
 kemençe	farsca
-kemer	turkce?
+kemer	farsca
 kemerovo	turkce
 kemiğ	turkce
 kemik	turkce
@@ -10653,7 +10653,7 @@ kerh	arapca
 kerhane	farsca
 kerhen	turkce?
 kerih	arapca
-kerim	turkce?
+kerim	arapca
 kerime	arapca
 kerindi	diger
 kerkenez	turkce?
@@ -10762,8 +10762,8 @@ keyk	farsca
 keyn	arapca
 kez	turkce
 keza	arapca
-kezaliğ	turkce?
-kezalik	turkce?
+kezaliğ	arapca
+kezalik	arapca
 kezzab	arapca
 kezzap	arapca
 kıble	arapca
@@ -10776,7 +10776,7 @@ kıdemce	arapca
 kıdemli	turkce?
 kıl	turkce
 kıl	turkce	fiil
-kılade	turkce?
+kılade	arapca
 kılağı	turkce
 kılçığ	turkce
 kılçık	turkce
@@ -10823,12 +10823,12 @@ kıra’et	arapca
 kıraad	arapca
 kıraat	arapca
 kıraathane	turkce?
-kırac	turkce?
-kıraç	turkce?
+kırac	turkce
+kıraç	turkce
 kırağı	turkce
 kırağu	turkce
 kırb	turkce	fiil
-kırba	turkce?
+kırba	arapca
 kırbac	turkce
 kırbacı	turkce?
 kırbaç	turkce
@@ -10929,8 +10929,8 @@ kıta	arapca
 kıtaad	arapca
 kıtaat	arapca
 kıtıpiyos	diger
-kıtlığ	turkce?
-kıtlık	turkce?
+kıtlığ	turkce
+kıtlık	turkce
 kıvam	arapca
 kıvanc	turkce
 kıvanç	turkce
@@ -11049,7 +11049,7 @@ kimono	bati
 kimse	turkce?
 kimya	arapca
 kimyacı	turkce?
-kimyager	turkce?
+kimyager	farsca
 kimyon	arapca
 kin	farsca
 kinaye	arapca
@@ -11436,18 +11436,18 @@ kostantiniyye	arapca
 kostroma	diger
 kostüm	bati
 koş	turkce
-koş	bati	fiil
-koşmağ	bati
-koşmak	bati
-koştur	bati	fiil
-koşturmağ	bati
-koşturmak	bati
-koşuş	bati	fiil
-koşuşmağ	bati
-koşuşmak	bati
-koşuştur	bati	fiil
-koşuşturmağ	bati
-koşuşturmak	bati
+koş	turkce	fiil
+koşmağ	turkce
+koşmak	turkce
+koştur	turkce	fiil
+koşturmağ	turkce
+koşturmak	turkce
+koşuş	turkce	fiil
+koşuşmağ	turkce
+koşuşmak	turkce
+koşuştur	turkce	fiil
+koşuşturmağ	turkce
+koşuşturmak	turkce
 kota	bati
 kotağ	diger
 kotak	diger
@@ -11521,7 +11521,7 @@ köpür	turkce	fiil
 köpürmeğ	turkce
 köpürmek	turkce
 kör	farsca
-körfez	diger
+körfez	turkce?
 körfüz	bati
 körling	bati
 körlüğ	turkce?
@@ -11604,7 +11604,7 @@ kubbetü’s-sahre	arapca
 kuber	arapca
 kubh	arapca
 kubilay	diger
-kuc	turkce?	fiil
+kuc	turkce	fiil
 kucağ	turkce
 kucak	turkce
 kucakla	turkce?	fiil
@@ -11613,12 +11613,12 @@ kucaklamak	turkce?
 kucaklaş	turkce	fiil
 kucaklaşmağ	turkce
 kucaklaşmak	turkce
-kuç	turkce?	fiil
-kuçmağ	turkce?
-kuçmak	turkce?
+kuç	turkce	fiil
+kuçmağ	turkce
+kuçmak	turkce
 kud	turkce
-kudred	turkce?
-kudret	turkce?
+kudred	arapca
+kudret	arapca
 kudretli	turkce?
 kudsiyed	arapca
 kudsiyet	arapca
@@ -11644,7 +11644,7 @@ kulakçığ	turkce
 kulakçık	turkce
 kulaklığ	turkce?
 kulaklık	turkce?
-kulb	turkce?
+kulb	arapca
 kule	arapca
 kulis	bati
 kullan	turkce?	fiil
@@ -11656,7 +11656,7 @@ kullanmak	turkce?
 kulle	arapca
 kulluğ	turkce
 kulluk	turkce
-kulp	turkce?
+kulp	arapca
 kuluçka	diger
 kulun	turkce
 kulunc	arapca
@@ -11695,7 +11695,7 @@ kupa	diger
 kupon	bati
 kupür	bati
 kur	bati
-kur	turkce?	fiil
+kur	turkce	fiil
 kur’an	arapca
 kura	arapca
 kurâ	arapca
@@ -11706,12 +11706,12 @@ kuran	arapca
 kurander	bati
 kurbağa	turkce
 kurban	arapca
-kurd	turkce?
+kurd	turkce
 kurdele	bati
 kurgan	turkce
 kurgu	turkce?
-kurmağ	turkce?
-kurmak	turkce?
+kurmağ	turkce
+kurmak	turkce
 kurmay	bati
 kurna	arapca
 kurnaz	farsca
@@ -11724,7 +11724,7 @@ kursak	turkce
 kurşun	turkce
 kurşuncu	turkce?
 kurşunlu	turkce?
-kurt	turkce?
+kurt	turkce
 kurtalan	turkce
 kurtar	turkce	fiil
 kurtarmağ	turkce
@@ -11751,7 +11751,7 @@ kurultay	diger
 kurulu	turkce
 kuruluğ	turkce?
 kuruluk	turkce?
-kurum	turkce?
+kurum	turkce
 kurumağ	turkce
 kurumak	turkce
 kurumsağ	turkce?
@@ -11848,9 +11848,9 @@ küfüv	arapca
 küfv	arapca
 küheylan	arapca
 küheylân	arapca
-kükre	turkce?	fiil
-kükremeğ	turkce?
-kükremek	turkce?
+kükre	turkce	fiil
+kükremeğ	turkce
+kükremek	turkce
 kükürd	farsca
 kükürt	farsca
 kükürtdioksid	farsca
@@ -11938,7 +11938,7 @@ küşne	arapca
 küt	farsca
 kütahya	diger
 kütikül	bati
-kütle	turkce?
+kütle	arapca
 küttab	arapca
 küttâb	arapca
 kütüb	arapca
@@ -11949,7 +11949,7 @@ küul	arapca
 küved	bati
 küvet	bati
 küzaz	arapca
-laakal	turkce?
+laakal	arapca
 labirend	bati
 labirent	bati
 labis	arapca
@@ -12035,7 +12035,7 @@ lastik	bati
 laşey	arapca
 laterna	bati
 latif	arapca
-latife	turkce?
+latife	arapca
 laubali	arapca
 lav	bati
 lavabo	bati
@@ -12047,8 +12047,8 @@ lavaş	farsca
 lavman	turkce?
 lavrensiyum	bati
 lavta	turkce?
-layemud	turkce?
-layemut	turkce?
+layemud	arapca
+layemut	arapca
 layığ	arapca
 layık	arapca
 layiha	arapca
@@ -12067,7 +12067,7 @@ leben	arapca
 leblebi	arapca
 legal	bati
 leğen	farsca
-leh	diger
+leh	arapca
 lehçe	arapca
 lehim	arapca
 lehimle	turkce?	fiil
@@ -12227,7 +12227,7 @@ lökoplasd	bati
 lökoplast	bati
 lökosid	bati
 lökosit	bati
-lökün	turkce?
+lökün	arapca
 lösemi	bati
 lubb	arapca
 lubunya	diger
@@ -12264,7 +12264,7 @@ lütfetmeğ	turkce?
 lütfetmek	turkce?
 lütfi	arapca
 lütfiye	arapca
-lüzum	turkce?
+lüzum	arapca
 lüzumlu	turkce?
 lüʾeyy	arapca
 ma’ada	arapca
@@ -12371,7 +12371,7 @@ mahcup	arapca
 mahcupluğ	turkce?
 mahcupluk	turkce?
 mahdud	arapca
-mahdum	turkce?
+mahdum	arapca
 mahdut	arapca
 mahfe	arapca
 mahfi	turkce?
@@ -12427,7 +12427,7 @@ mahşer	arapca
 mahuf	arapca
 mahya	farsca
 mahza	arapca
-mahzen	turkce?
+mahzen	arapca
 mahzun	arapca
 mai	arapca
 mâî	arapca
@@ -12436,7 +12436,7 @@ maişet	arapca
 majeste	bati
 majör	bati
 makad	arapca
-makale	turkce?
+makale	arapca
 makam	arapca
 makar	arapca
 makara	arapca
@@ -12646,7 +12646,7 @@ maskülen	bati
 maslağ	arapca
 maslahad	arapca
 maslahat	arapca
-maslahatgüzar	turkce?
+maslahatgüzar	farsca
 maslak	arapca
 masör	bati
 masraf	arapca
@@ -12706,11 +12706,11 @@ mavera	arapca
 maveraünnehir	arapca
 mavi	arapca
 mavzer	turkce?
-maya	turkce?
+maya	farsca
 mayalan	turkce?	fiil
 mayalanmağ	turkce?
 mayalanmak	turkce?
-mayasıl	turkce?
+mayasıl	arapca
 maydanoz	arapca
 mayhoş	farsca
 mayın	bati
@@ -12730,7 +12730,7 @@ mazarrat	arapca
 mazbata	arapca
 mazered	arapca
 mazeret	arapca
-mazgal	turkce?
+mazgal	arapca
 mazgird	diger
 mazgirt	diger
 mazhar	arapca
@@ -12775,8 +12775,8 @@ mecelle	arapca
 mecid	arapca
 mecle	arapca
 meclis	arapca
-mecmu	turkce?
-mecmua	turkce?
+mecmu	arapca
+mecmua	arapca
 mecnun	arapca
 mecra	arapca
 mecusi	arapca
@@ -12836,13 +12836,13 @@ mehtab	farsca
 mehtap	farsca
 mehter	farsca
 mehteran	farsca
-mekan	turkce?
-mekân	turkce?
+mekan	arapca
+mekân	arapca
 mekaniğ	bati
 mekanik	bati
 mekanizma	bati
-mekiğ	turkce?
-mekik	turkce?
+mekiğ	farsca
+mekik	farsca
 mekke	arapca
 mekruh	arapca
 mekteb	arapca
@@ -13001,7 +13001,7 @@ mermerlik	turkce?
 mermi	farsca
 mersa	arapca
 mersi	bati
-mersin	turkce?
+mersin	arapca
 mersiye	arapca
 mert	farsca
 mertaʿ	arapca
@@ -13019,7 +13019,7 @@ mesafe	arapca
 mesaha	arapca
 mesai	arapca
 mesaj	bati
-mesane	turkce?
+mesane	arapca
 mescid	arapca
 mescit	arapca
 mesd	farsca
@@ -13133,7 +13133,7 @@ mevize	arapca
 mevki	arapca
 mevkuf	arapca
 mevlid	arapca
-mevlit	turkce?
+mevlit	arapca
 mevlud	arapca
 mevlûd	arapca
 mevlut	arapca
@@ -13217,7 +13217,7 @@ mızrab	arapca
 mızrağ	arapca
 mızrak	arapca
 mızrap	turkce?
-mi	turkce?
+mi	turkce
 mi’mar	arapca
 mi’mâr	arapca
 mi’mari	farsca
@@ -13534,7 +13534,7 @@ muhammed	arapca
 muhammen	arapca
 muhammes	arapca
 muhammet	arapca
-muharebe	turkce?
+muharebe	arapca
 muharib	arapca
 muharip	arapca
 muharrem	arapca
@@ -13587,12 +13587,12 @@ mukadderad	arapca
 mukadderat	arapca
 mukaddes	arapca
 mukaddime	arapca
-mukarrer	turkce?
+mukarrer	arapca
 mukarrerad	arapca
 mukarrerat	arapca
 mukavele	arapca
-mukavemed	turkce?
-mukavemet	turkce?
+mukavemed	arapca
+mukavemet	arapca
 mukavim	arapca
 mukavva	arapca
 mukayese	arapca
@@ -13601,7 +13601,7 @@ mukayyet	arapca
 mukayyid	arapca
 mukim	arapca
 muko	turkce
-muktedir	turkce?
+muktedir	arapca
 mukteza	arapca
 mum	farsca
 mumcu	turkce?
@@ -13621,12 +13621,12 @@ murakıb	arapca
 murakıp	arapca
 murat	arapca
 murd	farsca
-murdar	turkce?
+murdar	farsca
 murgul	turkce?
 murr	arapca
 mursa	arapca
 murt	farsca
-musa	turkce?
+musa	arapca
 musab	arapca
 musabeyli	turkce
 musahabe	arapca
@@ -13649,14 +13649,14 @@ musiki	farsca
 musirren	arapca
 muska	arapca
 muslin	arapca
-musluğ	turkce?
-musluk	turkce?
+musluğ	arapca
+musluk	arapca
 muson	bati
 mustafa	arapca
 mustafâ	arapca
 mustatil	arapca
 musul	turkce?
-muş	turkce?
+muş	farsca
 muşamba	arapca
 muşd	farsca
 muşgara	diger
@@ -13694,8 +13694,8 @@ muvafakad	arapca
 muvafakat	arapca
 muvaffağ	arapca
 muvaffak	arapca
-muvaffakiyed	turkce?
-muvaffakiyet	turkce?
+muvaffakiyed	arapca
+muvaffakiyet	arapca
 muvaffakiyetsizleştiricileştiriveremeyebileceklerimizdenmişsinizcesine	arapca
 muvafığ	arapca
 muvafık	arapca
@@ -13775,7 +13775,7 @@ müdekkikane	arapca
 müdera	arapca
 müderâ	arapca
 müderris	arapca
-müdevver	turkce?
+müdevver	arapca
 müdhiş	arapca
 müdir	arapca
 müdîr	arapca
@@ -13843,7 +13843,7 @@ mükevvenad	arapca
 mükevvenat	arapca
 mükteseb	arapca
 müktesep	arapca
-mülahaza	turkce?
+mülahaza	arapca
 mülahham	turkce?
 mülakad	arapca
 mülakat	arapca
@@ -13855,8 +13855,8 @@ mülhakad	arapca
 mülhakat	arapca
 mülhiye	arapca
 mülk	arapca
-mülkiyed	turkce?
-mülkiyet	turkce?
+mülkiyed	arapca
+mülkiyet	arapca
 mülteci	arapca
 mültefid	arapca
 mültefit	arapca
@@ -13869,7 +13869,7 @@ mümbid	arapca
 mümbit	arapca
 mümessil	arapca
 mümeyyiz	arapca
-mümin	turkce?
+mümin	arapca
 mümkin	arapca
 mümkün	arapca
 mümtaz	arapca
@@ -13880,9 +13880,9 @@ münafık	arapca
 münakalad	arapca
 münakalat	arapca
 münakasa	arapca
-münakaşa	turkce?
-münasebed	turkce?
-münasebet	turkce?
+münakaşa	arapca
+münasebed	arapca
+münasebet	arapca
 münasıb	arapca
 münasıp	arapca
 münasib	arapca
@@ -14029,7 +14029,7 @@ müsvedde	arapca
 müşaare	arapca
 müşâare	arapca
 müşabih	arapca
-müşahede	turkce?
+müşahede	arapca
 müşahhas	arapca
 müşahid	arapca
 müşahit	arapca
@@ -14058,7 +14058,7 @@ müştereğ	arapca
 müşterek	arapca
 müşteri	arapca
 mütalaa	arapca
-mütareke	turkce?
+mütareke	arapca
 müteaddid	arapca
 müteaddit	arapca
 müteahhid	arapca
@@ -14163,9 +14163,9 @@ nabekar	farsca
 nabekâr	farsca
 nabız	arapca
 nablus	arapca
-nacağ	turkce?
-nacak	turkce?
-naci	turkce?
+nacağ	farsca
+nacak	farsca
+naci	arapca
 nacud	arapca
 naçizane	farsca
 nadas	diger
@@ -14573,8 +14573,8 @@ nurlanmak	turkce?
 nusaybin	arapca
 nusayri	arapca
 nusayrî	arapca
-nutuğ	turkce?
-nutuk	turkce?
+nutuğ	arapca
+nutuk	arapca
 nü	bati
 nüans	bati
 nübela	arapca
@@ -14666,7 +14666,7 @@ okçu	turkce?
 okçuluğ	turkce?
 okçuluk	turkce?
 okey	bati
-okka	turkce?
+okka	arapca
 oklağı	turkce
 oklava	turkce
 okluğ	turkce?
@@ -14778,7 +14778,7 @@ orangutan	bati
 ordinasyon	bati
 ordinatör	bati
 ordövr	bati
-ordu	turkce?
+ordu	turkce
 ordugah	turkce?
 ordugâh	turkce?
 orfoz	diger
@@ -14902,7 +14902,7 @@ ovalamağ	turkce?
 ovalamak	turkce?
 overthinking	bati
 oy	turkce?
-oy	turkce?	fiil
+oy	turkce	fiil
 oya	diger
 oyacı	diger
 oyala	turkce?	fiil
@@ -14913,8 +14913,8 @@ oyalanmağ	turkce?
 oyalanmak	turkce?
 oyan	turkce
 oylum	turkce?
-oymağ	turkce?
-oymak	turkce?
+oymağ	turkce
+oymak	turkce
 oyna	turkce	fiil
 oynamağ	turkce
 oynamak	turkce
@@ -15062,7 +15062,7 @@ ozon	bati
 örmek	turkce
 örneğ	turkce?
 örnek	turkce?
-örs	turkce?
+örs	turkce
 örsele	turkce	fiil
 örselemeğ	turkce
 örselemek	turkce
@@ -15073,9 +15073,9 @@ ozon	bati
 örtemek	turkce
 örtmeğ	turkce
 örtmek	turkce
-örtü	turkce?
+örtü	turkce
 örtülü	turkce
-örü	turkce?
+örü	turkce
 örül	turkce?	fiil
 örülmeğ	turkce?
 örülmek	turkce?
@@ -15108,8 +15108,8 @@ ozon	bati
 öyle	turkce
 öz	turkce
 özbakım	bati
-özbeğ	turkce?
-özbek	turkce?
+özbeğ	turkce
+özbek	turkce
 özçekim	bati
 özdekçi	turkce
 özdemir	turkce?
@@ -15151,7 +15151,7 @@ paçavracı	turkce?
 paçoz	diger
 pad	turkce?
 padavra	diger
-padişah	turkce?
+padişah	farsca
 padişahane	farsca
 pag	diger
 pagoda	bati
@@ -15330,7 +15330,7 @@ pastırma	turkce?
 pastil	bati
 pastinay	bati
 pastro	diger
-paşa	turkce?
+paşa	farsca
 paşalığ	turkce?
 paşalık	turkce?
 paşmina	farsca
@@ -15364,13 +15364,13 @@ pavyon	bati
 pay	farsca
 payağ	diger
 payak	diger
-payas	diger
+payas	arapca
 paydos	farsca
 paye	farsca
 payende	farsca
-payidar	turkce?
-payitahd	turkce?
-payitaht	turkce?
+payidar	farsca
+payitahd	farsca
+payitaht	farsca
 paylaş	turkce?	fiil
 paylaşmağ	turkce?
 paylaşmak	turkce?
@@ -15381,7 +15381,7 @@ pazarcık	turkce?
 pazarlığ	turkce?
 pazarlık	turkce?
 pazartesi	turkce?
-pazı	diger
+pazı	farsca
 peçeta	bati
 peçete	turkce?
 peçuta	diger
@@ -15506,10 +15506,10 @@ peş	farsca
 peşgir	farsca
 peşiman	farsca
 peşin	farsca
-peşkeş	turkce?
+peşkeş	farsca
 peşkir	turkce?
 peştahta	farsca
-peştamal	turkce?
+peştamal	farsca
 peştamalcı	turkce?
 peşte	diger
 peteğ	diger
@@ -15555,7 +15555,7 @@ pikab	bati
 pikap	bati
 pike	bati
 piksel	bati
-pil	bati
+pil	farsca
 pilaki	diger
 pilav	farsca
 pilavcı	turkce?
@@ -15701,8 +15701,8 @@ popülist	bati
 pord	bati
 pornoğrafya	arapca
 porselen	bati
-porsuğ	turkce?
-porsuk	turkce?
+porsuğ	turkce
+porsuk	turkce
 port	bati
 portakallı	turkce?
 portekiz	turkce?
@@ -15867,10 +15867,10 @@ pusad	arapca
 pusat	arapca
 pusmağ	turkce
 pusmak	turkce
-pusu	turkce?
+pusu	turkce
 pusula	bati
-puşd	turkce?
-puşt	turkce?
+puşd	farsca
+puşt	farsca
 put	farsca
 putperesd	farsca
 putperest	farsca
@@ -15905,7 +15905,7 @@ rab	arapca
 rabd	arapca
 rabıd	arapca
 rabıt	arapca
-rabıta	turkce?
+rabıta	arapca
 rabıtalı	turkce?
 rabt	arapca
 racon	bati
@@ -15934,15 +15934,15 @@ ragusa	bati
 rağ	farsca
 rağbed	arapca
 rağbet	arapca
-rağmen	turkce?
+rağmen	arapca
 raha	arapca
 rahad	arapca
 rahat	arapca
 rahatla	arapca	fiil
 rahatlamağ	arapca
 rahatlamak	arapca
-rahatlığ	turkce?
-rahatlık	turkce?
+rahatlığ	arapca
+rahatlık	arapca
 rahatü’l-hulkum	arapca
 râhatü’l-hulkûm	arapca
 rahban	farsca
@@ -15954,7 +15954,7 @@ rahibe	arapca
 rahim	arapca
 rahîm	arapca
 rahip	turkce?
-rahle	turkce?
+rahle	arapca
 rahm	arapca
 rahman	arapca
 rahmed	arapca
@@ -15972,7 +15972,7 @@ rakib	farsca
 rakibe	arapca
 rakip	farsca
 rakka	arapca
-rakkas	turkce?
+rakkas	arapca
 rakkase	arapca
 raks	arapca
 ramağ	arapca
@@ -16089,8 +16089,8 @@ reisicumhur	turkce?
 reji	bati
 rejim	bati
 rejisör	bati
-rekabed	turkce?
-rekabet	turkce?
+rekabed	farsca
+rekabet	farsca
 rekâd	turkce?
 rekat	turkce?
 rekât	turkce?
@@ -16181,7 +16181,7 @@ rezaled	arapca
 rezâled	arapca
 rezalet	arapca
 rezâlet	arapca
-reze	turkce?
+reze	arapca
 rezede	bati
 rezene	farsca
 rezerve	bati
@@ -16196,7 +16196,7 @@ rıfad	arapca
 rıfat	arapca
 rıh	farsca
 rıhtım	farsca
-rıza	turkce?
+rıza	arapca
 rızğ	arapca
 rızığ	arapca
 rızık	arapca
@@ -16286,8 +16286,8 @@ ruhani	arapca
 ruhen	arapca
 ruhiyad	arapca
 ruhiyat	arapca
-ruhsad	turkce?
-ruhsat	turkce?
+ruhsad	arapca
+ruhsat	arapca
 ruj	bati
 rulo	bati
 rum	farsca
@@ -16305,7 +16305,7 @@ rutubetlendir	turkce?	fiil
 rutubetlendirmeğ	turkce?
 rutubetlendirmek	turkce?
 rutubetli	turkce?
-ruzname	turkce?
+ruzname	farsca
 ruʿam	arapca
 rüchan	arapca
 rücu	arapca
@@ -16337,8 +16337,8 @@ rüzgârlı	turkce?
 rüʼesa	arapca
 rüʼesâ	arapca
 saad	arapca
-saaded	turkce?
-saadet	turkce?
+saaded	arapca
+saadet	arapca
 saadettin	arapca
 saat	arapca
 saatliğ	turkce?
@@ -16353,7 +16353,7 @@ saban	turkce
 sabancı	turkce?
 sabığ	arapca
 sabık	arapca
-sabıka	turkce?
+sabıka	arapca
 sabır	arapca
 sabırlı	turkce?
 sabırsız	turkce?
@@ -16393,8 +16393,8 @@ sad	turkce	fiil
 sadağ	diger
 sadak	diger
 sadaka	arapca
-sadakad	turkce?
-sadakat	turkce?
+sadakad	arapca
+sadakat	arapca
 sadakatsiz	turkce?
 sade	farsca
 sadece	turkce?
@@ -16417,14 +16417,14 @@ safari	bati
 safer	arapca
 safevi	arapca
 safevî	turkce?
-saffed	turkce?
-saffet	turkce?
+saffed	arapca
+saffet	arapca
 safha	arapca
 safi	arapca
-safiha	turkce?
+safiha	arapca
 safir	bati
 safiye	arapca
-safra	turkce?
+safra	arapca
 safrâ	arapca
 safran	arapca
 safranbolu	diger
@@ -16460,7 +16460,7 @@ sağrağ	turkce
 sağrak	turkce
 sağrı	turkce
 saha	arapca
-sahabe	turkce?
+sahabe	arapca
 sahabed	arapca
 sahabet	arapca
 sahaf	arapca
@@ -16488,7 +16488,7 @@ sahlep	arapca
 sahn	arapca
 sahne	bati
 sahra	arapca
-sahre	turkce?
+sahre	arapca
 sahte	farsca
 sahtekar	turkce?
 sahtekâr	turkce?
@@ -16635,7 +16635,7 @@ sancak	turkce
 sanç	turkce	fiil
 sançmağ	turkce
 sançmak	turkce
-sandal	diger
+sandal	arapca
 sandaled	bati
 sandalet	bati
 sandaliyye	farsca
@@ -16648,7 +16648,7 @@ sandûkçe	arapca
 sandvic	bati
 sandviç	bati
 sani	arapca
-saniye	turkce?
+saniye	arapca
 sankt-peterburg	diger
 sanmağ	turkce
 sanmak	turkce
@@ -16720,8 +16720,8 @@ sarhoşluk	farsca
 sarı	turkce
 sarıasma	turkce?
 sarıcakaya	turkce
-sarığ	turkce?
-sarık	turkce?
+sarığ	turkce
+sarık	turkce
 sarıkçı	turkce?
 sarıkuş	turkce?
 sarılığ	turkce?
@@ -16777,7 +16777,7 @@ satıl	turkce?	fiil
 satılmağ	turkce?
 satılmak	turkce?
 satın	turkce?
-satır	turkce?
+satır	arapca
 satmağ	turkce
 satmak	turkce
 satmar	diger
@@ -16786,16 +16786,16 @@ satranç	farsca
 satrançlı	turkce?
 satur	arapca
 satürn	bati
-satved	turkce?
-satvet	turkce?
+satved	arapca
+satvet	arapca
 sav	turkce
 sav	turkce	fiil
 savab	arapca
 savad	arapca
 savaş	turkce
-savaş	turkce?	fiil
-savaşmağ	turkce?
-savaşmak	turkce?
+savaş	turkce	fiil
+savaşmağ	turkce
+savaşmak	turkce
 savat	arapca
 savcı	turkce
 savd	arapca
@@ -16859,7 +16859,7 @@ sebil	arapca
 sebte	arapca
 sebze	farsca
 sec	turkce	fiil
-seccade	turkce?
+seccade	arapca
 seccadeci	turkce?
 secde	arapca
 seç	turkce	fiil
@@ -16877,9 +16877,9 @@ sedâb	farsca
 sedanter	bati
 sedd	arapca
 sedef	arapca
-sedil	bati
+sedil	arapca
 sedimantasyon	bati
-sedir	bati
+sedir	arapca
 sedye	bati
 sedyeci	bati
 sefa	arapca
@@ -16892,13 +16892,13 @@ sefâred	arapca
 sefaret	arapca
 sefâret	arapca
 sefer	arapca
-seferber	turkce?
+seferber	farsca
 seferberliğ	turkce?
 seferberlik	turkce?
 sefih	arapca
 sefil	arapca
 sefine	arapca
-sefir	turkce?
+sefir	arapca
 segah	farsca
 segâh	farsca
 seğ	bati
@@ -16958,7 +16958,7 @@ selcuki	arapca
 selcûkî	arapca
 selçuğ	bati
 selçuk	bati
-sele	bati
+sele	arapca
 selef	arapca
 selektör	bati
 selendi	diger
@@ -17085,11 +17085,11 @@ sergerde	farsca
 sergi	turkce
 sergüzeşd	farsca
 sergüzeşt	farsca
-serhad	turkce?
+serhad	farsca
 serhadd	farsca
-serhat	turkce?
+serhat	farsca
 serhoş	farsca
-seri	bati
+seri	arapca
 serin	diger
 serinle	turkce?	fiil
 serinled	turkce?	fiil
@@ -17196,7 +17196,7 @@ seyitmek	turkce
 seyl	arapca
 seylan	farsca
 seyr	arapca
-seyran	turkce?
+seyran	arapca
 seyred	turkce?	fiil
 seyreğ	turkce
 seyrek	turkce
@@ -17268,8 +17268,8 @@ sığırcık	turkce
 sığırkuyruğu	turkce?
 sığmağ	turkce
 sığmak	turkce
-sıhhad	turkce?
-sıhhat	turkce?
+sıhhad	arapca
+sıhhat	arapca
 sıhhıye	arapca
 sıhhi	arapca
 sıhhiye	arapca
@@ -17658,11 +17658,11 @@ sonra	turkce
 soñra	turkce
 sonsuz	turkce
 sopa	turkce?
-sor	diger	fiil
+sor	turkce	fiil
 sorağ	turkce
 sorak	turkce
-sormağ	diger
-sormak	diger
+sormağ	turkce
+sormak	turkce
 sorti	bati
 soru	turkce
 soruğ	turkce
@@ -17683,7 +17683,7 @@ sota	bati
 sote	bati
 sovyed	diger
 sovyet	diger
-soy	turkce?
+soy	turkce
 soy	turkce	fiil
 soya	bati
 soygun	turkce
@@ -17904,8 +17904,8 @@ sus	arapca
 sus	turkce?	fiil
 susa	farsca
 susa	turkce	fiil
-susağ	turkce?
-susak	turkce?
+susağ	turkce
+susak	turkce
 susam	arapca
 susamağ	turkce
 susamak	turkce
@@ -17916,7 +17916,7 @@ susturmağ	turkce?
 susturmak	turkce?
 susurluğ	turkce?
 susurluk	turkce?
-susuz	turkce?
+susuz	turkce
 susuzluğ	turkce?
 susuzluk	turkce?
 suş	bati
@@ -18023,7 +18023,7 @@ sürçmeğ	turkce
 sürçmek	turkce
 sürd	turkce	fiil
 sürekli	turkce?
-süreyya	turkce?
+süreyya	arapca
 sürgün	turkce
 sürme	turkce?
 sürmeğ	turkce
@@ -18031,8 +18031,8 @@ sürmek	turkce
 sürmenaj	bati
 sürmene	diger
 sürpriz	bati
-sürsad	turkce?
-sürsat	turkce?
+sürsad	farsca
+sürsat	farsca
 sürt	turkce	fiil
 sürtmeğ	turkce
 sürtmek	turkce
@@ -18176,11 +18176,11 @@ sweat	bati
 şarapnel	bati
 şarbon	bati
 şard	arapca
-şarğ	turkce?
+şarğ	arapca
 şarib	arapca
 şarj	bati
 şarjör	bati
-şark	turkce?
+şark	arapca
 şarkıcı	turkce?
 şarki	arapca
 şarkî	arapca
@@ -18194,16 +18194,16 @@ sweat	bati
 şaşı	turkce
 şaşılığ	turkce?
 şaşılık	turkce?
-şaşır	turkce?	fiil
+şaşır	turkce	fiil
 şaşırd	turkce?	fiil
-şaşırmağ	turkce?
-şaşırmak	turkce?
+şaşırmağ	turkce
+şaşırmak	turkce
 şaşırt	turkce?	fiil
 şaşırtmağ	turkce?
 şaşırtmak	turkce?
-şaşkın	turkce?
-şaşkınlığ	turkce?
-şaşkınlık	turkce?
+şaşkın	turkce
+şaşkınlığ	turkce
+şaşkınlık	turkce
 şaşmağ	turkce
 şaşmak	turkce
 şatafad	arapca
@@ -18227,7 +18227,7 @@ sweat	bati
 şebabed	arapca
 şebabet	arapca
 şebboy	farsca
-şebeke	turkce?
+şebeke	arapca
 şebnem	farsca
 şecere	arapca
 şef	bati
@@ -18323,10 +18323,10 @@ sweat	bati
 şeriad	turkce?
 şeriat	turkce?
 şerid	arapca
-şerif	turkce?
+şerif	arapca
 şerife	arapca
-şeriğ	turkce?
-şerik	turkce?
+şeriğ	arapca
+şerik	arapca
 şerit	arapca
 şeritçi	turkce?
 şeriʼad	arapca
@@ -18345,7 +18345,7 @@ sweat	bati
 şevvâl	arapca
 şey	arapca
 şeyda	farsca
-şeyh	turkce?
+şeyh	arapca
 şeytan	arapca
 şeytanca	turkce?
 şeytani	arapca
@@ -18417,13 +18417,13 @@ sweat	bati
 şirket	arapca
 şirred	arapca
 şirret	arapca
-şirvan	turkce?
+şirvan	farsca
 şirvanşah	farsca
-şiryan	turkce?
+şiryan	arapca
 şiş	turkce
 şiş	turkce	fiil
 şişe	farsca
-şişeci	turkce?
+şişeci	farsca
 şişehane	farsca
 şişehâne	farsca
 şişele	farsca	fiil
@@ -18471,7 +18471,7 @@ sweat	bati
 şuayb	arapca
 şubad	arapca
 şubat	arapca
-şube	turkce?
+şube	arapca
 şud	bati
 şuhud	turkce?
 şuhut	turkce?
@@ -18621,7 +18621,7 @@ tahd	farsca
 tahdid	arapca
 tahdit	arapca
 tahfif	arapca
-tahıl	turkce?
+tahıl	arapca
 tahır	arapca
 tahin	arapca
 tahir	arapca
@@ -18825,7 +18825,7 @@ tapşır	turkce?	fiil
 tapşırmağ	turkce?
 tapşırmak	turkce?
 tapyoka	bati
-tara	diger	fiil
+tara	turkce	fiil
 tarabizan	farsca
 tarabülüs	arapca
 tarabya	diger
@@ -18838,8 +18838,8 @@ taraftar	farsca
 tarağ	turkce
 tarak	turkce
 tarakçı	turkce?
-taramağ	diger
-taramak	diger
+taramağ	turkce
+taramak	turkce
 tarassud	arapca
 tarassut	arapca
 tarator	farsca
@@ -18850,7 +18850,7 @@ tarçın	farsca
 tard	turkce	fiil
 tarem	farsca
 tarhana	farsca
-tarhun	turkce?
+tarhun	arapca
 tarığ	arapca
 tarık	arapca
 tarım	turkce
@@ -18885,8 +18885,8 @@ tasarlamak	turkce?
 tasarruf	arapca
 tasavvuf	arapca
 tasavvur	arapca
-tasdiğ	turkce?
-tasdik	turkce?
+tasdiğ	arapca
+tasdik	arapca
 tasfiye	arapca
 tashih	arapca
 tasla	turkce?	fiil
@@ -18894,7 +18894,7 @@ taslağ	turkce?
 taslak	turkce?
 taslamağ	turkce?
 taslamak	turkce?
-tasma	turkce?
+tasma	turkce
 tasnif	arapca
 tasrif	arapca
 tasvib	arapca
@@ -18955,7 +18955,7 @@ tatlılık	turkce?
 tatmağ	turkce
 tatmak	turkce
 tatmaq	turkce
-tatmin	turkce?
+tatmin	arapca
 tatminkar	turkce?
 tatminkâr	turkce?
 tatsız	turkce?
@@ -19037,14 +19037,14 @@ tebeşir	farsca
 tebligad	arapca
 tebligat	arapca
 tebliğ	arapca
-tebriğ	turkce?
-tebrik	turkce?
+tebriğ	arapca
+tebrik	arapca
 tecavüz	arapca
 tecdid	arapca
 tecdit	arapca
 teceddüd	arapca
 teceddüt	arapca
-tecelli	turkce?
+tecelli	arapca
 tecelliyad	arapca
 tecelliyat	arapca
 tecessüm	arapca
@@ -19062,8 +19062,8 @@ tecziye	arapca
 teçhiz	arapca
 teçhizad	arapca
 teçhizat	arapca
-tedariğ	turkce?
-tedarik	turkce?
+tedariğ	arapca
+tedarik	arapca
 tedarikçi	turkce?
 tedavi	arapca
 tedbir	arapca
@@ -19077,7 +19077,7 @@ tedricen	arapca
 tedrici	arapca
 tedricî	arapca
 tedris	arapca
-tedvir	turkce?
+tedvir	arapca
 tedviren	arapca
 teehhül	arapca
 teehhür	arapca
@@ -19101,7 +19101,7 @@ teğed	bati
 teğelti	turkce?
 teğet	bati
 tehacüm	arapca
-tehcir	turkce?
+tehcir	arapca
 tehdid	farsca
 tehdit	farsca
 teheccüd	arapca
@@ -19128,7 +19128,7 @@ tekaüd	arapca
 tekaüt	arapca
 tekbir	arapca
 teke	turkce
-tekebbür	turkce?
+tekebbür	arapca
 tekebbürlü	turkce?
 tekel	turkce
 tekellüf	arapca
@@ -19258,7 +19258,7 @@ teneke	farsca
 tenekeci	turkce?
 tenekeciliğ	turkce?
 tenekecilik	turkce?
-tenezzüh	turkce?
+tenezzüh	arapca
 tenezzül	arapca
 tenha	farsca
 tenhalaş	turkce?	fiil
@@ -19296,7 +19296,7 @@ tepmeğ	turkce
 tepmek	turkce
 tepsici	turkce?
 ter	turkce
-terakki	turkce?
+terakki	arapca
 terakkiyad	arapca
 terakkiyat	arapca
 teraküm	arapca
@@ -19412,7 +19412,7 @@ teşbîh	arapca
 teşdid	arapca
 teşebbüs	arapca
 teşekkül	arapca
-teşekkür	turkce?
+teşekkür	arapca
 teşekkürler	arapca
 teşerrüf	arapca
 teşevvüş	arapca
@@ -19427,7 +19427,7 @@ teşrîf	arapca
 teşriğ	arapca
 teşrih	arapca
 teşrik	arapca
-teşrin	turkce?
+teşrin	arapca
 teşrinievvel	arapca
 teşrinisani	arapca
 teşviğ	arapca
@@ -19448,7 +19448,7 @@ tevakkuf	arapca
 tevarüs	arapca
 tevatür	arapca
 tevâtür	arapca
-tevazu	turkce?
+tevazu	arapca
 tevcih	arapca
 tevcihad	arapca
 tevcihat	arapca
@@ -19482,7 +19482,7 @@ teyit	arapca
 teyp	bati
 teyun	turkce
 teyze	turkce?
-tez	bati
+tez	turkce
 tezad	arapca
 tezahür	arapca
 tezahürad	arapca
@@ -19540,7 +19540,7 @@ tıkamak	turkce
 tıkan	turkce?	fiil
 tıkanmağ	turkce?
 tıkanmak	turkce?
-tıkız	turkce?
+tıkız	turkce
 tıkmağ	turkce
 tıkmak	turkce
 tılakar	farsca
@@ -19669,11 +19669,11 @@ tohum	farsca
 tok	turkce
 tok	turkce	fiil
 toka	turkce
-tokad	turkce?
+tokad	turkce
 tokalaş	bati	fiil
 tokalaşmağ	bati
 tokalaşmak	bati
-tokat	turkce?
+tokat	turkce
 toklu	turkce
 tokmağ	turkce
 tokmak	turkce
@@ -19765,8 +19765,8 @@ toynak	turkce
 toz	turkce	fiil
 tozmağ	turkce
 tozmak	turkce
-töhmed	turkce?
-töhmet	turkce?
+töhmed	arapca
+töhmet	arapca
 tökezle	turkce?	fiil
 tökezlemeğ	turkce?
 tökezlemek	turkce?
@@ -19868,8 +19868,8 @@ tunbur	arapca
 tunceli	turkce?
 tundra	bati
 tungsten	bati
-tunus	turkce?
-tur	bati
+tunus	arapca
+tur	arapca
 turac	farsca
 turaç	farsca
 turan	turkce
@@ -19904,8 +19904,8 @@ turunç	arapca
 tuş	bati
 tut	farsca
 tut	turkce	fiil
-tutağ	diger
-tutak	diger
+tutağ	turkce
+tutak	turkce
 tutam	turkce?
 tutiya	arapca
 tutkalla	turkce?	fiil
@@ -20073,12 +20073,12 @@ uğraşmağ	turkce
 uğraşmak	turkce
 uğru	turkce
 uğultu	turkce?
-uğur	turkce?
+uğur	turkce
 uğurlu	turkce?
 uğursuz	turkce?
 uhrevi	arapca
-uhuvved	turkce?
-uhuvvet	turkce?
+uhuvved	arapca
+uhuvvet	arapca
 ukala	arapca
 ukrayna	diger
 ukulele	bati
@@ -20120,7 +20120,7 @@ umumiyed	arapca
 umumiyet	arapca
 umur	arapca
 umut	turkce
-un	turkce?
+un	turkce
 uncu	turkce?
 unsur	arapca
 unud	turkce	fiil
@@ -20154,8 +20154,8 @@ usturlab	arapca
 usturlap	arapca
 usturmaça	diger
 usul	arapca
-uşağ	turkce?
-uşak	turkce?
+uşağ	arapca
+uşak	arapca
 uşkun	farsca
 ut	arapca
 utan	turkce	fiil
@@ -20193,8 +20193,8 @@ uygun	turkce?
 uygur	turkce?
 uyku	turkce
 uykusuz	turkce
-uyluğ	turkce?
-uyluk	turkce?
+uyluğ	turkce
+uyluk	turkce
 uymağ	turkce
 uymak	turkce
 uymaz	turkce
@@ -20382,7 +20382,7 @@ uzuv	arapca
 üvendire	diger
 üveyiğ	turkce
 üveyik	turkce
-üvez	diger
+üvez	turkce
 üz	turkce	fiil
 üzengi	turkce
 üzere	turkce?
@@ -20424,8 +20424,8 @@ vahded	arapca
 vahdet	arapca
 vahim	arapca
 vahiy	arapca
-vahşed	turkce?
-vahşet	turkce?
+vahşed	arapca
+vahşet	arapca
 vahşi	arapca
 vahşî	arapca
 vahşice	turkce?
@@ -20506,11 +20506,11 @@ varyete	bati
 varyos	diger
 vasad	arapca
 vasat	arapca
-vasıd	turkce?
+vasıd	arapca
 vasıf	arapca
 vasıl	arapca
-vasıt	turkce?
-vasıta	turkce?
+vasıt	arapca
+vasıta	arapca
 vasıtasıyla	turkce?
 vasi	arapca
 vâsi	arapca
@@ -20521,7 +20521,7 @@ vasiyetname	turkce?
 vasküler	bati
 vaşağ	turkce
 vaşak	turkce
-vatan	turkce?
+vatan	arapca
 vatandaş	turkce?
 vatani	arapca
 vatanî	arapca
@@ -20554,7 +20554,7 @@ vebal	arapca
 vebil	arapca
 vecibe	arapca
 vecih	arapca
-veciz	turkce?
+veciz	arapca
 veda	arapca
 vedad	arapca
 vedalaş	arapca	fiil
@@ -20590,7 +20590,7 @@ velesbit	bati
 velespid	bati
 velespit	bati
 velet	arapca
-velev	turkce?
+velev	arapca
 velhasıl	arapca
 veli	arapca
 veliahd	arapca
@@ -20757,7 +20757,7 @@ yaba	turkce
 yaban	farsca
 yabancı	turkce?
 yabani	farsca
-yad	bati
+yad	turkce
 yad	turkce	fiil
 yâd	farsca
 yadırga	turkce	fiil
@@ -21041,11 +21041,11 @@ yaşlanmağ	turkce
 yaşlanmak	turkce
 yaşmağ	turkce
 yaşmak	turkce
-yat	bati
+yat	turkce
 yat	turkce	fiil
-yatağ	turkce?
+yatağ	turkce
 yatağan	turkce
-yatak	turkce?
+yatak	turkce
 yatakhane	turkce?
 yatış	turkce?	fiil
 yatışmağ	turkce?
@@ -21065,9 +21065,9 @@ yavaşlamak	turkce?
 yavaşlığ	turkce
 yavaşlık	turkce
 yaver	farsca
-yavru	turkce?
-yavşağ	turkce?
-yavşak	turkce?
+yavru	turkce
+yavşağ	turkce
+yavşak	turkce
 yavşan	turkce
 yavuklu	turkce
 yavuz	turkce
@@ -21105,7 +21105,7 @@ ye	turkce	fiil
 yed	turkce	fiil
 yedeğ	turkce
 yedek	turkce
-yedi	turkce?
+yedi	turkce
 yedinci	turkce
 yedişer	turkce?
 yedmeğ	turkce
@@ -21154,7 +21154,7 @@ yem	turkce
 yemeğ	turkce
 yemek	turkce
 yemen	arapca
-yemeni	turkce?
+yemeni	arapca
 yemenici	turkce?
 yemin	arapca
 yemiş	turkce
@@ -21221,7 +21221,7 @@ yetmek	turkce
 yetmiş	turkce
 yetmişinci	turkce
 yevm	arapca
-yevmiye	turkce?
+yevmiye	arapca
 yevmü’l-isneyn	arapca
 yezd	farsca
 yezdan	farsca
@@ -21257,7 +21257,7 @@ yılancığ	turkce?
 yılancık	turkce?
 yılancıl	turkce?
 yılbaşı	turkce?
-yıldırım	turkce?
+yıldırım	turkce
 yıldız	turkce
 yıldızlararası	bati
 yılkı	turkce
@@ -21305,7 +21305,7 @@ yok	turkce
 yokluğ	turkce
 yokluk	turkce
 yoksa	turkce?
-yoksul	turkce?
+yoksul	turkce
 yoksulluğ	turkce?
 yoksulluk	turkce?
 yokuş	turkce
@@ -21528,7 +21528,7 @@ zambağ	farsca
 zambak	farsca
 zambiya	bati
 zamğ	arapca
-zamir	turkce?
+zamir	arapca
 zamk	arapca
 zampara	farsca
 zan	arapca
@@ -21559,7 +21559,7 @@ zari	arapca
 zarif	arapca
 zarured	arapca
 zaruret	arapca
-zaruri	turkce?
+zaruri	arapca
 zarzavad	farsca
 zarzavat	farsca
 zat	arapca
@@ -21591,8 +21591,8 @@ zebani	arapca
 zebra	bati
 zebun	farsca
 zecir	arapca
-zecri	turkce?
-zecrî	turkce?
+zecri	arapca
+zecrî	arapca
 zede	farsca
 zefir	bati
 zehir	farsca
@@ -21611,13 +21611,13 @@ zekeriyya	arapca
 zekeriyyâ	arapca
 zeki	arapca
 zel	arapca
-zelil	turkce?
+zelil	arapca
 zelve	diger
 zelzele	arapca
 zembereğ	farsca
 zemberek	farsca
 zemberekçi	turkce?
-zembil	turkce?
+zembil	arapca
 zemheri	arapca
 zemherir	arapca
 zemin	farsca
@@ -21685,11 +21685,11 @@ zımbala	turkce?	fiil
 zımbalamağ	turkce?
 zımbalamak	turkce?
 zımpara	turkce?
-zındığ	turkce?
-zındık	turkce?
+zındığ	arapca
+zındık	arapca
 zıpka	turkce?
 zıpkın	turkce?
-zır	diger
+zır	turkce?
 zırh	farsca
 zırıh	farsca
 zırıltı	turkce?
@@ -21733,8 +21733,8 @@ zilhicce	arapca
 ziliğ	diger
 zilik	diger
 zilkade	arapca
-zilled	turkce?
-zillet	turkce?
+zilled	arapca
+zillet	arapca
 zilu	farsca
 zilyon	bati
 zimam	arapca
@@ -21753,7 +21753,7 @@ zindancı	turkce?
 zindegi	farsca
 zindeliğ	turkce?
 zindelik	turkce?
-zinhar	turkce?
+zinhar	farsca
 zira	farsca
 ziraad	arapca
 ziraat	arapca
@@ -21822,8 +21822,8 @@ züğürd	diger
 züğürt	diger
 zühal	arapca
 zührevi	arapca
-zükam	turkce?
-zükâm	turkce?
+zükam	arapca
+zükâm	arapca
 zül	arapca
 zülal	arapca
 züleyha	arapca
@@ -21831,13 +21831,13 @@ zülf	farsca
 zülfikar	arapca
 zülkifl	arapca
 zülüf	farsca
-zümre	turkce?
+zümre	arapca
 zümrüd	farsca
 zümrüt	farsca
 zürafa	arapca
 zürra	turkce?
-zürriyed	turkce?
-zürriyet	turkce?
+zürriyed	arapca
+zürriyet	arapca
 ʼabbas	arapca
 ʼacele	arapca
 ʼaden	arapca

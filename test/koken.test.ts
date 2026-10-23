@@ -23,6 +23,19 @@ describe("kelime kökenleri", () => {
     expect(origin("milliyetsizler", spell)).toBe("arapca");
   });
 
+  it("takes no Western homograph of an eastern word, nor a word before its apostrophes", () => {
+    expect(origin("kur’ân’la", spell)).toBe("arapca");
+    expect(origin("halde", spell)).toBe("arapca");
+    expect(origin("elinde", spell)).toBe("turkce");
+    expect(origin("bulut", spell)).toBe("turkce");
+    expect(origin("bazı", spell)).toBe("arapca");
+    expect(origin("nedir", spell)).toBe("turkce");
+  });
+
+  it("takes a root the Ottoman spelling begins with before a longer one", () => {
+    expect(origin("şudur", spell)).toBe("turkce");
+  });
+
   it("colors a compound by its first part", () => {
     expect(origin("hakikat-i", spell)).toBe("arapca");
   });

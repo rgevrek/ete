@@ -73,10 +73,21 @@ async function download(file, url) {
   return target;
 }
 
-const words = new Map();
+// every origin of a word: a word may be several (homographs, "hal" of Arabic and of French)
+const all = new Map();
 const put = (w, o) => {
-  if (w && !words.has(w)) words.set(w, o);
+  if (!w) return;
+  const list = all.get(w);
+  if (!list) all.set(w, [o]);
+  else if (!list.includes(o)) list.push(o);
 };
+/** The origin of a word of several: Western only when there is no other (they are rare in the
+ *  books: "el" is the Turkic hand, not a loan), a sure one before "turkce?" and the parts. */
+function choose(list) {
+  const sure = list.filter((o) => !o.startsWith("parca:") && !o.endsWith("?"));
+  const eastern = sure.filter((o) => o !== "bati" && o !== "diger");
+  return eastern[0] ?? list.find((o) => o === "turkce?") ?? sure[0] ?? list[0];
+}
 
 async function read(file, ottoman) {
   for await (const line of createInterface({ input: createReadStream(file), crlfDelay: Infinity })) {
@@ -97,6 +108,8 @@ async function read(file, ottoman) {
 
 await read(await download("turkish.jsonl", SOURCES["turkish.jsonl"]), false);
 await read(await download("ottoman.jsonl", SOURCES["ottoman.jsonl"]), true);
+
+const words = new Map([...all].map(([w, list]) => [w, choose(list)]));
 
 // made of parts: the origin of the first part ("kardeş": "karın" + "-daş")
 for (const [w, o] of words) {
@@ -129,8 +142,8 @@ for (const [w, o] of words) {
 const lines = [
   "# word\torigin (arapca farsca turkce bati diger; turkce? when only Ottoman Turkish is named)\tfiil: a verb stem. From Wiktionary (kaikki.org)",
 ];
-const all = [...[...out].map(([w, o]) => [w, o, ""]), ...[...stems].map(([w, o]) => [w, o, "fiil"])];
-for (const [w, o, kind] of all.sort((a, b) => a[0].localeCompare(b[0], "tr") || a[2].localeCompare(b[2]))) {
+const rows = [...[...out].map(([w, o]) => [w, o, ""]), ...[...stems].map(([w, o]) => [w, o, "fiil"])];
+for (const [w, o, kind] of rows.sort((a, b) => a[0].localeCompare(b[0], "tr") || a[2].localeCompare(b[2]))) {
   lines.push(kind ? `${w}\t${o}\t${kind}` : `${w}\t${o}`);
 }
 writeFileSync(OUT, lines.join("\n") + "\n");
