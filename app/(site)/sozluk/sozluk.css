@@ -20,4 +20,18 @@
 .sozluk .etiket { margin-left: 0.5rem; padding: 0 0.35rem; border: 1px solid var(--cizgi); border-radius: 4px; font: 0.7rem system-ui, sans-serif; color: var(--soluk); vertical-align: middle; }
 .sozluk tr.turetilen td.l { color: #4a443c; }
 .sozluk .bos { color: var(--soluk); }
+.sozluk .kisa { display: none; }
 .sozluk .sayfalar { display: flex; justify-content: space-between; margin-top: 1rem; }
+
+@media (max-width: 640px) {
+  .sozluk .arama > input { flex-basis: 100%; }
+  .sozluk table { table-layout: fixed; }
+  .sozluk th, .sozluk td { padding: 0.25rem 0.45rem; overflow: hidden; }
+  .sozluk th.sayi, .sozluk td.sayi { width: 3.2rem; font-size: 0.8rem; }
+  .sozluk td.l { font-size: 1rem; overflow-wrap: anywhere; }
+  .sozluk td.o { font-size: calc(1.9rem * var(--o-oran)); }
+  .sozluk td.e { font-size: 1.2rem; }
+  .sozluk .uzun { display: none; }
+  .sozluk .kisa { display: inline; }
+  .sozluk .etiket { display: block; width: fit-content; margin: 0.1rem 0 0; }
+}

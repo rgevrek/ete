@@ -65,7 +65,10 @@ export default async function Dictionary({
               <th>Latin</th>
               <th>Osmanlıca</th>
               <th>ETE</th>
-              <th className="sayi">Kitaplarda</th>
+              <th className="sayi">
+                <span className="uzun">Kitaplarda</span>
+                <span className="kisa">Adet</span>
+              </th>
             </tr>
           </thead>
           <tbody>

@@ -71,6 +71,26 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .ust .marka { font-weight: 700; text-decoration: none; letter-spacing: 0.02em; }
 .ust .marka span { font-family: var(--ete); font-weight: normal; font-size: 1.3em; margin-left: 0.4em; color: var(--kirmizi); }
 .ust nav { display: flex; gap: 1rem; flex: 1; }
+.ust .menu { display: flex; align-items: center; gap: 1.25rem; flex: 1; }
+.ust .eylemler { display: flex; align-items: center; gap: 0.75rem; }
+.ust .menu-dugme { display: none; }
+
+/* a phone: the brand and "Menü"; the links and buttons open below them */
+@media (max-width: 640px) {
+  .ust { position: static; flex-wrap: wrap; gap: 0; padding: 0.5rem 0.9rem; }
+  .ust .marka { margin-right: auto; }
+  .ust .menu-dugme { display: inline-block; }
+  .ust .menu { display: none; flex: 1 0 100%; flex-direction: column; align-items: stretch; gap: 0.75rem; padding: 0.75rem 0 0.25rem; }
+  .ust.acik .menu { display: flex; }
+  .ust nav { flex-direction: column; gap: 0; }
+  .ust nav a { padding: 0.55rem 0.25rem; border-bottom: 1px solid var(--cizgi); color: var(--renk); }
+  .ust nav a[aria-current="page"] { font-weight: 600; }
+  .ust .eylemler { flex-wrap: wrap; }
+  .ust .kim { flex: 1 0 100%; }
+  .sayfa { padding: 1rem 0.9rem 3rem; }
+  .sayfa h1 { font-size: 1.6rem; margin: 0.25rem 0 0.5rem; }
+  dialog.ayarlar { padding: 1.1rem; max-height: calc(100dvh - 2rem); overflow: auto; }
+}
 .ust nav a { text-decoration: none; color: var(--soluk); }
 .ust nav a:hover, .ust nav a[aria-current="page"] { color: var(--renk); }
 .ust .kim { color: var(--soluk); font-size: 0.85rem; }
