@@ -20,7 +20,9 @@ describe("kelime kökenleri", () => {
   });
 
   it("finds the verbs by their stems", () => {
-    for (const f of ["gösterir", "ediyorum", "dedi", "diyor", "istiyor", "kalır"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["ediyorum", "dedi", "diyor", "istiyor", "kalır"]) expect(origin(f, spell)).toBe("turkce");
+    // göster- كوستر is written köster: old Turkic
+    expect(origin("gösterir", spell)).toBe("eski");
   });
 
   it("takes no short root a word is not made of", () => {
@@ -58,9 +60,11 @@ describe("kelime kökenleri", () => {
 
   it("keeps the grammar words and their forms black, the old Turkic words red", () => {
     for (const f of ["ve", "ki", "ile", "için", "gibi", "bunun", "onlara", "benim"]) expect(origin(f, spell)).toBe("turkce");
-    for (const f of ["el", "ayak", "gelmek"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["el", "ayak"]) expect(origin(f, spell)).toBe("turkce");
     for (const f of ["aslan", "vurmak", "yirmi", "dağ", "doğru", "dokuz"]) expect(origin(f, spell)).toBe("eski");
-    for (const f of ["gelmek", "göz", "deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");
+    for (const f of ["deniz", "büyük"]) expect(origin(f, spell)).toBe("turkce");
+    // ك is k: "gelmek" كلمك reads kelmek
+    for (const f of ["gelmek", "göz"]) expect(origin(f, spell)).toBe("eski");
     expect(origin("hizmetçi", spell)).toBe("arapca");
     expect(explain("âcizler", spell)).toEqual({ origin: "arapca", root: "âciz" });
     for (const [f, root] of [["bilen", "bil"], ["bilenler", "bil"], ["soruyor", "sor"], ["kanı", "kan"]]) {

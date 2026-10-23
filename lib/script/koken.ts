@@ -291,21 +291,22 @@ function ofWord(
   return is(rootSpelling && !readsAs(root, rootSpelling) ? "eski" : "turkce");
 }
 
-/** The Latin consonants an Ottoman letter of a Turkish word is read as (ك k g ğ ñ; ط only t). */
+/** The Latin consonants an Ottoman letter of a Turkish word is read as: ك only k (g is گ, ñ ڭ), ط t. */
 const READS: Record<string, string> = {
   ب: "bp", پ: "p", ت: "t", ط: "t", د: "dt", ج: "cç", چ: "ç", خ: "h", ح: "h", ه: "h", ة: "t", ر: "r", ز: "z",
-  ذ: "z", ض: "zd", ظ: "z", س: "s", ص: "s", ث: "s", ش: "ş", ف: "f", ق: "kğg", ك: "kgğny", ڭ: "n", گ: "g", غ: "ğg",
+  ذ: "z", ض: "zd", ظ: "z", س: "s", ص: "s", ث: "s", ش: "ş", ف: "f", ق: "k", ك: "k", ڭ: "n", گ: "g", غ: "ğg",
   ل: "l", م: "m", ن: "n", و: "v", ي: "y", ى: "y", ئ: "y", ژ: "j",
 };
 /** the letters that may also be vowels, or not be read at all */
 const VOWEL_LETTERS = new Set([..."اآأإوىيهةءئؤع"]);
 
 /** Whether the Ottoman spelling `ottoman` of a Turkish word reads as its Latin `latin`: its consonants
- *  in order, each from a letter that can be read so; vowels from vowel letters or none. "gelmek"
- *  كلمك does, "dağ" طاغ (ṭağ), "vurmak" اورمق (urmak), "yirmi" يكرمى (yigirmi) do not. */
+ *  in order, each from a letter that can be read so; vowels from vowel letters or none. "büyük"
+ *  بيوك does; "gelmek" كلمك (kelmek), "dağ" طاغ (ṭağ), "yirmi" يكرمى (yigirmi) do not. */
 export function readsAs(latin: string, ottoman: string): boolean {
   const l = [...fold(latin).replace(/[’'-]/g, "")];
-  const o = [...bare(ottoman).replace(/[\s‌]/g, "")];
+  // (the letters as written: ڭ is n, not the k of ك as for comparing spellings)
+  const o = [...ottoman.replace(/[ً-ٰ‌ـ\s]/g, "").replace(/[یي]/g, "ى").replace(/[أإآ]/g, "ا").replace(/ۀ/g, "ه")];
   // can l[i:] be read from o[j:]: memoized
   const memo = new Map<number, boolean>();
   const go = (i: number, j: number): boolean => {
