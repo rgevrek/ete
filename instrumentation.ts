@@ -5,5 +5,6 @@ export async function register() {
     library();
     // the index of the dictionary page
     (await import("./lib/sozluk")).search("");
+    (await import("./lib/lugat")).meaningsOf("");
   }
 }

@@ -6,6 +6,16 @@ import { ete } from "./script/ete";
 import { lower } from "./script/latin";
 import { ottomanKey } from "./script/ottoman";
 
+/** The letters of the Turkish alphabet and of the Ottoman, for the letter links. */
+export const LATIN_LETTERS = [..."abcçdefgğhıijklmnoöprsştuüvyz"];
+export const OTTOMAN_LETTERS = [..."ابپتثجچحخدذرزژسشصضطظعغفقكگلمنوهى"];
+
+/** The first letter of an Ottoman word as in OTTOMAN_LETTERS: آ أ إ are ا. */
+function firstOttoman(okey: string): string {
+  const c = okey[0] ?? "";
+  return "آأإٱ".includes(c) ? "ا" : c === "ئ" ? "ى" : c;
+}
+
 export type Entry = {
   latin: string;
   ottoman: string;
@@ -27,6 +37,8 @@ export function fold(text: string): string {
 }
 
 let entries: Indexed[] | undefined;
+const ottomanOrder = new Intl.Collator("fa");
+const byOttomanLetter = new Map<string, Indexed[]>();
 
 function all(): Indexed[] {
   if (entries) return entries;
@@ -52,10 +64,24 @@ export type Result = { total: number; entries: Entry[]; words: number; derived: 
 
 /** The entries matching `query` (all for none), exact ones first, then the ones beginning with it;
  *  `derived` false: only the forms of sozluk.tsv. */
-export function search(query: string, { derived = true, offset = 0, limit = 100 } = {}): Result {
+export function search(
+  query: string,
+  { derived = true, offset = 0, limit = 100, letter = "" } = {},
+): Result {
   const list = all();
   const q = query.trim();
   let found: Indexed[] = derived ? list : list.filter((e) => !e.derived);
+  // the words beginning with a letter: the Ottoman ones in the order of the Ottoman
+  if (OTTOMAN_LETTERS.includes(letter)) {
+    let sorted = byOttomanLetter.get(letter);
+    if (!sorted) {
+      sorted = list.filter((e) => firstOttoman(e.okey) === letter).sort((a, b) => ottomanOrder.compare(a.okey, b.okey));
+      byOttomanLetter.set(letter, sorted);
+    }
+    found = derived ? sorted : sorted.filter((e) => !e.derived);
+  } else if (LATIN_LETTERS.includes(letter)) {
+    found = found.filter((e) => e.fold.startsWith(letter));
+  }
   if (q) {
     const arabic = ARABIC.test(q);
     const key = arabic ? ottomanKey(q).replaceAll(" ", "") : fold(q);
@@ -79,3 +105,4 @@ export function search(query: string, { derived = true, offset = 0, limit = 100 
     derived: list.filter((e) => e.derived).length,
   };
 }
+

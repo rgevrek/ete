@@ -20,6 +20,36 @@
 .sozluk .etiket { margin-left: 0.5rem; padding: 0 0.35rem; border: 1px solid var(--cizgi); border-radius: 4px; font: 0.7rem system-ui, sans-serif; color: var(--soluk); vertical-align: middle; }
 .sozluk tr.turetilen td.l { color: #4a443c; }
 .sozluk .bos { color: var(--soluk); }
+
+/* the letters */
+.sozluk nav[class^="harfler"] { display: flex; flex-wrap: wrap; gap: 0.2rem; margin: 0.4rem 0; }
+.sozluk nav[class^="harfler"] a {
+  min-width: 2rem;
+  padding: 0.15rem 0.35rem;
+  border: 1px solid var(--cizgi);
+  border-radius: 5px;
+  background: var(--kagit);
+  text-align: center;
+  text-decoration: none;
+}
+.sozluk nav[class^="harfler"] a:hover { border-color: var(--soluk); }
+.sozluk nav[class^="harfler"] a[aria-current="page"] { background: var(--renk); color: var(--kagit); border-color: var(--renk); }
+.sozluk .harfler-latin a { font: 1rem/1.6 var(--metin); }
+/* the letters alone: in the naskh, clearer than Hüsrev's */
+.sozluk .harfler-osmanli a { font: 1.35rem/1.45 var(--ete); }
+.sozluk .secili { color: var(--renk); }
+
+/* the meanings of the lügat, under their word */
+.sozluk tr.anlamli td { border-bottom: 0; }
+.sozluk tr.anlam-satiri td { padding: 0 0.9rem 0.55rem; border-bottom: 1px solid #efe9dc; }
+.sozluk .anlam { font-size: 0.92rem; line-height: 1.5; color: #3d3730; }
+.sozluk .anlam + .anlam { margin-top: 0.3rem; }
+.sozluk .anlam .kok { font-weight: 600; }
+.sozluk .anlam details { display: inline; }
+.sozluk .anlam summary { display: inline; cursor: pointer; color: var(--vurgu); margin-left: 0.4rem; font-size: 0.85em; }
+.sozluk .anlam details[open] summary { display: block; margin: 0.1rem 0 0; }
+.sozluk .yerler { display: block; color: var(--soluk); font-size: 0.8rem; }
+.sozluk .yerler a { color: inherit; }
 .sozluk .kisa { display: none; }
 .sozluk .sayfalar { display: flex; justify-content: space-between; margin-top: 1rem; }
 
@@ -33,5 +63,7 @@
   .sozluk td.e { font-size: 1.2rem; }
   .sozluk .uzun { display: none; }
   .sozluk .kisa { display: inline; }
+  .sozluk tr.anlam-satiri td { padding: 0 0.45rem 0.5rem; }
+  .sozluk nav[class^="harfler"] a { min-width: 1.75rem; }
   .sozluk .etiket { display: block; width: fit-content; margin: 0.1rem 0 0; }
 }
