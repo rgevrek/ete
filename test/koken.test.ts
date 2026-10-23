@@ -17,6 +17,9 @@ describe("kelime kökenleri", () => {
     expect(origin("zaman", spell)).toBe("farsca");
     expect(origin("kardeş", spell)).toBe("turkce");
     expect(origin("jandarma", spell)).toBe("bati");
+    // through Arabic: Arabic, also of a Greek or Latin source ("kanun" < kanṓn)
+    for (const f of ["kanun", "kalem", "felsefe", "iklim"]) expect(origin(f, spell)).toBe("arapca");
+    for (const f of ["kilise", "okul"]) expect(origin(f, spell)).toBe("bati");
   });
 
   it("finds the verbs by their stems", () => {

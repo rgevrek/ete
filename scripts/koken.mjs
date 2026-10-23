@@ -38,9 +38,9 @@ function classify(e) {
   const chain = (text.startsWith("Etymology tree") ? text.split("\n").slice(1).join(" ") : text)
     .replace(/\([^()]*\)/g, " ")
     .split(/\b(?:Cognate|cognate with|Cognates|Compare|Doublet|doublet of|Related to|Akin to|akin to|See also|cf\.)/)[0];
-  // the root: the deepest language the chain names ("from Persian جنت, from Arabic جنة": Arabic);
-  // a deeper Persian does not change an Arabic root ("rızık"), nothing a Western one ("from Italian
-  // …, from Latin …, from Greek …"); a deeper Turkic one changes a Persian or Arabic ("hakan")
+  // the root: the deepest language the chain names ("from Persian جنت, from Arabic جنة": Arabic),
+  // but the Arabic or Persian a word came through before a deeper Western or Greek one ("kanun");
+  // a deeper Turkic one changes a Persian or Arabic ("hakan")
   let turkic = false;
   let root = null;
   let other = null;
@@ -56,7 +56,14 @@ function classify(e) {
       if (root && root !== "bati") root = "turkce";
     } else if (o === "diger") other ??= o;
     else if (o) {
-      if (!(root === "bati" && o !== "bati") && !(root === "arapca" && o === "farsca")) root = o;
+      // a deeper Western or Greek source does not change an Arabic or Persian root: the word came
+      // through them ("kanun" Arabic qānūn < Greek kanṓn, "kalem", "felsefe"); a deeper Persian not
+      // an Arabic one ("rızık"); nothing a Western one
+      const keeps =
+        (root === "bati" && o !== "bati") ||
+        (root === "arapca" && (o === "farsca" || o === "bati")) ||
+        (root === "farsca" && o === "bati");
+      if (!keeps) root = o;
     } else if (/^(?:[A-Z][a-z]+ )?[A-Z][a-z]+$/.test(name) && !/^(?:The|This|Ottoman)\b/.test(name)) {
       // a language not in the lists: not to be taken as Turkic
       unknown = true;
