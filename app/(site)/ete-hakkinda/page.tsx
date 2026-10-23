@@ -116,7 +116,7 @@ const YENI: { harf: string; ses: string; kaynak: string; kural: string; ornekler
     ses: "h (sonda)",
     kaynak: "Ha’nın kelime başı şekli ve keşide (tatvil) çizgisi.",
     kural: "Sondaki h هـ yazılır; tek başına ە’ye benzemesin diye.",
-    ornekler: ["Allah", "sabah", "günah"],
+    ornekler: ["sabah", "günah", "nikâh"],
   },
 ];
 
@@ -266,6 +266,11 @@ export default function About() {
           bellidir. Böylece Latin harfleriyle yazılan Türkçe harf harf ETE’ye, ETE de Latin harflerine çevrilebilir; Arabî
           harfler ise Osmanlıcaya ve Kur’ân’a köprü olarak kalır.
         </p>
+        <p>
+          İki isim bu kuralın dışındadır: <strong>Allah</strong> ve <strong>Muhammed</strong>, Osmanlıcada ve
+          Kur’ân’da olduğu gibi Arabî harfleriyle yazılır (<span lang="tr-Arab">الله</span>,{" "}
+          <span lang="tr-Arab">محمد</span>); ekleri ise ETE ile.
+        </p>
       </section>
 
       <section>
@@ -312,6 +317,31 @@ export default function About() {
       </section>
 
       <section>
+        <h2>İki isim: Allah ve Muhammed</h2>
+        <p>
+          <strong>Kural:</strong> “Allah” ve “Muhammed” harf harf yazılmaz; Osmanlıcadaki gibi Arabî yazılışıyla{" "}
+          <span lang="tr-Arab">الله</span>, <span lang="tr-Arab">محمد</span> yazılır. Arkalarından gelen ekler
+          (Allah’ın, Muhammed’e, Muhammediye) ETE ile, ünlüleri ortadaki şekilleriyle yazılır. ETE’den Latin’e
+          çevirirken de bu iki yazılış “Allah” ve “Muhammed” okunur.
+        </p>
+        <table className="ornekler">
+          <tbody>
+            {["Allah", "Allah’ın", "Allah’a", "Muhammed", "Muhammed’e", "Muhammediye"].map((o) => (
+              <tr key={o}>
+                <td className="l">{o}</td>
+                <td className="e" dir="rtl">
+                  {ete(lower(o))}
+                </td>
+                <td className="o" dir="rtl" title="Osmanlıca">
+                  {ottoman(lower(o), known) ?? ""}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section>
         <h2>Harfler</h2>
         <table className="harfler">
           <thead>
@@ -335,7 +365,7 @@ export default function About() {
         </table>
         <p className="not">
           â, î, û: a, i, u ile medde (آ, ىِٓ, ۇٓ). Kesme ve kısa çizgi yazılmaz; kesmeden sonraki ekin seslisi ortadaki
-          şekliyle yazılır. q, w, x en yakın harfle (ك, و, كس).
+          şekliyle yazılır. q, w, x en yakın harfle (ك, و, كس). Allah ve Muhammed: الله, محمد.
         </p>
       </section>
 

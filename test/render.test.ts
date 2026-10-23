@@ -36,3 +36,13 @@ describe("writeText", () => {
     expect(writeText("âcizler", o)).toContain('<span class="l"><span class="ka">âciz</span>ler</span>');
   });
 });
+
+describe("ETE: Allah and Muhammed", () => {
+  it("writes the two names in their Arabic letters, their endings in ETE, and reads them back", async () => {
+    const { eteToLatin } = await import("@/lib/script/ete");
+    expect(ete("allah")).toBe("الله");
+    expect(ete("allah’ın")).toBe("الله" + ete("-ın"));
+    expect(ete("muhammed’e")).toBe("محمد" + ete("-e"));
+    for (const f of ["allah", "allahın", "muhammed", "muhammede", "muhammediye"]) expect(eteToLatin(ete(f)!)).toBe(f);
+  });
+});

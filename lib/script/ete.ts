@@ -3,7 +3,9 @@
 // has its initial form, within and at the end its middle form, also in a suffix after an
 // apostrophe. Apostrophes and hyphens are not written. â î û are a i u with the maddah, a final h
 // is هـ. q w x are written by their nearest letters. So Latin and ETE map one to one, apart from
-// the apostrophes and hyphens and the initial â (written آ like a).
+// the apostrophes and hyphens and the initial â (written آ like a). Two names keep their Arabic
+// letters, as in the Ottoman: "Allah" الله and "Muhammed" محمد, what follows them in ETE ("Allah’ın"
+// اللهىن).
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -13,6 +15,11 @@ const MADDAH = "ٓ";
 const FINAL_H = "ه" + TATWEEL;
 const NEAREST: Record<string, string> = { q: "k", w: "v", x: "ks" };
 const LONG: Record<string, string> = { â: "a", î: "i", û: "u" };
+/** the names written in their Arabic letters, as in the Ottoman */
+const NAMES: [string, string][] = [
+  ["allah", "الله"],
+  ["muhammed", "محمد"],
+];
 
 /** letter: [middle, initial, final] */
 export type Table = Map<string, [string, string, string]>;
@@ -62,7 +69,14 @@ function plain(form: string): string {
  *  with an apostrophe or hyphen is a suffix, its first vowel in its middle form. */
 export function ete(form: string, t: Table = table()): string | null {
   const suffix = /^[’'‘-]/.test(form);
-  const letters = [...plain(form)];
+  const word = plain(form);
+  for (const [name, arabic] of NAMES) {
+    if (suffix || !word.startsWith(name)) continue;
+    // its endings as a suffix: "allah’ın" الله + ىن
+    const rest = word.length > name.length ? ete(`-${word.slice(name.length)}`, t) : "";
+    return rest === null ? null : arabic + rest;
+  }
+  const letters = [...word];
   let out = "";
   for (const [i, ch] of letters.entries()) {
     const forms = t.get(ch);
@@ -105,8 +119,14 @@ export function eteToLatin(word: string, t: Table = table()): string | null {
   const text = word.normalize("NFC").replaceAll("‌", "");
   let out = "";
   let i = 0;
+  // a name in its Arabic letters, then its endings
+  const name = NAMES.find(([, arabic]) => text.startsWith(arabic));
+  if (name) {
+    out = name[0];
+    i = name[1].length;
+  }
   while (i < text.length) {
-    const candidates = i === 0 ? [...initial, ...other] : other;
+    const candidates = i === 0 && !name ? [...initial, ...other] : other;
     const hit = candidates.find(([spelling]) => text.startsWith(spelling, i));
     if (!hit) return null;
     out += hit[1];

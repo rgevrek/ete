@@ -9,7 +9,7 @@ export default function ConverterPage() {
     <main className="sayfa">
       <h1>Çevirici</h1>
       <p style={{ color: "var(--soluk)", marginTop: 0 }}>
-        Latin, Osmanlıca ve ETE arasında kelime kelime. Latin ile ETE harf harf birbirine denktir; Osmanlıca kelimeler
+        Latin, Osmanlıca ve ETE arasında kelime kelime. Latin ile ETE harf harf birbirine denktir (Allah ve Muhammed ise Osmanlıcadaki gibi الله, محمد); Osmanlıca kelimeler
         Risale-i Nur sözlüğünden (ve ondan türetilerek) yazılır, Osmanlıcadan Latine ise kitaplarda en sık geçen okunuşla.
       </p>
       <Converter />
