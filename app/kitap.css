@@ -143,7 +143,7 @@
 .yazi details:not(.haşiye) > summary::after { content: "*"; color: var(--kirmizi); font-size: 0.7em; vertical-align: super; }
 .yazi details[open] > summary { background: #f4ecd8; }
 .yazi details:not([open])::details-content { display: none; }
-.yazi details[open]::details-content {
+.yazi details::details-content {
   display: block;
   margin: calc(3 * var(--px)) 0 calc(5 * var(--px)) calc(9 * var(--px));
   padding: calc(4 * var(--px)) calc(8 * var(--px));
@@ -153,7 +153,7 @@
   text-align: justify;
   text-indent: 0;
 }
-.yazi details.haşiye[open]::details-content { font: calc(10 * var(--px)) / 1.4 var(--metin); }
+.yazi details.haşiye::details-content { font: calc(10 * var(--px)) / 1.4 var(--metin); }
 .yazi details .p { margin: 0; text-indent: 0; }
 /* a footnote of several Arabic paragraphs (tools/shared_footnotes.py): a block, its summary the
    paragraphs, the mark after the last */
@@ -259,3 +259,40 @@
 .yazi.koken .w > span .kb { color: var(--k-bati); }
 .yazi.koken .w > :is(.l, .o, .e) { color: var(--renk); }
 .yazi.koken .w > .x { color: var(--kirmizi); }
+
+/* Printed: a page of the book on A4, the shown alphabets as they are; above it the book, the page
+   and the headlines (.baski), above the next sheets the headline and the page (@page in the page),
+   below every sheet its number. The footnotes and haşiyes open. */
+
+.baski { display: none; }
+
+@page {
+  size: A4;
+  margin: 20mm 18mm 18mm;
+  @top-left { font: 8pt system-ui, sans-serif; color: #6f675c; vertical-align: bottom; padding-bottom: 3mm; }
+  @top-right { font: 8pt system-ui, sans-serif; color: #6f675c; vertical-align: bottom; padding-bottom: 3mm; }
+  @bottom-center { content: counter(page) " / " counter(pages); font: 8pt system-ui, sans-serif; color: #6f675c; }
+}
+
+@media print {
+  body { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .ust, .icindekiler, .araclar, .yol, .sayfa-no, dialog { display: none !important; }
+  .okuyucu { display: block; max-width: none; padding: 0; }
+
+  .baski { display: block; margin: 0 0 7mm; padding-bottom: 2.5mm; border-bottom: 0.6pt solid var(--renk); font-family: system-ui, sans-serif; }
+  .baski p { margin: 0; }
+  .baski .kitap { display: flex; justify-content: space-between; align-items: baseline; gap: 1em; font: 13pt/1.3 var(--metin); }
+  .baski .kitap span { flex: none; font: 9pt system-ui, sans-serif; color: var(--soluk); }
+  .baski .basliklar { margin-top: 1mm; font-size: 9pt; color: var(--soluk); }
+
+  /* the full width of the sheet, 11pt the text of the book */
+  .yazi, .yazi.cok { --px: 1pt; max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; }
+  .yazi .p, .yazi li { orphans: 3; widows: 3; }
+  .yazi :is(h1, h2, h3, h4, h5, h6) { break-after: avoid; }
+  .yazi figure, .yazi img, .yazi.cok .w { break-inside: avoid; }
+  .yazi a { text-decoration: none; }
+  .yazi .ref { border-bottom: 0; }
+
+  .yazi details:not([open])::details-content { display: block; content-visibility: visible; }
+  .yazi details[open] > summary { background: none; }
+}
