@@ -3,20 +3,17 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageKeys } from "@/components/PageKeys";
-import { href, trail } from "@/components/Toc";
+import { PdfIndir } from "@/components/PdfIndir";
+import { href } from "@/components/Toc";
 import { TocMark } from "@/components/TocMark";
 import { Yazi } from "@/components/Yazi";
+import { marginBoxes, trail } from "@/lib/books/baski";
 import { book, library } from "@/lib/books/library";
 import { renderPage, writer } from "@/lib/books/render";
 import { AYAR_COOKIE, parseAyar } from "@/lib/ayar";
 import { parseShown, YAZI_COOKIE } from "@/lib/yazi";
 
 type Params = { params: Promise<{ slug: string; sayfa: string }> };
-
-/** A text as a CSS string: the running headlines of the printed sheets (@page in kitap.css). */
-function cssString(text: string): string {
-  return `"${text.replace(/[\\"<\n]/g, (c) => (c === "\n" ? "\\a " : c === "<" ? "\\3c " : `\\${c}`))}"`;
-}
 
 function find(slug: string, sayfa: string) {
   const b = book(slug);
@@ -46,24 +43,24 @@ export default async function BookPage({ params }: Params) {
   const next = index < b.pages.length - 1 ? link(index + 1) : undefined;
   const headlines = trail(b.toc, index);
   // above every printed sheet but the first, whose header is .baski
-  const running =
-    `@page { @top-left { content: ${cssString(headlines.at(-1)?.label ?? b.title)}; }` +
-    ` @top-right { content: ${cssString(`${b.title} · sayfa ${page.label}`)}; } }` +
-    ` @page :first { @top-left { content: none; } @top-right { content: none; } }`;
+  const running = marginBoxes(b, index) + ` @page :first { @top-left { content: none; } @top-right { content: none; } }`;
 
   const nav = (
-    <div className="gezinti">
-      <Link className="dugme" href={prev ?? "#"} aria-disabled={!prev} aria-label="Önceki sayfa">
-        ‹
-      </Link>
-      <form action={`/kitap/${slug}`}>
-        <input name="sayfa" defaultValue={page.label} aria-label="Sayfa" inputMode="numeric" />
-        <span className="toplam">/ {b.pages.at(-1)!.label}</span>
-      </form>
-      <Link className="dugme" href={next ?? "#"} aria-disabled={!next} aria-label="Sonraki sayfa">
-        ›
-      </Link>
-    </div>
+    <>
+      <div className="gezinti">
+        <Link className="dugme" href={prev ?? "#"} aria-disabled={!prev} aria-label="Önceki sayfa">
+          ‹
+        </Link>
+        <form action={`/kitap/${slug}`}>
+          <input name="sayfa" defaultValue={page.label} aria-label="Sayfa" inputMode="numeric" />
+          <span className="toplam">/ {b.pages.at(-1)!.label}</span>
+        </form>
+        <Link className="dugme" href={next ?? "#"} aria-disabled={!next} aria-label="Sonraki sayfa">
+          ›
+        </Link>
+      </div>
+      <PdfIndir slug={slug} labels={b.pages.map((p) => p.label)} page={index} />
+    </>
   );
 
   return (

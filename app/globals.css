@@ -175,7 +175,8 @@ dialog.ayarlar label:has(input:checked) { border-color: var(--renk); background:
 dialog.ayarlar .onizleme { margin-left: auto; color: var(--kirmizi); line-height: 1.2; }
 dialog.ayarlar .onizleme.husrev { font: 2.2rem "Hüsrev Hattı Osmanlıca", serif; }
 dialog.ayarlar .onizleme.seherazade { font: 1.3rem "Seherazade Quran", serif; }
-dialog.ayarlar .kapat { display: flex; justify-content: flex-end; }
+dialog.ayarlar .kapat { display: flex; justify-content: flex-end; gap: 0.5rem; }
+dialog.pdf-indir select { padding: 0.2rem 0.3rem; border: 1px solid var(--cizgi); border-radius: 6px; background: #fff; }
 
 /* the colors of the origins of the words (settings; lib/script/koken.ts) */
 :root { --k-arapca: #157a3c; --k-farsca: #a77c00; --k-turkce: #c8161d; --k-bati: #1f5fbf; }

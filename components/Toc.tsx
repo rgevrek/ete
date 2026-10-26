@@ -15,17 +15,6 @@ function tree(toc: TocEntry[]): Node[] {
   return roots;
 }
 
-/** The headlines above the page's: the last one of every level before it. */
-export function trail(toc: TocEntry[], page: number): TocEntry[] {
-  const stack: TocEntry[] = [];
-  for (const e of toc) {
-    if (e.page > page) break;
-    while (stack.length && stack.at(-1)!.level >= e.level) stack.pop();
-    stack.push(e);
-  }
-  return stack;
-}
-
 export function href(book: Book, e: TocEntry): string {
   return `/kitap/${book.slug}/${encodeURIComponent(book.pages[e.page].label)}#${encodeURIComponent(e.anchor)}`;
 }

@@ -95,6 +95,11 @@
 
 .sayfa-no { text-align: center; color: var(--soluk); font: 0.85rem system-ui, sans-serif; margin-top: 0.75rem; }
 
+/* the pages for print (kitap/[slug]/pdf): the page of the book above each, the state of the text */
+.sayfa-ayrac { margin: calc(14 * var(--px)) 0 calc(8 * var(--px)); padding-bottom: 0.2rem; border-bottom: 1px solid var(--cizgi); color: var(--soluk); font: 0.8rem system-ui, sans-serif; text-indent: 0; }
+.baski-sayfa:first-child .sayfa-ayrac { margin-top: 0; }
+.baski-durum { justify-content: space-between; }
+
 .yazi .p, .yazi li { margin: 0 0 calc(4 * var(--px)); text-align: justify; text-indent: calc(14 * var(--px)); }
 .yazi :is(h1, h2, h3, h4, h5, h6) + .p,
 .yazi .p:is(.orta, .sag, .asili, .girinti, .baslik, .konu, .imza, .devam),
@@ -276,7 +281,7 @@
 
 @media print {
   body { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .ust, .icindekiler, .araclar, .yol, .sayfa-no, dialog { display: none !important; }
+  .ust, .icindekiler, .araclar, .yol, .sayfa-no, .sayfa-ayrac, dialog { display: none !important; }
   .okuyucu { display: block; max-width: none; padding: 0; }
 
   .baski { display: block; margin: 0 0 7mm; padding-bottom: 2.5mm; border-bottom: 0.6pt solid var(--renk); font-family: system-ui, sans-serif; }
