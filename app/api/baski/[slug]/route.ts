@@ -6,7 +6,7 @@ import { writer } from "@/lib/books/render";
 /** The pages ?bas= to ?son= (labels) of a book for print, the whole book without them: HTML that
  *  the print page (app/(site)/kitap/[slug]/pdf) puts in its text. Fetched, not in the page, for the
  *  whole book is tens of megabytes. */
-export async function GET(request: NextRequest, ctx: RouteContext<"/api/baski/[slug]">) {
+export async function GET(request: NextRequest, ctx: { params: Promise<{ slug: string }> }) {
   const { slug } = await ctx.params;
   const b = book(slug);
   if (!b) return new Response("Kitap yok", { status: 404 });
