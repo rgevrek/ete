@@ -28,7 +28,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - { name: http, containerPort: 3000 }
+            - { name: metrics, containerPort: 9464 }
           env:
+            - { name: METRICS_PORT, value: "9464" }
             - { name: APP_URL, value: {{ .Values.appUrl | quote }} }
             - { name: MAIL_FROM, value: {{ .Values.mail.from | quote }} }
             - { name: ALLOWED_EMAILS, value: {{ .Values.allowedEmails | quote }} }

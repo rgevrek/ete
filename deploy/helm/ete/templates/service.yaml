@@ -7,3 +7,5 @@ spec:
   selector: {{- include "ete.selector" . | nindent 4 }}
   ports:
     - { name: http, port: 80, targetPort: http }
+    # Prometheus only (ServiceMonitor in the infrastructure repo); the HTTPRoute never routes it.
+    - { name: metrics, port: 9464, targetPort: metrics }

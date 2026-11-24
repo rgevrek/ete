@@ -50,6 +50,28 @@ pnpm dev          # sign-in link in the log
 pnpm typecheck && pnpm test && pnpm build
 ```
 
+## Metrics
+
+What ETE should move, and how it is measured. Grafana: "ETE (business)" (uid `ete-business`) and
+"ETE" (uid `ete`, operations and RUM), in the infrastructure repo. ETE has no database, so its numbers
+are Prometheus counters (kept 15 days) from the server's metrics port (`METRICS_PORT`, 9464, never
+routed); labels are fixed names, never texts, ids or URLs.
+
+- **MET-001 North star: book pages read per week.** A page of a book (`/kitap/<slug>/<sayfa>`) counts as
+  read once it has been visible for 10 s in all, in a tab in the foreground (`lib/reading.ts`); the page
+  reports it as the funnel step `page_read` (`ete_funnel_step_total{step="page_read"}`).
+- **MET-002 Breadth: books opened per week** (`book_opened`, a book entered from elsewhere).
+- **MET-003 Depth: pages read per book opened.**
+- **MET-004 The converter: conversions per week** (`ete_operation_total{operation="convert"}`).
+- **MET-005 Funnel:** `book_opened` → `page_read`, reported by the page with `POST /api/events`
+  (`lib/events.ts`, a fixed list).
+- **MET-010 Guardrails, operations:** conversions and print exports by outcome and duration
+  (`ete_operation_total`, `ete_operation_duration_seconds`); 5xx share and p95 latency at the Gateway.
+- **MET-020 Real user monitoring:** errors in the pages, web vitals (LCP, INP, CLS) and frustration
+  signals (rage, dead and error clicks) from the Faro Web SDK (`lib/rum.ts`, `instrumentation-client.ts`),
+  sent to `/rum/collect` on ete.rgevrek.de, which the platform routes to its own collector. No third
+  party, no cookies, no user id, no console output; URLs lose their query and fragment.
+
 ## Deployment
 
 CI (`.github/workflows/ci.yml`) builds `ghcr.io/rgevrek/ete:sha-<commit>` and publishes the chart
