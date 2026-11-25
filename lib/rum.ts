@@ -14,8 +14,12 @@ function scrub(item: TransportItem): TransportItem {
   return item;
 }
 
+// Faro's `faro.api` is a no-op API before initializing, so it can't tell whether we started.
+let started = false;
+
 export function startRum(app: { name: string; version?: string }): void {
-  if (faro.api || ["localhost", "127.0.0.1"].includes(location.hostname)) return;
+  if (started || ["localhost", "127.0.0.1"].includes(location.hostname)) return;
+  started = true;
   initializeFaro({
     url: `${location.origin}/rum/collect`,
     app: { ...app, environment: "production" },
