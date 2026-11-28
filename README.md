@@ -35,6 +35,19 @@ takes the table of contents from the headlines (README of the books), and render
 stack of the three; the checkboxes show rows by CSS (`app/kitap.css`). Without Latin the text is
 right to left.
 
+## API for other systems
+
+`GET /api/v1/cards?kind=vocabulary|spelling&count=5` (`lib/cards.ts`): learning cards for other
+apps, e.g. Ta’dil's feed, new ones at random each time. `vocabulary`: a word of the lügat that
+stands in the books, in Latin, Ottoman and ETE letters, with its meanings and its first pages;
+`spelling`: a word of the dictionary (`sozluk.tsv`, not derived) found at least 20 times in the
+books, in the three alphabets, with its meaning when it is a word of the lügat.
+
+Machine to machine, not with a session: a system sends `Authorization: Bearer <token>`, and
+`API_TOKENS` lists the tokens as `name:<sha256 of the token>`, comma separated
+(`lib/auth/api-token.ts`), so only their hashes are kept. A token and its hash:
+`t=ete_$(openssl rand -base64 32 | tr -d '/+='); printf %s "$t" | shasum -a 256`.
+
 ## Sign-in
 
 `/giris` sends a link (JWT, 15 minutes, used once) to an address in `ALLOWED_EMAILS`; the link

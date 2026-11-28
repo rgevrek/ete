@@ -12,7 +12,7 @@ mail:
 allowedEmails: ""
 
 secrets:
-  # SESSION_SECRET (32+ characters)
+  # SESSION_SECRET (32+ characters); optional API_TOKENS for other systems (name:sha256, README)
   app: { name: ete-app }
   # SMTP_URL, e.g. smtps://no-reply%40rgevrek.de:<password>@mail.rgevrek.de:465
   smtp: { name: ete-smtp }

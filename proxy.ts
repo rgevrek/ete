@@ -14,5 +14,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!giris|api/giris|api/saglik|_next/static|_next/image|favicon.ico|icon.svg).*)"],
+  matcher: ["/((?!giris|api/giris|api/saglik|api/v1/|_next/static|_next/image|favicon.ico|icon.svg).*)"],
 };

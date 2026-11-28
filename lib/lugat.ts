@@ -63,3 +63,8 @@ export function meaningsOf(form: string): Meaning[] {
 export function isLugatWord(word: string): boolean {
   return index().byWord.has(word);
 }
+
+/** All words of the lügat, each once. */
+export function lugatWords(): Meaning[] {
+  return [...new Set([...index().byWord.values()].flat())];
+}
